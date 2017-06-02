@@ -126,10 +126,10 @@ public class Dictionary {
     public ArrayList<Integer> listThemes(int index){
         Dictionary tmp = this;
         ArrayList<Integer> result = new ArrayList();
-        Enumeration<Integer> keysThemes = tmp.getThemes().keys();
+        Enumeration<Integer> keysThemes = tmp.getThemesIndex().keys();
         while (keysThemes.hasMoreElements()){
             Integer key = keysThemes.nextElement();
-            if (tmp.getThemes().get(key).equals(index)){
+            if (tmp.getThemesIndex().get(key).equals(index)){
                 result.add(key);
             }
         }
@@ -178,11 +178,17 @@ public class Dictionary {
         Dictionary dico = new Dictionary("dictionary.xls", "themes.xls");
 
         dico.fill();
+
         System.out.println(dico.getSize());
         System.out.println(dico.themes);
         System.out.println(dico.themesIndex);
         System.out.println(dico.words);
         System.out.println(dico.definitions);
+
+        System.out.println(dico.listThemes(2));
+
+
+
 
     }
 }
