@@ -69,31 +69,22 @@ public class Word {
     /**
      * @return the word chosen by random.
      */
-    public Word random(Dictionary d, int nbStrokes){
-        Word w;
-        String word;
-        String theme;
-        String definition;
+    public void random(Dictionary d, int nbStrokes){
         int index;
         int size = d.getSize();
 
         index = (int)(Math.round(Math.random() * (size + 1)));
-        word = d.getWords().get(index);
-        theme = d.getThemes().get(index);
-        definition = d.getDefinitions().get(index);
-        w = new Word(word, theme, definition, nbStrokes);
+        this.word = d.getWords().get(index);
+        this.theme = d.getThemes().get(index);
+        this.definition = d.getDefinitions().get(index);
+        this.nbStrokes = nbStrokes;
 
-        return w;
     }
 
     /**
      * @return the word chosen by random for a theme given.
      */
-    public Word randomTheme(Dictionary d, int indexTheme, int nbStrokes){
-        Word w;
-        String word;
-        String theme;
-        String definition;
+    public void randomTheme(Dictionary d, int indexTheme, int nbStrokes){
         int n;
         int index;
         ArrayList<Integer> list = d.listThemes(indexTheme);
@@ -101,12 +92,11 @@ public class Word {
 
         n = (int)(Math.round(Math.random() * size));
         index = list.get(n);
-        word = d.getWords().get(index);
-        theme = d.getThemes().get(index);
-        definition = d.getDefinitions().get(index);
-        w = new Word(word, theme, definition, nbStrokes);
+        this.word = d.getWords().get(index);
+        this.theme = d.getThemes().get(index);
+        this.definition = d.getDefinitions().get(index);
+        this.nbStrokes = nbStrokes;
 
-        return w;
     }
 
     /**
