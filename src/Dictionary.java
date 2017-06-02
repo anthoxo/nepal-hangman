@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -122,6 +123,18 @@ public class Dictionary {
 
     }
 
+    public ArrayList<Integer> listThemes(int index){
+        Dictionary tmp = this;
+        ArrayList<Integer> result = new ArrayList();
+        Enumeration<Integer> keysThemes = tmp.getThemes().keys();
+        while (keysThemes.hasMoreElements()){
+            Integer key = keysThemes.nextElement();
+            if (tmp.getThemes().get(key).equals(index)){
+                result.add(key);
+            }
+        }
+        return result;
+    }
 
     public Hashtable<Integer, String> getWords() {
         return this.words;
