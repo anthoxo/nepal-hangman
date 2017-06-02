@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * Created by helene on 02/06/17.
  */
@@ -94,11 +96,11 @@ public class Word {
         String definition;
         int n;
         int index;
-        ArrayList<Integer> list = d.ListTheme(indexTheme);
-        int size = list.length;
+        ArrayList<Integer> list = d.listThemes(indexTheme);
+        int size = list.size();
 
-        n = (int)(Math.round(Math.random() * (size + 1)));
-        index = list[n];
+        n = (int)(Math.round(Math.random() * size));
+        index = list.get(n);
         word = d.getWords().get(index);
         theme = d.getThemes().get(index);
         definition = d.getDefinitions().get(index);
@@ -116,4 +118,5 @@ public class Word {
         this.definition = w.definition;
         this.nbStrokes = w.nbStrokes --;
     }
+    
 }
