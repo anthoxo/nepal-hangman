@@ -1,5 +1,3 @@
-import java.util.Hashtable;
-
 /**
  * Created by helene on 02/06/17.
  */
@@ -69,7 +67,7 @@ public class Word {
     /**
      * @return the word chosen by random.
      */
-    public Word random(Dictionary d){
+    public String random(Dictionary d){
         int size = d.getSize();
         int index;
         index = (int)(Math.round(Math.random() * (size + 1)));
