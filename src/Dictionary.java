@@ -16,7 +16,8 @@ public class Dictionary {
     /**
      * fileName and sheetName are for Excel class
      */
-    protected String fileName;
+    protected String fileWords;
+    protected String fileThemes;
     protected Integer size;
 
     public Dictionary(){
@@ -24,15 +25,17 @@ public class Dictionary {
         this.themesIndex = new Hashtable();
         this.definitions = new Hashtable();
         this.themes = new Hashtable();
-        this.fileName = "";
+        this.fileWords = "";
+        this.fileThemes = "";
         this.size = 0;
     }
-    public Dictionary(String file){
+    public Dictionary(String fileWords, String fileThemes){
         this.words = new Hashtable();
         this.themesIndex = new Hashtable();
         this.definitions = new Hashtable();
         this.themes = new Hashtable();
-        this.fileName = file;
+        this.fileWords = fileWords;
+        this.fileThemes = fileThemes;
         this.size = 0;
     }
 
@@ -41,11 +44,11 @@ public class Dictionary {
      * If the file doesn't exit, then the constructor of the Excel object makes an exception.
      */
     public void fill(){
-        if (this.getFile() != ""){
+        if (!this.getFileThemes().equals("") && !this.getFileWords().equals("")){
             /**
              * To fill the themes list
              */
-            Excel excelThemes = new Excel(this.getFile(), "themes");
+            Excel excelThemes = new Excel(this.getFileThemes(), "Feuille");
             Object corps[][] = excelThemes.getBody();
             int height = excelThemes.getHeight();
             for (int i = 0 ; i<height ; i++){
@@ -56,7 +59,7 @@ public class Dictionary {
             /**
              * To fill the dictionary
              */
-            Excel excel = new Excel(this.getFile(), "words");
+            Excel excel = new Excel(this.getFileWords(), "Feuille");
             corps = excel.getBody();
             height = excel.getHeight();
             for (int i = 0 ; i<height ; i++){
@@ -75,7 +78,7 @@ public class Dictionary {
 
     public void put(String word, String theme, String definition){
         if (this.themes.containsValue(theme) == false){
-            Excel excelTheme = new Excel(this.getFile(), "themes");
+            Excel excelTheme = new Excel(this.getFileThemes(), "Feuille");
             excelTheme.increaseSize();
             Object corpsThemes[][] = excelTheme.getBody();
             int indexTheme = excelTheme.getHeight() - 1;
@@ -93,8 +96,12 @@ public class Dictionary {
                 keys = tmp;
             }
         }
+        Integer tmp = themeKeys.nextElement();
+        if (keys == -1 && this.themes.get(tmp) == theme){
+            keys = tmp;
+        }
 
-        Excel excel = new Excel(this.getFile(), "words");
+        Excel excel = new Excel(this.getFileWords(), "Feuille");
         excel.increaseSize();
         Object corps[][] = excel.getBody();
         int index = excel.getHeight() - 1;
@@ -117,11 +124,18 @@ public class Dictionary {
     }
 
     /**
-     * @return the name of the file.
+     * @return the name of the file for themes.
      */
-    private String getFile() {
-        return this.fileName;
+    private String getFileThemes() {
+        return this.fileThemes;
     }
+    /**
+     * @return the name of the file for words.
+     */
+    private String getFileWords() {
+        return this.fileWords;
+    }
+
 
     /**
      * @return the size of the dictionary.
@@ -129,5 +143,27 @@ public class Dictionary {
 
     public int getSize(){
         return this.size;
+    }
+
+    public static void main(String[] args){
+        Dictionary dico = new Dictionary("dictionary.xls", "themes.xls");
+
+
+        dico.fill();
+        System.out.println(dico.getSize());
+        System.out.println(dico.themes);
+        System.out.println(dico.themesIndex);
+        System.out.println(dico.words);
+        System.out.println(dico.definitions);
+
+
+        System.out.println(dico.getSize());
+        System.out.println(dico.themes);
+        System.out.println(dico.themesIndex);
+        System.out.println(dico.words);
+        System.out.println(dico.definitions);
+
+
+
     }
 }
