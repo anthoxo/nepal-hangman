@@ -89,7 +89,7 @@ public class Word {
     /**
      * @return the word chosen by random for a theme given.
      */
-    public Word randomTheme(Dictionary d, int indexTheme){
+    public Word randomTheme(Dictionary d, int indexTheme, int nbStrokes){
         Word w;
         String word;
         String theme;
@@ -118,5 +118,5 @@ public class Word {
         this.definition = w.definition;
         this.nbStrokes = w.nbStrokes --;
     }
-    
+
 }
