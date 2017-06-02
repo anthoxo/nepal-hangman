@@ -48,7 +48,7 @@ public class Dictionary {
             /**
              * To fill the themes list
              */
-            Excel excelThemes = new Excel(this.getFileThemes(), "Feuille");
+            Excel excelThemes = new Excel(this.getFileThemes(), "Feuille1");
             Object corps[][] = excelThemes.getBody();
             int height = excelThemes.getHeight();
             for (int i = 0 ; i<height ; i++){
@@ -59,7 +59,8 @@ public class Dictionary {
             /**
              * To fill the dictionary
              */
-            Excel excel = new Excel(this.getFileWords(), "Feuille");
+
+            Excel excel = new Excel(this.getFileWords(), "Feuille1");
             corps = excel.getBody();
             height = excel.getHeight();
             for (int i = 0 ; i<height ; i++){
@@ -78,7 +79,8 @@ public class Dictionary {
 
     public void put(String word, String theme, String definition){
         if (this.themes.containsValue(theme) == false){
-            Excel excelTheme = new Excel(this.getFileThemes(), "Feuille");
+
+            Excel excelTheme = new Excel(this.getFileThemes(), "Feuille1");
             excelTheme.increaseSize();
             Object corpsThemes[][] = excelTheme.getBody();
             int indexTheme = excelTheme.getHeight() - 1;
@@ -92,16 +94,13 @@ public class Dictionary {
         int keys = -1;
         while (themeKeys.hasMoreElements() && keys == -1){
             Integer tmp = themeKeys.nextElement();
-            if (this.themes.get(tmp) == theme){
+
+            if (this.themes.get(tmp).equals(theme)){
                 keys = tmp;
             }
         }
-        Integer tmp = themeKeys.nextElement();
-        if (keys == -1 && this.themes.get(tmp) == theme){
-            keys = tmp;
-        }
 
-        Excel excel = new Excel(this.getFileWords(), "Feuille");
+        Excel excel = new Excel(this.getFileWords(), "Feuille1");
         excel.increaseSize();
         Object corps[][] = excel.getBody();
         int index = excel.getHeight() - 1;
@@ -121,6 +120,23 @@ public class Dictionary {
      */
     public void delete(){
 
+    }
+
+
+    public Hashtable<Integer, String> getWords() {
+        return this.words;
+    }
+
+    public Hashtable<Integer, Integer> getThemesIndex() {
+        return this.themesIndex;
+    }
+
+    public Hashtable<Integer, String> getDefinitions() {
+        return this.definitions;
+    }
+
+    public Hashtable<Integer, String> getThemes() {
+        return themes;
     }
 
     /**
@@ -148,22 +164,12 @@ public class Dictionary {
     public static void main(String[] args){
         Dictionary dico = new Dictionary("dictionary.xls", "themes.xls");
 
-
         dico.fill();
         System.out.println(dico.getSize());
         System.out.println(dico.themes);
         System.out.println(dico.themesIndex);
         System.out.println(dico.words);
         System.out.println(dico.definitions);
-
-
-        System.out.println(dico.getSize());
-        System.out.println(dico.themes);
-        System.out.println(dico.themesIndex);
-        System.out.println(dico.words);
-        System.out.println(dico.definitions);
-
-
 
     }
 }

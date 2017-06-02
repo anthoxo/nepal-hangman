@@ -58,7 +58,7 @@ public class Excel
                 for (int i = 0; i < length; i++)
                 {
                     Cell cellule = line.getCell(start + i);
-                    if (i == 0){
+                    if (header[i].equals("Index") || header[i].equals("Theme")){
                         this.body[index][i] = ((Double)cellule.getNumericCellValue()).intValue();
                     }
                     else{
@@ -90,15 +90,19 @@ public class Excel
             {
                 row.createCell(i).setCellValue(this.getHeader()[i]);
             }
-
+            String header[] = this.getHeader();
             for (int index = 0; index < this.getBody().length; index++)
             {
                 row = sheet.createRow(index + 1);
-                row.createCell(0).setCellValue((Integer)this.getBody()[index][0]);
-                for (int i = 1; i < this.getBody()[index].length; i++)
+                for (int i = 0; i < this.getBody()[index].length; i++)
                 {
-                    String valeur = String.valueOf(this.getBody()[index][i]);
-                    row.createCell(i).setCellValue(valeur);
+                    if (header[i].equals("Index") || header[i].equals("Theme")){
+                        row.createCell(i).setCellValue((Integer)this.getBody()[index][i]);
+                    }
+                    else{
+                        String valeur = String.valueOf(this.getBody()[index][i]);
+                        row.createCell(i).setCellValue(valeur);
+                    }
                 }
             }
             FileOutputStream fileOut = new FileOutputStream(fileName);
@@ -157,6 +161,10 @@ public class Excel
                 this.body[i][j] = tmp[i][j];
             }
         }
+        for (int j = 0; j<this.width ; j++){
+            this.body[this.height][j] = null;
+        }
+
         this.height += 1;
     }
 }

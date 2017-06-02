@@ -75,7 +75,7 @@ public class Word {
         index = (int)(Math.round(Math.random() * (size + 1)));
         return d.getWords().get(index);
     }
-    
+
     /**
      * @return the word chosen by random for a theme given.
      */
