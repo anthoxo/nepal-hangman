@@ -5,6 +5,11 @@ import org.apache.poi.ss.usermodel.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+/**
+ * Template for importing, modifying and saving an Excel file.
+ */
+
 public class Excel
 {
     private String header[];

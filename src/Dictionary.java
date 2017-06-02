@@ -1,10 +1,19 @@
 import java.util.Hashtable;
 
+/**
+ * Model that used as a basis for the entire project
+ * It contains 3 Hashtables (dictionary with a key and a value) : words, themes, definitions
+ *
+ *
+ */
 public class Dictionary extends Hashtable<String,String> {
 
     protected Hashtable<Integer,String> words;
     protected Hashtable<Integer,String> themes;
     protected Hashtable<Integer,String> definitions;
+    /**
+     * fileName and sheetName are for Excel class
+     */
     protected String fileName;
     protected String sheetName;
     protected Integer size;
@@ -26,6 +35,10 @@ public class Dictionary extends Hashtable<String,String> {
         this.size = 0;
     }
 
+    /**
+     * This method takes all of an Excel file and puts in the created object.
+     * If the file doesn't exit, then the constructor of the Excel object makes an exception.
+     */
     public void fill(){
         if (this.getFile() != "" && this.getSheet() != ""){
             Excel excel = new Excel(this.getFile(), this.getSheet());
@@ -40,6 +53,11 @@ public class Dictionary extends Hashtable<String,String> {
             }
         }
     }
+    /**
+     * This method adds in the Excel file and in the structure an element with his word, his theme
+     * and his definition.
+     */
+
     public void put(String word, String theme, String definition){
         Excel excel = new Excel(this.getFile(), this.getSheet());
         excel.increaseSize();
@@ -55,30 +73,34 @@ public class Dictionary extends Hashtable<String,String> {
         this.size += 1;
         excel.save();
     }
+
+    /**
+     * TODO later
+     */
+
     public void delete(){
 
     }
+    /**
+     * @return the name of the Excel sheet.
+     */
 
     private String getSheet() {
         return this.sheetName;
     }
+    /**
+     * @return the name of the file.
+     */
 
     private String getFile() {
         return this.fileName;
     }
 
+    /**
+     * @return the size of the dictionary.
+     */
+
     public int getSize(){
         return this.size;
-    }
-
-    public static void main(String[] args){
-        Dictionary exemple = new Dictionary("dictionary.xls", "sheet");
-        exemple.fill();
-        System.out.print(exemple.words);
-        System.out.print(exemple.size);
-        exemple.put("KATMANDU","Capital city","The capital of Nepal");
-        System.out.print(exemple.words);
-        System.out.print(exemple.getSize());
-
     }
 }
