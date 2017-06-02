@@ -1,3 +1,4 @@
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 /**
@@ -6,32 +7,35 @@ import java.util.Hashtable;
  *
  *
  */
-public class Dictionary extends Hashtable<String,String> {
+public class Dictionary {
 
     protected Hashtable<Integer,String> words;
-    protected Hashtable<Integer,String> themes;
+    protected Hashtable<Integer,Integer> themesIndex;
     protected Hashtable<Integer,String> definitions;
+    protected Hashtable<Integer,String> themes;
     /**
      * fileName and sheetName are for Excel class
      */
-    protected String fileName;
-    protected String sheetName;
+    protected String fileWords;
+    protected String fileThemes;
     protected Integer size;
 
     public Dictionary(){
         this.words = new Hashtable();
-        this.themes = new Hashtable();
+        this.themesIndex = new Hashtable();
         this.definitions = new Hashtable();
-        this.fileName = "";
-        this.sheetName = "";
+        this.themes = new Hashtable();
+        this.fileWords = "";
+        this.fileThemes = "";
         this.size = 0;
     }
-    public Dictionary(String file, String sheet){
+    public Dictionary(String fileWords, String fileThemes){
         this.words = new Hashtable();
-        this.themes = new Hashtable();
+        this.themesIndex = new Hashtable();
         this.definitions = new Hashtable();
-        this.fileName = file;
-        this.sheetName = sheet;
+        this.themes = new Hashtable();
+        this.fileWords = fileWords;
+        this.fileThemes = fileThemes;
         this.size = 0;
     }
 
@@ -40,14 +44,28 @@ public class Dictionary extends Hashtable<String,String> {
      * If the file doesn't exit, then the constructor of the Excel object makes an exception.
      */
     public void fill(){
-        if (this.getFile() != "" && this.getSheet() != ""){
-            Excel excel = new Excel(this.getFile(), this.getSheet());
-            Object corps[][] = excel.getBody();
-            int height = excel.getHeight();
+        if (!this.getFileThemes().equals("") && !this.getFileWords().equals("")){
+            /**
+             * To fill the themes list
+             */
+            Excel excelThemes = new Excel(this.getFileThemes(), "Feuille");
+            Object corps[][] = excelThemes.getBody();
+            int height = excelThemes.getHeight();
+            for (int i = 0 ; i<height ; i++){
+                Integer index = ((int)corps[i][0]);
+                this.themes.put(index, (String)corps[i][1]);
+            }
+
+            /**
+             * To fill the dictionary
+             */
+            Excel excel = new Excel(this.getFileWords(), "Feuille");
+            corps = excel.getBody();
+            height = excel.getHeight();
             for (int i = 0 ; i<height ; i++){
                 Integer index = ((int)corps[i][0]);
                 this.words.put(index, (String)corps[i][1]);
-                this.themes.put(index, (String)corps[i][2]);
+                this.themesIndex.put(index, (Integer)corps[i][2]);
                 this.definitions.put(index, (String)corps[i][3]);
                 this.size += 1;
             }
@@ -59,16 +77,40 @@ public class Dictionary extends Hashtable<String,String> {
      */
 
     public void put(String word, String theme, String definition){
-        Excel excel = new Excel(this.getFile(), this.getSheet());
+        if (this.themes.containsValue(theme) == false){
+            Excel excelTheme = new Excel(this.getFileThemes(), "Feuille");
+            excelTheme.increaseSize();
+            Object corpsThemes[][] = excelTheme.getBody();
+            int indexTheme = excelTheme.getHeight() - 1;
+            corpsThemes[indexTheme][0] = indexTheme + 1;
+            corpsThemes[indexTheme][1] = theme;
+            this.themes.put(indexTheme+1, theme);
+            excelTheme.save();
+        }
+
+        Enumeration<Integer> themeKeys = this.themes.keys();
+        int keys = -1;
+        while (themeKeys.hasMoreElements() && keys == -1){
+            Integer tmp = themeKeys.nextElement();
+            if (this.themes.get(tmp) == theme){
+                keys = tmp;
+            }
+        }
+        Integer tmp = themeKeys.nextElement();
+        if (keys == -1 && this.themes.get(tmp) == theme){
+            keys = tmp;
+        }
+
+        Excel excel = new Excel(this.getFileWords(), "Feuille");
         excel.increaseSize();
         Object corps[][] = excel.getBody();
         int index = excel.getHeight() - 1;
         corps[index][0] = index+1;
         corps[index][1] = word;
-        corps[index][2] = theme;
+        corps[index][2] = keys;
         corps[index][3] = definition;
         this.words.put(index+1, word);
-        this.themes.put(index+1, theme);
+        this.themesIndex.put(index+1, keys);
         this.definitions.put(index+1, definition);
         this.size += 1;
         excel.save();
@@ -77,24 +119,23 @@ public class Dictionary extends Hashtable<String,String> {
     /**
      * TODO later
      */
-
     public void delete(){
 
     }
-    /**
-     * @return the name of the Excel sheet.
-     */
 
-    private String getSheet() {
-        return this.sheetName;
+    /**
+     * @return the name of the file for themes.
+     */
+    private String getFileThemes() {
+        return this.fileThemes;
     }
     /**
-     * @return the name of the file.
+     * @return the name of the file for words.
      */
-
-    private String getFile() {
-        return this.fileName;
+    private String getFileWords() {
+        return this.fileWords;
     }
+
 
     /**
      * @return the size of the dictionary.
@@ -102,5 +143,27 @@ public class Dictionary extends Hashtable<String,String> {
 
     public int getSize(){
         return this.size;
+    }
+
+    public static void main(String[] args){
+        Dictionary dico = new Dictionary("dictionary.xls", "themes.xls");
+
+
+        dico.fill();
+        System.out.println(dico.getSize());
+        System.out.println(dico.themes);
+        System.out.println(dico.themesIndex);
+        System.out.println(dico.words);
+        System.out.println(dico.definitions);
+
+
+        System.out.println(dico.getSize());
+        System.out.println(dico.themes);
+        System.out.println(dico.themesIndex);
+        System.out.println(dico.words);
+        System.out.println(dico.definitions);
+
+
+
     }
 }
