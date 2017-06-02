@@ -161,6 +161,10 @@ public class Excel
                 this.body[i][j] = tmp[i][j];
             }
         }
+        for (int j = 0; j<this.width ; j++){
+            this.body[this.height][j] = null;
+        }
+
         this.height += 1;
     }
 }
