@@ -74,7 +74,7 @@ public class Word {
         String definition;
         int index;
         int size = d.getSize();
-        
+
         index = (int)(Math.round(Math.random() * (size + 1)));
         word = d.getWords().get(index);
         theme = d.getThemes().get(index);
@@ -87,8 +87,24 @@ public class Word {
     /**
      * @return the word chosen by random for a theme given.
      */
-    public Word randomTheme(int IndexTheme){
+    public Word randomTheme(Dictionary d, int indexTheme){
+        Word w;
+        String word;
+        String theme;
+        String definition;
+        int n;
+        int index;
+        ArrayList<Integer> list = d.ListTheme(indexTheme);
+        int size = list.length;
 
+        n = (int)(Math.round(Math.random() * (size + 1)));
+        index = list[n];
+        word = d.getWords().get(index);
+        theme = d.getThemes().get(index);
+        definition = d.getDefinitions().get(index);
+        w = new Word(word, theme, definition, nbStrokes);
+
+        return w;
     }
 
     /**
