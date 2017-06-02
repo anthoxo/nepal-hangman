@@ -67,11 +67,21 @@ public class Word {
     /**
      * @return the word chosen by random.
      */
-    public String random(Dictionary d){
-        int size = d.getSize();
+    public Word random(Dictionary d, int nbStrokes){
+        Word w;
+        String word;
+        String theme;
+        String definition;
         int index;
+        int size = d.getSize();
+        
         index = (int)(Math.round(Math.random() * (size + 1)));
-        return d.getWords().get(index);
+        word = d.getWords().get(index);
+        theme = d.getThemes().get(index);
+        definition = d.getDefinitions().get(index);
+        w = new Word(word, theme, definition, nbStrokes);
+
+        return w;
     }
 
     /**
