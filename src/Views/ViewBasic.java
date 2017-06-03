@@ -10,7 +10,9 @@ import java.awt.event.ActionListener;
 public class ViewBasic extends JFrame implements ActionListener{
 
     JPanel corps = new JPanel();
+    JPanel up = new JPanel();
     JLabel label = new JLabel();
+    JLabel labelUp = new JLabel();
 
     Keyboard keyboard = new Keyboard();
     Controller controller;
@@ -27,10 +29,16 @@ public class ViewBasic extends JFrame implements ActionListener{
         for (int i = 0 ; i<25 ; i++){
             keyboard.getButtonAlphabet().get(i).addActionListener(this);
         }
-        corps.setBackground(Color.white);
-        label.setBackground(Color.yellow);
+        corps.setBackground(Color.yellow);
+        up.setBackground(Color.cyan);
+
+        labelUp.setText("THEME : ");
+
         this.add(corps, BorderLayout.CENTER);
         this.add(keyboard, BorderLayout.SOUTH);
+        this.add(up, BorderLayout.NORTH);
+
+        up.add(labelUp, BorderLayout.CENTER);
         corps.add(label, BorderLayout.EAST);
     }
 
