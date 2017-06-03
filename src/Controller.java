@@ -17,9 +17,13 @@ public class Controller {
     }
 
     public Controller(Word w){
+        ArrayList<Integer> intList = new ArrayList<Integer>();
+        for (int i=0 ; i<w.getSizeWord() ; i++)
+            intList.add(0);
+
         this.mainW = w;
         this.letters = w.getWord().toCharArray();
-        this.lettersFind = initArrayList(w.getSizeWord());
+        this.lettersFind = intList;
         this.lettersPlayed = new ArrayList<Character>();
     }
 
@@ -28,18 +32,6 @@ public class Controller {
         this.letters = c.letters;
         this.lettersFind = c.lettersFind;
         this.lettersPlayed = c.lettersPlayed;
-    }
-
-    /**
-     *
-     * @param size the size of the ArrayList<Integer>
-     * @return an ArrayList with 0.
-     */
-    public ArrayList<Integer> initArrayList(int size){
-        ArrayList<Integer> intList = new ArrayList<Integer>();
-        for (int i=0 ; i<size ; i++)
-            intList.add(0);
-        return intList;
     }
 
     /**
