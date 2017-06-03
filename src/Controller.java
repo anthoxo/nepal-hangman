@@ -5,40 +5,29 @@ import java.util.ArrayList;
  */
 public class Controller {
     protected Word mainW;
-    protected ArrayList<Character> Letters; //letters of the mainW
-    protected ArrayList<Integer> LettersFind; //same size as Letters, with 0 and 1
-    protected ArrayList<Character> LettersPlayed;  //all letters played
+    protected char[] letters; //letters of the mainW
+    protected ArrayList<Integer> lettersFind; //same size as letters, with 0 and 1
+    protected ArrayList<Character> lettersPlayed;  //all letters played
 
     public Controller(){
         this.mainW = new Word();
-        this.Letters = new ArrayList<Character>();
-        this.LettersFind = new ArrayList<Integer>();
-        this.LettersPlayed = new ArrayList<Character>();
+        this.letters = new char[0];
+        this.lettersFind = new ArrayList<Integer>();
+        this.lettersPlayed = new ArrayList<Character>();
     }
 
     public Controller(Word w){
         this.mainW = w;
-        this.Letters = convertStringToArrayList(w.getWord());
-        this.LettersFind = initArrayList(w.getSizeWord());
-        this.LettersPlayed = new ArrayList<Character>();
+        this.letters = w.getWord().toCharArray();
+        this.lettersFind = initArrayList(w.getSizeWord());
+        this.lettersPlayed = new ArrayList<Character>();
     }
 
     public Controller(Controller c){
         this.mainW = c.mainW;
-        this.Letters = c.Letters;
-        this.LettersFind = c.LettersFind;
-        this.LettersPlayed = c.LettersPlayed;
-    }
-
-    /**
-     * @return conversion of a String to an ArrayList.
-     */
-    public ArrayList<Character> convertStringToArrayList(String str){
-        ArrayList<Character> charList = new ArrayList<Character>();
-        for (int i=0 ; i<str.length() ; i++){
-            charList.add(str.charAt(i));
-        }
-        return charList;
+        this.letters = c.letters;
+        this.lettersFind = c.lettersFind;
+        this.lettersPlayed = c.lettersPlayed;
     }
 
     /**
@@ -57,7 +46,7 @@ public class Controller {
      * @return boolean to verify the victory.
      */
     public boolean checkVictory(){
-        if (this.Letters.size() == this.LettersFind.size()){
+        if (this.letters.length == this.lettersFind.size()){
             return true;
         }
         return false;
@@ -67,7 +56,7 @@ public class Controller {
      * @return boolean to verify the number of strokes.
      */
     public boolean checkCount(){
-        if (this.mainW.getnbStrokes() == 0){
+        if (this.mainW.getNbStrokes() == 0){
             return false;
         }
         return true;
@@ -75,7 +64,7 @@ public class Controller {
 
     /**
      * @return boolean to verify if the letter is in the word.
-     * If it is the case, it fills the ArrayList LettersFind.
+     * If it is the case, it fills the ArrayList lettersFind.
      */
     public boolean checkLetter(char c){
         char[] tab = (this.mainW.getWord()).toCharArray();
@@ -84,7 +73,7 @@ public class Controller {
 
         for (int i=0 ; i<size ; i++){
             if (tab[i] == c){
-                this.LettersFind.set(i,1);
+                this.lettersFind.set(i,1);
                 check = true;
             }
         }
@@ -102,7 +91,7 @@ public class Controller {
                 //sortir ? clear ?
             }
             else{
-                this.LettersPlayed.add(c);
+                this.lettersPlayed.add(c);
                 this.waitLetter();
             }
         }
@@ -113,7 +102,7 @@ public class Controller {
                 //sortir ? clear ?
             }
             else {
-                this.LettersPlayed.add(c);
+                this.lettersPlayed.add(c);
                 this.waitLetter();
             }
         }
@@ -123,6 +112,13 @@ public class Controller {
      * TODO later
      */
     public void waitLetter(){
+
+    }
+
+    /**
+     * TODO later
+     */
+    public void run(){
 
     }
 }

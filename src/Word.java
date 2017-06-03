@@ -55,7 +55,7 @@ public class Word {
     /**
      * @return the number of strokes.
      */
-    public int getnbStrokes() {
+    public int getNbStrokes() {
         return this.nbStrokes;
     }
 
