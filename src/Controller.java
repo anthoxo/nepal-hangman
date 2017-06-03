@@ -6,13 +6,13 @@ import java.util.ArrayList;
 public class Controller {
     protected Word mainW;
     protected char[] letters; //letters of the mainW
-    protected ArrayList<Integer> lettersFind; //same size as letters, with 0 and 1
+    protected ArrayList<Integer> lettersFound; //same size as letters, with 0 and 1
     protected ArrayList<Character> lettersPlayed;  //all letters played
 
-    public Controller(){
+    public Controller(){//this constructor is useless
         this.mainW = new Word();
         this.letters = new char[0];
-        this.lettersFind = new ArrayList<Integer>();
+        this.lettersFound = new ArrayList<Integer>();
         this.lettersPlayed = new ArrayList<Character>();
     }
 
@@ -23,14 +23,14 @@ public class Controller {
 
         this.mainW = w;
         this.letters = w.getWord().toCharArray();
-        this.lettersFind = intList;
+        this.lettersFound = intList;
         this.lettersPlayed = new ArrayList<Character>();
     }
 
     public Controller(Controller c){
         this.mainW = c.mainW;
         this.letters = c.letters;
-        this.lettersFind = c.lettersFind;
+        this.lettersFound = c.lettersFound;
         this.lettersPlayed = c.lettersPlayed;
     }
 
@@ -38,7 +38,7 @@ public class Controller {
      * @return boolean to verify the victory.
      */
     public boolean checkVictory(){
-        if (this.letters.length == this.lettersFind.size()){
+        if (this.letters.length == this.lettersFound.size()){//completely false..
             return true;
         }
         return false;
@@ -65,7 +65,7 @@ public class Controller {
 
         for (int i=0 ; i<size ; i++){
             if (tab[i] == c){
-                this.lettersFind.set(i,1);
+                this.lettersFound.set(i,1);
                 check = true;
             }
         }
