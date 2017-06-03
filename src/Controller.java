@@ -66,7 +66,7 @@ public class Controller {
      * @return boolean to verify if the letter is in the word.
      */
     public boolean checkLetter(char c){
-        char[] tab = (this.mainW.word).toCharArray();
+        char[] tab = (this.mainW.getWord()).toCharArray();
         int size = tab.length;
         boolean check = false;
 
