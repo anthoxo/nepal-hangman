@@ -173,22 +173,4 @@ public class Dictionary {
     public int getSize(){
         return this.size;
     }
-
-    public static void main(String[] args){
-        Dictionary dico = new Dictionary("dictionary.xls", "themes.xls");
-
-        dico.fill();
-
-        System.out.println(dico.getSize());
-        System.out.println(dico.themes);
-        System.out.println(dico.themesIndex);
-        System.out.println(dico.words);
-        System.out.println(dico.definitions);
-
-        System.out.println(dico.listThemes(2));
-
-
-
-
-    }
 }

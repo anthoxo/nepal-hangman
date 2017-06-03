@@ -70,10 +70,17 @@ public class Word {
      * @return the word chosen by random.
      */
     public void random(Dictionary d, int nbStrokes){
-        int index;
+        int index = 0;
         int size = d.getSize();
+        int n = (int)(Math.random() * (size));
+        Enumeration<Integer> keys = d.getThemesIndex().keys();
+        if (n == 0){
+            index = keys.nextElement();
+        }
+        for (int i = 0 ; i<n ; i++){
+            index = keys.nextElement();
+        }
 
-        index = (int)(Math.round(Math.random() * (size + 1)));
         this.word = d.getWords().get(index);
         this.theme = d.getThemes().get(index);
         this.definition = d.getDefinitions().get(index);
@@ -84,13 +91,13 @@ public class Word {
     /**
      * @return the word chosen by random for a theme given.
      */
-    public void randomTheme(Dictionary d, int indexTheme, int nbStrokes){
+    public void random(Dictionary d, int indexTheme, int nbStrokes){
         int n;
         int index;
         ArrayList<Integer> list = d.listThemes(indexTheme);
         int size = list.size();
 
-        n = (int)(Math.round(Math.random() * size));
+        n = (int)(Math.random() * (size));
         index = list.get(n);
         this.word = d.getWords().get(index);
         this.theme = d.getThemes().get(index);
@@ -102,11 +109,8 @@ public class Word {
     /**
      * Decrease the number of strokes.
      */
-    public void decreaseNbStrokes(Word w){
-        this.word = w.word;
-        this.theme = w.theme;
-        this.definition = w.definition;
-        this.nbStrokes = w.nbStrokes --;
+    public void decreaseNbStrokes(){
+        this.nbStrokes -= 1;
     }
 
 }
