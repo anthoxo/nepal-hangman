@@ -1,3 +1,5 @@
+import Views.ViewBasic;
+
 import java.util.ArrayList;
 
 /**
@@ -8,12 +10,15 @@ public class Controller {
     protected char[] letters; //letters of the mainW
     protected ArrayList<Character> lettersFound; //same size as letters, with 0 and 1
     protected ArrayList<Character> lettersPlayed;  //all letters played
+    protected ViewBasic view;
+
 
     public Controller(){//this constructor is useless
         this.mainW = new Word();
         this.letters = new char[0];
         this.lettersFound = new ArrayList<Character>();
         this.lettersPlayed = new ArrayList<Character>();
+        this.view = null;
     }
 
     public Controller(Word w){
@@ -25,6 +30,7 @@ public class Controller {
         this.letters = w.getWord().toCharArray();
         this.lettersFound = list;
         this.lettersPlayed = new ArrayList<Character>();
+        this.view = null;
     }
 
     public Controller(Controller c){
@@ -32,6 +38,7 @@ public class Controller {
         this.letters = c.letters;
         this.lettersFound = c.lettersFound;
         this.lettersPlayed = c.lettersPlayed;
+        this.view = c.view;
     }
 
     /**
@@ -114,6 +121,10 @@ public class Controller {
      */
     public void run(char c){
         this.actionLetter(c);
+    }
+
+    public void addView(ViewBasic view){
+        this.view = view;
     }
 
 }
