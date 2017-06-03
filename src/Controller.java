@@ -6,24 +6,24 @@ import java.util.ArrayList;
 public class Controller {
     protected Word mainW;
     protected char[] letters; //letters of the mainW
-    protected ArrayList<Integer> lettersFound; //same size as letters, with 0 and 1
+    protected ArrayList<Character> lettersFound; //same size as letters, with 0 and 1
     protected ArrayList<Character> lettersPlayed;  //all letters played
 
     public Controller(){//this constructor is useless
         this.mainW = new Word();
         this.letters = new char[0];
-        this.lettersFound = new ArrayList<Integer>();
+        this.lettersFound = new ArrayList<Character>();
         this.lettersPlayed = new ArrayList<Character>();
     }
 
     public Controller(Word w){
-        ArrayList<Integer> intList = new ArrayList<Integer>();
+        ArrayList<Character> list = new ArrayList<Character>();
         for (int i=0 ; i<w.getSizeWord() ; i++)
-            intList.add(0);
+            list.add('_');
 
         this.mainW = w;
         this.letters = w.getWord().toCharArray();
-        this.lettersFound = intList;
+        this.lettersFound = list;
         this.lettersPlayed = new ArrayList<Character>();
     }
 
@@ -35,10 +35,23 @@ public class Controller {
     }
 
     /**
+     * @return the number of letters found by the player.
+     */
+    public int getNbLettersFound(){
+        int size = this.letters.length;
+        int count = 0;
+        for (int i=0; i<size; i++){
+            if (this.lettersFound.get(i) != '_')
+                count ++;
+        }
+        return count;
+    }
+
+    /**
      * @return boolean to verify the victory.
      */
     public boolean checkVictory(){
-        if (this.letters.length == this.lettersFound.size()){//completely false..
+        if (this.getNbLettersFound() == this.letters.length){
             return true;
         }
         return false;
@@ -65,7 +78,7 @@ public class Controller {
 
         for (int i=0 ; i<size ; i++){
             if (tab[i] == c){
-                this.lettersFound.set(i,1);
+                this.lettersFound.set(i,c);
                 check = true;
             }
         }
@@ -82,10 +95,8 @@ public class Controller {
                 System.out.println("You win !");
                 //sortir ? clear ?
             }
-            else{
+            else
                 this.lettersPlayed.add(c);
-                this.waitLetter();
-            }
         }
         else{
             mainW.decreaseNbStrokes();
@@ -93,24 +104,16 @@ public class Controller {
                 System.out.println("You lose !");
                 //sortir ? clear ?
             }
-            else {
+            else
                 this.lettersPlayed.add(c);
-                this.waitLetter();
-            }
         }
     }
 
     /**
-     * TODO later
+     * Actions to do when a letter is played.
      */
-    public void waitLetter(){
-
+    public void run(char c){
+        this.actionLetter(c);
     }
 
-    /**
-     * TODO later
-     */
-    public void run(){
-
-    }
 }
