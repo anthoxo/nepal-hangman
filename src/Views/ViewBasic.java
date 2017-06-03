@@ -15,6 +15,7 @@ public class ViewBasic extends JFrame implements ActionListener{
         this.setTitle("Hangman game");
         this.setSize(500,500);
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         for (int i = 0 ; i<25 ; i++){
             keyboard.getButtonAlphabet().get(i).addActionListener(this);

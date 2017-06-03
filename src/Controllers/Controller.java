@@ -1,4 +1,5 @@
-import Views.ViewBasic;
+package Views;
+import Models.Word;
 
 import java.util.ArrayList;
 
