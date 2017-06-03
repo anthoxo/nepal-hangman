@@ -69,54 +69,48 @@ public class Word {
     /**
      * @return the word chosen by random.
      */
-    public Word random(Dictionary d, int nbStrokes){
-        Word w;
-        String word;
-        String theme;
-        String definition;
-        int index;
+    public void random(Dictionary d, int nbStrokes){
+        int index = 0;
         int size = d.getSize();
+        int n = (int)(Math.random() * (size));
+        Enumeration<Integer> keys = d.getThemesIndex().keys();
+        if (n == 0){
+            index = keys.nextElement();
+        }
+        for (int i = 0 ; i<n ; i++){
+            index = keys.nextElement();
+        }
 
-        index = (int)(Math.round(Math.random() * (size + 1)));
-        word = d.getWords().get(index);
-        theme = d.getThemes().get(index);
-        definition = d.getDefinitions().get(index);
-        w = new Word(word, theme, definition, nbStrokes);
+        this.word = d.getWords().get(index);
+        this.theme = d.getThemes().get(index);
+        this.definition = d.getDefinitions().get(index);
+        this.nbStrokes = nbStrokes;
 
-        return w;
     }
 
     /**
      * @return the word chosen by random for a theme given.
      */
-    public Word randomTheme(Dictionary d, int indexTheme, int nbStrokes){
-        Word w;
-        String word;
-        String theme;
-        String definition;
+    public void random(Dictionary d, int indexTheme, int nbStrokes){
         int n;
         int index;
         ArrayList<Integer> list = d.listThemes(indexTheme);
         int size = list.size();
 
-        n = (int)(Math.round(Math.random() * size));
+        n = (int)(Math.random() * (size));
         index = list.get(n);
-        word = d.getWords().get(index);
-        theme = d.getThemes().get(index);
-        definition = d.getDefinitions().get(index);
-        w = new Word(word, theme, definition, nbStrokes);
+        this.word = d.getWords().get(index);
+        this.theme = d.getThemes().get(index);
+        this.definition = d.getDefinitions().get(index);
+        this.nbStrokes = nbStrokes;
 
-        return w;
     }
 
     /**
      * Decrease the number of strokes.
      */
-    public void decreaseNbStrokes(Word w){
-        this.word = w.word;
-        this.theme = w.theme;
-        this.definition = w.definition;
-        this.nbStrokes = w.nbStrokes --;
+    public void decreaseNbStrokes(){
+        this.nbStrokes -= 1;
     }
 
 }

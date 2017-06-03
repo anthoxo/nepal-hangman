@@ -7,28 +7,32 @@ import java.util.Arrays;
 public class Controller {
     protected Word mainW;
     protected ArrayList<Character> Letters;
-    protected ArrayList<Character> LettersUsed;
+    protected ArrayList<Character> LettersUsed; //letters in the mainW
+    protected ArrayList<Character> LettersPlayed;
 
     public Controller(){
         this.mainW = new Word();
         this.Letters = new ArrayList<Character>();
         this.LettersUsed = new ArrayList<Character>();
+        this.LettersPlayed = new ArrayList<Character>();
     }
 
     public Controller(Word w){
         this.mainW = w;
         this.Letters = convertStringToArrayList(w.word);
         this.LettersUsed = new ArrayList<Character>();
+        this.LettersPlayed = new ArrayList<Character>();
     }
 
     public Controller(Controller c){
         this.mainW = c.mainW;
         this.Letters = c.Letters;
         this.LettersUsed = c.LettersUsed;
+        this.LettersPlayed = c.LettersPlayed;
     }
 
     /**
-     * @return a conversion of a String to a ArrayList
+     * @return conversion of a String to an ArrayList.
      */
     public ArrayList<Character> convertStringToArrayList(String str){
         ArrayList<Character> charList = new ArrayList<Character>();
@@ -64,12 +68,15 @@ public class Controller {
     public boolean checkLetter(char c){
         char[] tab = (this.mainW.word).toCharArray();
         int size = tab.length;
+        boolean check = false;
 
         for (int i=0 ; i<size ; i++){
-            if (tab[i] == c)
-                return true;
+            if (tab[i] == c){
+                this.LettersUsed.add(c);
+                check = true;
+            }
         }
-        return false;
+        return check;
     }
 
     /**
@@ -82,15 +89,38 @@ public class Controller {
         return true;
     }
 
+    public void fillLetterUsed(){
+
+    }
+
     /**
      * Actions to do when a letter is chosen.
      */
     public void actionLetter(char c){
-        if (checkLetter(c)){
-
+        if (this.checkLetter(c)){
+            if (this.checkVictory()){
+                //TODO
+            }
+            else
+                this.LettersPlayed.add(c);
         }
         else{
             mainW.decreaseNbStrokes();
+            if (!this.checkCount()){
+                System.out.println("You lose !");
+                //sortir ?
+            }
+            else {
+                this.LettersPlayed.add(c);
+                this.waitLetter();
+            }
         }
+    }
+
+    /**
+     * TODO later
+     */
+    public void waitLetter(){
+
     }
 }
