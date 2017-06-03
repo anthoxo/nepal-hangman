@@ -5,8 +5,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Keyboard extends JPanel {
-    char[] alphabet = "azertyuiopqsdfghjklmwxcvbn".toCharArray();
-    ArrayList<JButton> buttonAlphabet = new ArrayList();
+    protected char[] alphabet = "azertyuiopqsdfghjklmwxcvbn".toCharArray();
+    protected ArrayList<JButton> buttonAlphabet = new ArrayList();
 
     public Keyboard(){
         this.setSize(100,30);
@@ -19,6 +19,10 @@ public class Keyboard extends JPanel {
         for (int i = 0 ; i<4 ; i++){
             this.add(new JButton(""));
         }
+    }
+
+    public ArrayList<JButton> getButtonAlphabet(){
+        return this.buttonAlphabet;
     }
 
 }
