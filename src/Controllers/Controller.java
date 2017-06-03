@@ -1,5 +1,6 @@
-package Views;
+package Controllers;
 import Models.Word;
+import Views.*;
 
 import java.util.ArrayList;
 
