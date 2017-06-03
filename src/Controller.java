@@ -1,12 +1,42 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by helene on 03/06/17.
  */
 public class Controller {
-    protected Word word;
-    protected ArrayList<String> Letters;
-    protected ArrayList<String> LettersUsed;
+    protected Word mainW;
+    protected ArrayList<Character> Letters;
+    protected ArrayList<Character> LettersUsed;
+
+    public Controller(){
+        this.mainW = new Word();
+        this.Letters = new ArrayList<Character>();
+        this.LettersUsed = new ArrayList<Character>();
+    }
+
+    public Controller(Word w){
+        this.mainW = w;
+        this.Letters = convertStringToArrayList(w.word);
+        this.LettersUsed = new ArrayList<Character>();
+    }
+
+    public Controller(Controller c){
+        this.mainW = c.mainW;
+        this.Letters = c.Letters;
+        this.LettersUsed = c.LettersUsed;
+    }
+
+    /**
+     * @return a conversion of a String to a ArrayList
+     */
+    public ArrayList<Character> convertStringToArrayList(String str){
+        ArrayList<Character> charList = new ArrayList<Character>();
+        for (int i=0 ; i<str.length() ; i++){
+            charList.add(str.charAt(i));
+        }
+        return charList;
+    }
 
     /**
      * @return boolean to verify the victory.
@@ -22,7 +52,7 @@ public class Controller {
      * @return boolean to verify the number of strokes.
      */
     public boolean checkCount(){
-        if (this.word.getnbStrokes() == 0){
+        if (this.mainW.getnbStrokes() == 0){
             return false;
         }
         return true;
@@ -32,8 +62,8 @@ public class Controller {
      * @return boolean to verify if the letter is in the word.
      */
     public boolean checkLetter(char c){
-        int size = this.word.getSizeWord();
-        String tab[] = this.word.toCharArray();
+        char[] tab = (this.mainW.word).toCharArray();
+        int size = tab.length;
 
         for (int i=0 ; i<size ; i++){
             if (tab[i] == c)
@@ -50,5 +80,17 @@ public class Controller {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Actions to do when a letter is chosen.
+     */
+    public void actionLetter(char c){
+        if (checkLetter(c)){
+
+        }
+        else{
+            mainW.decreaseNbStrokes();
+        }
     }
 }
