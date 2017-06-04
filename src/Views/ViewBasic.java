@@ -1,25 +1,24 @@
 package Views;
-import Controllers.*;
-import Models.*;
+import Controllers.Controller;
+import Models.Word;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 public class ViewBasic extends JFrame implements ActionListener{
     Keyboard keyboard = new Keyboard();
     Controller controller;
 
     JPanel corps = new JPanel();
-    //JPanel up = new JPanel();
-    JLabel label = new JLabel();
-    //JLabel labelUp = new JLabel();
-    JLabel lblThemeLabel = new JLabel(this.controller.getMainW().getTheme());
-    Panel pan = new Panel(controller);
+    JPanel panelLetters = new JPanel();
+    JPanel panelUp = new JPanel();
+
+    JLabel labelLetters = new JLabel();
+    JLabel labelUp = new JLabel();
+    JLabel lblThemeLabel = new JLabel();
+    //Panel pan = new Panel(controller);
 
     JToolBar toolBar = new JToolBar();
     JSeparator separator = new JSeparator();
@@ -30,6 +29,9 @@ public class ViewBasic extends JFrame implements ActionListener{
     public ViewBasic(){
         //test
         this.controller = new Controller(new Word("PASTA", "Food", "Pasta for me",10));
+        this.controller.addView(this);
+
+        lblThemeLabel.setText(this.controller.getMainW().getTheme());
 
         this.setTitle("Hangman game");
         this.setSize(500,500);
@@ -46,27 +48,30 @@ public class ViewBasic extends JFrame implements ActionListener{
         for (int i = 0 ; i<26 ; i++){
             keyboard.getButtonAlphabet().get(i).addActionListener(this);
         }
-        corps.setBackground(Color.yellow);
-        //up.setBackground(Color.cyan);
-
-        //labelUp.setText("THEME : ");
 
         corps.setLayout(new BorderLayout());
-        corps.add(pan, BorderLayout.CENTER);
+        //corps.add(pan, BorderLayout.CENTER);
         //this.setContentPane(new ImagePanel());
-
+        panelUp.setBackground(Color.blue);
         this.add(corps, BorderLayout.CENTER);
         this.add(keyboard, BorderLayout.SOUTH);
-        //this.add(up, BorderLayout.NORTH);
 
-        //up.add(labelUp, BorderLayout.CENTER);
-        //corps.add(label, BorderLayout.EAST);
+        corps.add(panelLetters, BorderLayout.EAST);
+        corps.add(panelUp,BorderLayout.NORTH);
+
+        panelLetters.add(labelLetters,BorderLayout.CENTER);
+        panelUp.add(labelUp,BorderLayout.CENTER);
+
+        //size
+        panelUp.setPreferredSize(new Dimension( 500, 50 ));
+
+
+        this.refresh("Good luck !");
     }
 
     public void actionPerformed(ActionEvent arg0){
         JButton button = (JButton) arg0.getSource();
         this.controller.run(button.getText().charAt(0));
-        this.label.setText(button.getText());
     }
 
     /**
@@ -131,6 +136,11 @@ public class ViewBasic extends JFrame implements ActionListener{
 //                e.printStackTrace();
 //            }
         }
+    }
+
+    public void refresh(String state){
+        this.labelLetters.setText(this.controller.getLettersFound().toString());
+        this.labelUp.setText(state);
     }
 
     public static void main(String[] args){

@@ -133,37 +133,40 @@ public class Controller {
      * Actions to do when a letter is chosen.
      */
     public void actionLetter(char c){
+        this.lettersPlayed.add(Character.toUpperCase(c));
+        String result;
         if (this.checkLetter(c)){
-            System.out.println("Letter "+c+" Yes");
+            result = "Letter"+c+" Yes !";
             System.out.print("LettersFound: ");
             this.printLettersFound();
             if (this.checkVictory()){
+                result += "You win !";
                 System.out.println("You win !");
                 //sortir ? clear ?
             }
             else{
-                this.lettersPlayed.add(Character.toUpperCase(c));
                 System.out.println("LettersPlayed: ");
                 this.printLettersPlayed();
             }
         }
         else{
-            System.out.println("Letter "+c+" No");
+            result = "Letter "+c+" No";
             mainW.decreaseNbStrokes();
-            System.out.println("NbStrokes : "+this.mainW.getNbStrokes());
+            result += "NbStrokes : "+this.mainW.getNbStrokes();
             System.out.print("LettersFound: ");
             this.printLettersFound();
             if (!this.checkCount()){
+                result += "You lose...";
                 System.out.println("You lose...");
                 //sortir ? clear ?
             }
             else{
-                this.lettersPlayed.add(Character.toUpperCase(c));
                 System.out.print("LettersPlayed: ");
                 this.printLettersPlayed();
             }
         }
         System.out.print("\n");
+        this.view.refresh(result);
     }
 
     /**
