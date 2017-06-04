@@ -43,6 +43,10 @@ public class Controller {
         this.view = c.view;
     }
 
+    public Word getMainW(){
+        return this.mainW;
+    }
+
     public ArrayList<Character> getLettersFound(){
         return this.lettersFound;
     }
@@ -55,12 +59,10 @@ public class Controller {
      * Print in the console the ArrayList lettersFound.
      */
     public void printLettersFound(){
-        System.out.print("[");
-        for (int i=0; i<this.letters.length-1; i++){
-            System.out.print(this.lettersFound.get(i)+",");
+        for (int i=0; i<this.letters.length; i++){
+            System.out.print(this.lettersFound.get(i));
         }
-        System.out.print(this.lettersFound.get(this.letters.length-1));
-        System.out.println("]");
+        System.out.print("\n");
     }
 
     /**
@@ -161,6 +163,7 @@ public class Controller {
                 this.printLettersPlayed();
             }
         }
+        System.out.print("\n");
     }
 
     /**

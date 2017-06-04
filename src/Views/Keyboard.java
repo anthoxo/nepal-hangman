@@ -13,7 +13,7 @@ public class Keyboard extends JPanel {
      */
     public Keyboard(){
         this.setSize(100,30);
-        this.setLayout(new GridLayout(3,10));
+        this.setLayout(new GridLayout(3,10,2,2));
         for (int i = 0 ; i<26 ; i++){
             JButton button = new JButton(String.valueOf(this.alphabet[i]));
             buttonAlphabet.add(i,button);

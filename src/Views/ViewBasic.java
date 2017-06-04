@@ -22,7 +22,7 @@ public class ViewBasic extends JFrame implements ActionListener{
 
     public ViewBasic(){
         //test
-        this.controller = new Controller(new Word("JAM", "Food", "Meat for me",10));
+        this.controller = new Controller(new Word("PASTA", "Food", "Pasta for me",10));
 
         this.setTitle("Hangman game");
         this.setSize(500,500);
@@ -38,7 +38,7 @@ public class ViewBasic extends JFrame implements ActionListener{
         JSeparator separator = new JSeparator();
         toolBar.add(separator);
 
-        JLabel lblThemeLabel = new JLabel("Theme");
+        JLabel lblThemeLabel = new JLabel(this.controller.getMainW().getTheme());
         toolBar.add(lblThemeLabel);
 
         JSeparator separator_1 = new JSeparator();
@@ -47,7 +47,7 @@ public class ViewBasic extends JFrame implements ActionListener{
         JButton btnQuit = new JButton(new BtnQuitAction());
         toolBar.add(btnQuit);
 
-        for (int i = 0 ; i<25 ; i++){
+        for (int i = 0 ; i<26 ; i++){
             keyboard.getButtonAlphabet().get(i).addActionListener(this);
         }
         corps.setBackground(Color.yellow);
@@ -62,12 +62,12 @@ public class ViewBasic extends JFrame implements ActionListener{
         //this.add(up, BorderLayout.NORTH);
 
         //up.add(labelUp, BorderLayout.CENTER);
-        corps.add(label, BorderLayout.EAST);
+        //corps.add(label, BorderLayout.EAST);
     }
 
     public void actionPerformed(ActionEvent arg0){
         JButton button = (JButton) arg0.getSource();
-        //this.controller.run(button.getText().charAt(0));
+        this.controller.run(button.getText().charAt(0));
         this.label.setText(button.getText());
     }
     public class BtnMenuAction extends AbstractAction {
@@ -98,17 +98,18 @@ public class ViewBasic extends JFrame implements ActionListener{
         }
     }
 
-//    public class ImagePanel extends JPanel {
-//
-//        public void paintComponent(Graphics g) {
+    public class ImagePanel extends JPanel {
+
+        public void paintComponent(Graphics g) {
 //            try {
 //                Image img = ImageIO.read(new File("/Icons/background.jpg"));
 //                g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-//            } catch (IOException e) {
+//            }
+//             catch (IOException e) {
 //                e.printStackTrace();
 //            }
-//        }
-//    }
+        }
+    }
 
     public static void main(String[] args){
         JFrame t = new ViewBasic();
