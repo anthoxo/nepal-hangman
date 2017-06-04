@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Keyboard extends JPanel {
-    protected char[] alphabet = "azertyuiopqsdfghjklmwxcvbn".toCharArray();
+    protected char[] alphabet = "QWERTYUIOPASDFGHJKLZXCVBNM".toCharArray();
     protected ArrayList<JButton> buttonAlphabet = new ArrayList(); //array of buttons
 
     /**
