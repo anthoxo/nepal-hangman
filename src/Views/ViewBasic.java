@@ -6,10 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class ViewBasic extends JFrame implements ActionListener{
     Keyboard keyboard = new Keyboard();
-    Controller controller;
+    
+    //test
+    Controller controller = new Controller(new Word("PASTA", "Food", "Pasta for me",10));
 
     JPanel corps = new JPanel();
     JPanel panelLetters = new JPanel();
@@ -18,7 +24,7 @@ public class ViewBasic extends JFrame implements ActionListener{
     JLabel labelLetters = new JLabel();
     JLabel labelUp = new JLabel();
     JLabel lblThemeLabel = new JLabel();
-    //Panel pan = new Panel(controller);
+    PanelBackground pan = new PanelBackground();
 
     JToolBar toolBar = new JToolBar();
     JSeparator separator = new JSeparator();
@@ -119,22 +125,28 @@ public class ViewBasic extends JFrame implements ActionListener{
     /**
      * Graphic part
      */
-    public class Panel extends JPanel {
-        Controller controller;
+    public class PanelBackground extends JPanel {
+        private String path;
 
-        public Panel(Controller c){
-            this.controller = c;
+        public PanelBackground(){
+            super();
         }
 
         public void paintComponent(Graphics g) {
-            g.drawString(controller.getLettersFound().toString(),this.getWidth()/2-20,this.getHeight()/2);
-//            try {
-//                Image img = ImageIO.read(new File("/Icons/background.jpg"));
-//                g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-//            }
-//             catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                FileInputStream input = new FileInputStream(new File("src/Icons/background.jpg"));
+                FileInputStream input2 = new FileInputStream(new File("src/Icons/hangman.jpg"));
+
+                Image img = ImageIO.read(input);
+                Image img2 = ImageIO.read(input2);
+
+                g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+                g.drawImage(img2, 15, this.getHeight()/2-125, this);
+
+            }
+             catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
