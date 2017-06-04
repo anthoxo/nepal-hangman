@@ -12,9 +12,9 @@ public class Word {
 
 
     public Word(){
-        this.word = "";
-        this.theme = "";
-        this.definition = "";
+        this.word = "Word";
+        this.theme = "Theme";
+        this.definition = "Definition";
         this.nbStrokes = 0;
     }
 

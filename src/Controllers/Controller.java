@@ -43,6 +43,38 @@ public class Controller {
         this.view = c.view;
     }
 
+    public ArrayList<Character> getLettersFound(){
+        return this.lettersFound;
+    }
+
+    public ArrayList<Character> getLettersPlayed(){
+        return this.lettersPlayed;
+    }
+
+    /**
+     * Print in the console the ArrayList lettersFound.
+     */
+    public void printLettersFound(){
+        System.out.print("[");
+        for (int i=0; i<this.letters.length-1; i++){
+            System.out.print(this.lettersFound.get(i)+",");
+        }
+        System.out.print(this.lettersFound.get(this.letters.length-1));
+        System.out.println("]");
+    }
+
+    /**
+     * Print in the console the ArrayList lettersPlayed.
+     */
+    public void printLettersPlayed(){
+        System.out.print("[");
+        for (int i=0; i<this.lettersPlayed.size()-1; i++){
+            System.out.print(this.lettersPlayed.get(i)+",");
+        }
+        System.out.print(this.lettersPlayed.get(this.lettersPlayed.size()-1));
+        System.out.println("]");
+    }
+
     /**
      * @return the number of letters found by the player.
      */
@@ -86,8 +118,8 @@ public class Controller {
         boolean check = false;
 
         for (int i=0 ; i<size ; i++){
-            if (tab[i] == c){
-                this.lettersFound.set(i,c);
+            if (Character.toUpperCase(tab[i]) == Character.toUpperCase(c)){
+                this.lettersFound.set(i,Character.toUpperCase(c));
                 check = true;
             }
         }
@@ -100,21 +132,34 @@ public class Controller {
      */
     public void actionLetter(char c){
         if (this.checkLetter(c)){
+            System.out.println("Letter "+c+" Yes");
+            System.out.print("LettersFound: ");
+            this.printLettersFound();
             if (this.checkVictory()){
                 System.out.println("You win !");
                 //sortir ? clear ?
             }
-            else
-                this.lettersPlayed.add(c);
+            else{
+                this.lettersPlayed.add(Character.toUpperCase(c));
+                System.out.println("LettersPlayed: ");
+                this.printLettersPlayed();
+            }
         }
         else{
+            System.out.println("Letter "+c+" No");
             mainW.decreaseNbStrokes();
+            System.out.println("NbStrokes : "+this.mainW.getNbStrokes());
+            System.out.print("LettersFound: ");
+            this.printLettersFound();
             if (!this.checkCount()){
-                System.out.println("You lose !");
+                System.out.println("You lose...");
                 //sortir ? clear ?
             }
-            else
-                this.lettersPlayed.add(c);
+            else{
+                this.lettersPlayed.add(Character.toUpperCase(c));
+                System.out.print("LettersPlayed: ");
+                this.printLettersPlayed();
+            }
         }
     }
 
@@ -125,8 +170,36 @@ public class Controller {
         this.actionLetter(c);
     }
 
+    /**
+     * @param view
+     * Add view to the controller.
+     */
     public void addView(ViewBasic view){
         this.view = view;
     }
+
+    /**
+    public static void main(String[] args){
+        Word test = new Word("Papu","Random","Random word",2);
+        Controller c = new Controller(test);
+
+        System.out.println("   At the beginning");
+        System.out.println("Word: "+test.getWord());
+        System.out.println("Theme: "+test.getTheme());
+        System.out.println("Definition: "+test.getDefinition());
+        System.out.println("NbStrokes: "+test.getNbStrokes());
+        System.out.print("LettersFound: ");
+        c.printLettersFound();
+        System.out.println("\n   Launching tests");
+        System.out.println("\nTest 1");
+        c.run('A');
+        System.out.println("\nTest 2");
+        c.run('u');
+        System.out.println("\nTest 3");
+        c.run('y');
+        System.out.println("\nTest 4");
+        c.run('x');
+    }
+    */
 
 }
