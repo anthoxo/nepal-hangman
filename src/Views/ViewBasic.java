@@ -11,14 +11,21 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class ViewBasic extends JFrame implements ActionListener{
+    Keyboard keyboard = new Keyboard();
+    Controller controller;
 
     JPanel corps = new JPanel();
     //JPanel up = new JPanel();
     JLabel label = new JLabel();
     //JLabel labelUp = new JLabel();
+    JLabel lblThemeLabel = new JLabel(this.controller.getMainW().getTheme());
+    Panel pan = new Panel(controller);
 
-    Keyboard keyboard = new Keyboard();
-    Controller controller;
+    JToolBar toolBar = new JToolBar();
+    JSeparator separator = new JSeparator();
+    JSeparator separator_1 = new JSeparator();
+    JButton btnMenu = new JButton(new BtnMenuAction());
+    JButton btnQuit = new JButton(new BtnQuitAction());
 
     public ViewBasic(){
         //test
@@ -29,36 +36,24 @@ public class ViewBasic extends JFrame implements ActionListener{
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JToolBar toolBar = new JToolBar();
         this.getContentPane().add(toolBar, BorderLayout.NORTH);
-
-        JButton btnMenu = new JButton(new BtnMenuAction());
         toolBar.add(btnMenu);
-
-        JSeparator separator = new JSeparator();
         toolBar.add(separator);
-
-        JLabel lblThemeLabel = new JLabel(this.controller.getMainW().getTheme());
         toolBar.add(lblThemeLabel);
-
-        JSeparator separator_1 = new JSeparator();
         toolBar.add(separator_1);
-
-        JButton btnQuit = new JButton(new BtnQuitAction());
         toolBar.add(btnQuit);
 
         for (int i = 0 ; i<26 ; i++){
             keyboard.getButtonAlphabet().get(i).addActionListener(this);
         }
         corps.setBackground(Color.yellow);
-        corps.setLayout(new BorderLayout());
-
-        Panel pan = new Panel(controller);
-        corps.add(pan, BorderLayout.CENTER);
-        //this.setContentPane(new ImagePanel());
         //up.setBackground(Color.cyan);
 
         //labelUp.setText("THEME : ");
+
+        corps.setLayout(new BorderLayout());
+        corps.add(pan, BorderLayout.CENTER);
+        //this.setContentPane(new ImagePanel());
 
         this.add(corps, BorderLayout.CENTER);
         this.add(keyboard, BorderLayout.SOUTH);
@@ -108,7 +103,9 @@ public class ViewBasic extends JFrame implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int res = JOptionPane.showConfirmDialog(null, "Do you really want to quit the game ?","Quit the game", JOptionPane.YES_NO_OPTION);
+            int res = JOptionPane.showConfirmDialog(
+                    null, "Do you really want to quit the game ?",
+                    "Quit the game", JOptionPane.YES_NO_OPTION);
             if (res == 0)
                 dispose();
         }
