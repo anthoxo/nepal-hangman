@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 public class ViewBasic extends JFrame implements ActionListener{
 
     JPanel corps = new JPanel();
-    JPanel up = new JPanel();
+    //JPanel up = new JPanel();
     JLabel label = new JLabel();
     //JLabel labelUp = new JLabel();
 
@@ -51,8 +51,11 @@ public class ViewBasic extends JFrame implements ActionListener{
             keyboard.getButtonAlphabet().get(i).addActionListener(this);
         }
         corps.setBackground(Color.yellow);
-        //this.setContentPane(new ImagePanel());
+        corps.setLayout(new BorderLayout());
 
+        Panel pan = new Panel(controller);
+        corps.add(pan, BorderLayout.CENTER);
+        //this.setContentPane(new ImagePanel());
         //up.setBackground(Color.cyan);
 
         //labelUp.setText("THEME : ");
@@ -70,6 +73,10 @@ public class ViewBasic extends JFrame implements ActionListener{
         this.controller.run(button.getText().charAt(0));
         this.label.setText(button.getText());
     }
+
+    /**
+     * Action to do when the player clicks on the button "Menu".
+     */
     public class BtnMenuAction extends AbstractAction {
         public BtnMenuAction(){
             putValue(SMALL_ICON, new ImageIcon(ViewBasic.class.getResource("/Icons/home16.png")));
@@ -80,10 +87,17 @@ public class ViewBasic extends JFrame implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //retour au menu
+            int res = JOptionPane.showConfirmDialog
+                    (null, "Return to the menu ?","Menu", JOptionPane.YES_NO_OPTION);
+            if (res == 0)
+                System.out.println("Menu"); //delete after
+                //retour au menu
         }
     }
 
+    /**
+     * Actions to do when the player clicks on the button "Quit".
+     */
     public class BtnQuitAction extends AbstractAction {
         public BtnQuitAction(){
             putValue(SMALL_ICON, new ImageIcon(ViewBasic.class.getResource("/Icons/quit16.png")));
@@ -94,13 +108,24 @@ public class ViewBasic extends JFrame implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //quitter
+            int res = JOptionPane.showConfirmDialog(null, "Do you really want to quit the game ?","Quit the game", JOptionPane.YES_NO_OPTION);
+            if (res == 0)
+                dispose();
         }
     }
 
-    public class ImagePanel extends JPanel {
+    /**
+     * Graphic part
+     */
+    public class Panel extends JPanel {
+        Controller controller;
+
+        public Panel(Controller c){
+            this.controller = c;
+        }
 
         public void paintComponent(Graphics g) {
+            g.drawString(controller.getLettersFound().toString(),this.getWidth()/2-20,this.getHeight()/2);
 //            try {
 //                Image img = ImageIO.read(new File("/Icons/background.jpg"));
 //                g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
