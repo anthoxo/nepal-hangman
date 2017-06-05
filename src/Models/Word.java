@@ -12,13 +12,13 @@ public class Word {
 
 
     public Word(){
-        this.word = "Word";
-        this.theme = "Theme";
-        this.definition = "Definition";
+        this.word = "";
+        this.theme = "";
+        this.definition = "";
         this.nbStrokes = 0;
     }
 
-    public Word(String word, String theme, String definition,int n){
+   public Word(String word, String theme, String definition,int n){
         this.word = word;
         this.theme = theme;
         this.definition = definition;
@@ -112,6 +112,20 @@ public class Word {
      */
     public void decreaseNbStrokes(){
         this.nbStrokes -= 1;
+    }
+
+    /**
+     * Give a random word in a random theme.
+     */
+    public void launch(Dictionary d, int nbStrokes){
+        this.random(d,nbStrokes);
+    }
+
+    /**
+     * Give a random word in a given theme.
+     */
+    public void launch(Dictionary d, int indexTheme, int nbStrokes){
+        this.random(d, indexTheme, nbStrokes);
     }
 
 }

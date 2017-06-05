@@ -1,4 +1,5 @@
 package Controllers;
+import Models.Dictionary;
 import Views.*;
 import Models.Word;
 
@@ -14,17 +15,40 @@ public class Controller {
     protected ArrayList<Character> lettersPlayed;  //all letters played
     protected ViewBasic view;
 
+    //Delete Controller(Word w) when dictionary and menu ok
+    public Controller(Word w){
+        ArrayList<Character> list = new ArrayList<Character>();
 
-    public Controller(){//this constructor is useless
-        this.mainW = new Word();
-        this.letters = new char[0];
-        this.lettersFound = new ArrayList<Character>();
+        for (int i=0 ; i<w.getSizeWord() ; i++)
+            list.add('_');
+
+        this.mainW = w;
+        this.letters = w.getWord().toCharArray();
+        this.lettersFound = list;
         this.lettersPlayed = new ArrayList<Character>();
         this.view = null;
     }
 
-    public Controller(Word w){
+    public Controller(Dictionary d, int nbStrokes){
         ArrayList<Character> list = new ArrayList<Character>();
+        Word w = new Word();
+
+        w.random(d,nbStrokes);
+        for (int i=0 ; i<w.getSizeWord() ; i++)
+            list.add('_');
+
+        this.mainW = w;
+        this.letters = w.getWord().toCharArray();
+        this.lettersFound = list;
+        this.lettersPlayed = new ArrayList<Character>();
+        this.view = null;
+    }
+
+    public Controller(Dictionary d, int indexTheme, int nbStrokes){
+        ArrayList<Character> list = new ArrayList<Character>();
+        Word w = new Word();
+
+        w.random(d,indexTheme,nbStrokes);
         for (int i=0 ; i<w.getSizeWord() ; i++)
             list.add('_');
 

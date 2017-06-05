@@ -1,5 +1,6 @@
 package Views;
 import Controllers.Controller;
+import Models.Dictionary;
 import Models.Word;
 
 import javax.swing.*;
@@ -13,9 +14,9 @@ import javax.imageio.ImageIO;
 
 public class ViewBasic extends JFrame implements ActionListener{
     Keyboard keyboard = new Keyboard();
-    
-    //test
-    Controller controller = new Controller(new Word("PASTA", "Food", "Pasta for me",10));
+
+    Controller controller;
+//    Dictionary d = new Dictionary(); //à modifier par le constructeur valué + menu ok
 
     JPanel corps = new JPanel();
     JPanel panelLetters = new JPanel();
@@ -24,7 +25,7 @@ public class ViewBasic extends JFrame implements ActionListener{
     JLabel labelLetters = new JLabel();
     JLabel labelUp = new JLabel();
     JLabel lblThemeLabel = new JLabel();
-    PanelBackground pan = new PanelBackground();
+    PanelImage pan = new PanelImage();
 
     JToolBar toolBar = new JToolBar();
     JSeparator separator = new JSeparator();
@@ -33,8 +34,13 @@ public class ViewBasic extends JFrame implements ActionListener{
     JButton btnQuit = new JButton(new BtnQuitAction());
 
     public ViewBasic(){
-        //test
-        this.controller = new Controller(new Word("PASTA", "Food", "Pasta for me",10));
+        //test, delete when it's ok
+        this.controller = new Controller(new Word("Pasta", "Food", "Pasta for me",10));
+//        Décommenter une fois Menu implémentée
+//        if (Menu.theme == null)
+//            this.controller = new Controller(d,nbStrokes);
+//        else
+//            this.controller = new Controller(d,menu.theme,nbStrokes);
         this.controller.addView(this);
 
         lblThemeLabel.setText(this.controller.getMainW().getTheme());
@@ -56,8 +62,7 @@ public class ViewBasic extends JFrame implements ActionListener{
         }
 
         corps.setLayout(new BorderLayout());
-        //corps.add(pan, BorderLayout.CENTER);
-        //this.setContentPane(new ImagePanel());
+        corps.add(pan, BorderLayout.CENTER);
         panelUp.setBackground(Color.blue);
         this.add(corps, BorderLayout.CENTER);
         this.add(keyboard, BorderLayout.SOUTH);
@@ -125,10 +130,10 @@ public class ViewBasic extends JFrame implements ActionListener{
     /**
      * Graphic part
      */
-    public class PanelBackground extends JPanel {
+    public class PanelImage extends JPanel {
         private String path;
 
-        public PanelBackground(){
+        public PanelImage(){
             super();
         }
 
