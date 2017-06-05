@@ -50,9 +50,9 @@ public class Dictionary {
             /**
              * To fill the themes list
              */
-            Excel excelThemes = new Excel(this.getFileThemes(), "Feuille1");
-            Object corps[][] = excelThemes.getBody();
-            int height = excelThemes.getHeight();
+            FileText fileThemes = new FileText(this.getFileThemes());
+            Object corps[][] = fileThemes.getBody();
+            int height = fileThemes.getHeight();
             for (int i = 0 ; i<height ; i++){
                 Integer index = ((int)corps[i][0]);
                 this.themes.put(index, (String)corps[i][1]);
@@ -62,9 +62,9 @@ public class Dictionary {
              * To fill the dictionary
              */
 
-            Excel excel = new Excel(this.getFileWords(), "Feuille1");
-            corps = excel.getBody();
-            height = excel.getHeight();
+            FileText file = new FileText(this.getFileWords());
+            corps = file.getBody();
+            height = file.getHeight();
             for (int i = 0 ; i<height ; i++){
                 Integer index = ((int)corps[i][0]);
                 this.words.put(index, (String)corps[i][1]);
@@ -82,14 +82,14 @@ public class Dictionary {
     public void put(String word, String theme, String definition){
         if (this.themes.containsValue(theme) == false){
 
-            Excel excelTheme = new Excel(this.getFileThemes(), "Feuille1");
-            excelTheme.increaseSize();
-            Object corpsThemes[][] = excelTheme.getBody();
-            int indexTheme = excelTheme.getHeight() - 1;
+            FileText fileTheme = new FileText(this.getFileThemes());
+            fileTheme.increaseSize();
+            Object corpsThemes[][] = fileTheme.getBody();
+            int indexTheme = fileTheme.getHeight() - 1;
             corpsThemes[indexTheme][0] = indexTheme + 1;
             corpsThemes[indexTheme][1] = theme;
             this.themes.put(indexTheme+1, theme);
-            excelTheme.save();
+            fileTheme.save();
         }
 
         Enumeration<Integer> themeKeys = this.themes.keys();
@@ -102,10 +102,10 @@ public class Dictionary {
             }
         }
 
-        Excel excel = new Excel(this.getFileWords(), "Feuille1");
-        excel.increaseSize();
-        Object corps[][] = excel.getBody();
-        int index = excel.getHeight() - 1;
+        FileText file = new FileText(this.getFileWords());
+        file.increaseSize();
+        Object corps[][] = file.getBody();
+        int index = file.getHeight() - 1;
         corps[index][0] = index+1;
         corps[index][1] = word;
         corps[index][2] = keys;
@@ -114,7 +114,7 @@ public class Dictionary {
         this.themesIndex.put(index+1, keys);
         this.definitions.put(index+1, definition);
         this.size += 1;
-        excel.save();
+        file.save();
     }
 
     /**
