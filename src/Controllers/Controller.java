@@ -3,6 +3,7 @@ import Models.Dictionary;
 import Views.*;
 import Models.Word;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -31,14 +32,12 @@ public class Controller {
 
     public Controller(Dictionary d, int nbStrokes){
         ArrayList<Character> list = new ArrayList<Character>();
-        Word w = new Word();
 
-        w.random(d,nbStrokes);
-        for (int i=0 ; i<w.getSizeWord() ; i++)
+        this.mainW.launch(d, nbStrokes);
+        this.letters = this.mainW.getWord().toCharArray();
+
+        for (int i=0 ; i<this.mainW.getSizeWord() ; i++)
             list.add('_');
-
-        this.mainW = w;
-        this.letters = w.getWord().toCharArray();
         this.lettersFound = list;
         this.lettersPlayed = new ArrayList<Character>();
         this.view = null;
@@ -46,14 +45,12 @@ public class Controller {
 
     public Controller(Dictionary d, int indexTheme, int nbStrokes){
         ArrayList<Character> list = new ArrayList<Character>();
-        Word w = new Word();
 
-        w.random(d,indexTheme,nbStrokes);
-        for (int i=0 ; i<w.getSizeWord() ; i++)
+        this.mainW.launch(d, indexTheme, nbStrokes);
+        this.letters = this.mainW.getWord().toCharArray();
+
+        for (int i=0 ; i<this.mainW.getSizeWord() ; i++)
             list.add('_');
-
-        this.mainW = w;
-        this.letters = w.getWord().toCharArray();
         this.lettersFound = list;
         this.lettersPlayed = new ArrayList<Character>();
         this.view = null;
@@ -160,31 +157,32 @@ public class Controller {
         this.lettersPlayed.add(Character.toUpperCase(c));
         String result;
         if (this.checkLetter(c)){
-            result = "Letter"+c+" Yes !";
             System.out.print("LettersFound: ");
             this.printLettersFound();
             if (this.checkVictory()){
-                result += "You win !";
+                result = "Congratulations, you win !";
                 System.out.println("You win !");
                 //sortir ? clear ?
             }
             else{
+                result = "Letter "+c+" Yes !";
                 System.out.println("LettersPlayed: ");
                 this.printLettersPlayed();
             }
         }
         else{
-            result = "Letter "+c+" No";
+            result = "Letter "+c+" No ...";
             mainW.decreaseNbStrokes();
-            result += "NbStrokes : "+this.mainW.getNbStrokes();
             System.out.print("LettersFound: ");
             this.printLettersFound();
             if (!this.checkCount()){
-                result += "You lose...";
+                result = "You lose...";
                 System.out.println("You lose...");
-                //sortir ? clear ?
+                //add a button to play with the same options
             }
             else{
+                result = "Letter "+c+" not in the word.";
+                result += " Number of strokes : "+this.mainW.getNbStrokes();
                 System.out.print("LettersPlayed: ");
                 this.printLettersPlayed();
             }
@@ -201,35 +199,33 @@ public class Controller {
     }
 
     /**
-     * @param view
      * Add view to the controller.
      */
     public void addView(ViewBasic view){
         this.view = view;
     }
 
-    /**
-    public static void main(String[] args){
-        Word test = new Word("Papu","Random","Random word",2);
-        Controller c = new Controller(test);
+//    public static void main(String[] args){
+//        Word test = new Word("Papu","Random","Random word",2);
+//        Controller c = new Controller(test);
+//
+//        System.out.println("   At the beginning");
+//        System.out.println("Word: "+test.getWord());
+//        System.out.println("Theme: "+test.getTheme());
+//        System.out.println("Definition: "+test.getDefinition());
+//        System.out.println("NbStrokes: "+test.getNbStrokes());
+//        System.out.print("LettersFound: ");
+//        c.printLettersFound();
+//        System.out.println("\n   Launching tests");
+//        System.out.println("\nTest 1");
+//        c.run('A');
+//        System.out.println("\nTest 2");
+//        c.run('u');
+//        System.out.println("\nTest 3");
+//        c.run('y');
+//        System.out.println("\nTest 4");
+//        c.run('x');
+//    }
 
-        System.out.println("   At the beginning");
-        System.out.println("Word: "+test.getWord());
-        System.out.println("Theme: "+test.getTheme());
-        System.out.println("Definition: "+test.getDefinition());
-        System.out.println("NbStrokes: "+test.getNbStrokes());
-        System.out.print("LettersFound: ");
-        c.printLettersFound();
-        System.out.println("\n   Launching tests");
-        System.out.println("\nTest 1");
-        c.run('A');
-        System.out.println("\nTest 2");
-        c.run('u');
-        System.out.println("\nTest 3");
-        c.run('y');
-        System.out.println("\nTest 4");
-        c.run('x');
-    }
-    */
 
 }

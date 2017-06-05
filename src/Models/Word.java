@@ -11,14 +11,7 @@ public class Word {
     protected Integer nbStrokes;
 
 
-    public Word(){
-        this.word = "";
-        this.theme = "";
-        this.definition = "";
-        this.nbStrokes = 0;
-    }
-
-   public Word(String word, String theme, String definition,int n){
+    public Word(String word, String theme, String definition,int n){
         this.word = word;
         this.theme = theme;
         this.definition = definition;
