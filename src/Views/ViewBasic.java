@@ -16,7 +16,6 @@ public class ViewBasic extends JFrame implements ActionListener{
     Keyboard keyboard = new Keyboard();
 
     Controller controller;
-//    Dictionary d = new Dictionary(); //à modifier par le constructeur valué + menu ok
 
     JPanel corps = new JPanel();
     JPanel panelLetters = new JPanel();
@@ -34,11 +33,16 @@ public class ViewBasic extends JFrame implements ActionListener{
     JButton btnQuit = new JButton(new BtnQuitAction());
 
     public ViewBasic(){
+        Dictionary d = new Dictionary("dictionary.txt","themes.txt");
+        d.fill();
+
         //test, delete when it's ok
-        this.controller = new Controller(new Word("Pasta", "Food", "Pasta for me",10));
+        //int nbStrokes = Menu.getNbStrokesAllowed();
+        int nbStrokes = 10;
+
 //        Décommenter une fois Menu implémentée
 //        if (Menu.theme == null)
-//            this.controller = new Controller(d,nbStrokes);
+            this.controller = new Controller(d,nbStrokes);
 //        else
 //            this.controller = new Controller(d,menu.theme,nbStrokes);
         this.controller.addView(this);

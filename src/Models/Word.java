@@ -72,6 +72,7 @@ public class Word {
         int index = 0;
         int size = d.getSize();
         int n = (int)(Math.random() * (size));
+
         Enumeration<Integer> keys = d.getThemesIndex().keys();
         if (n == 0){
             index = keys.nextElement();
@@ -81,7 +82,7 @@ public class Word {
         }
 
         this.word = d.getWords().get(index);
-        this.theme = d.getThemes().get(index);
+        this.theme = d.getThemes().get(d.getThemesIndex().get(index));
         this.definition = d.getDefinitions().get(index);
         this.nbStrokes = nbStrokes;
 
@@ -99,7 +100,7 @@ public class Word {
         n = (int)(Math.random() * (size));
         index = list.get(n);
         this.word = d.getWords().get(index);
-        this.theme = d.getThemes().get(index);
+        this.theme = d.getThemes().get(d.getThemesIndex().get(index));
         this.definition = d.getDefinitions().get(index);
         this.nbStrokes = nbStrokes;
 
@@ -125,5 +126,5 @@ public class Word {
     public void launch(Dictionary d, int indexTheme, int nbStrokes){
         this.random(d, indexTheme, nbStrokes);
     }
-
+    
 }
