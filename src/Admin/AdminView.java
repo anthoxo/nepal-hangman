@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class AdminView extends JFrame {
 
-    Dictionary dico = new Dictionary("dictionary.txt","themes.txt");
+    Dictionary dico;
     JPanel corps = new JPanel();
 
     JMenuBar menuBar = new JMenuBar();
@@ -24,6 +24,9 @@ public class AdminView extends JFrame {
 
 
     public AdminView(){
+
+        this.dico = new Dictionary("dictionary.txt","themes.txt");
+        this.dico.fill();
 
         this.setTitle("Hangman : Administration");
         this.setSize(500,500);
@@ -58,6 +61,15 @@ public class AdminView extends JFrame {
                 }
             }
         );
+        this.menuDeleteWord.addActionListener(
+                new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        AdminView.this.changePane(new AdminDeleteWord(AdminView.this));
+                    }
+                }
+        );
+
 
 
     }

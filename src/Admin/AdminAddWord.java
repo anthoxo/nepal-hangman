@@ -35,7 +35,7 @@ public class AdminAddWord extends JPanel {
 
         fieldWord.setPreferredSize(new Dimension(150, 30));
         fieldTheme.setPreferredSize(new Dimension(150, 30));
-        fieldDefinition.setPreferredSize(new Dimension(150, 60));
+        fieldDefinition.setPreferredSize(new Dimension(200, 30));
 
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
