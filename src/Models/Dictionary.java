@@ -81,7 +81,6 @@ public class Dictionary {
 
     public void put(String word, String theme, String definition){
         if (this.themes.containsValue(theme) == false){
-
             FileText fileTheme = new FileText(this.getFileThemes());
             fileTheme.increaseSize();
             Object corpsThemes[][] = fileTheme.getBody();
@@ -117,11 +116,27 @@ public class Dictionary {
         file.save();
     }
 
-    /**
-     * TODO later
-     */
-    public void delete(){
+    public void delete(Word word){
+        if (this.contains(word)){
+            FileText file = new FileText(this.getFileWords());
 
+            Enumeration<Integer> wordKeys = this.getWords().keys();
+            int keys = -1;
+            while (wordKeys.hasMoreElements() && keys == -1){
+                Integer tmp = wordKeys.nextElement();
+                if (this.getWords().get(tmp).equals(word.getWord())){
+                    keys = tmp;
+                }
+            }
+
+            file.decreaseSize(keys);
+
+            this.getWords().clear();
+            this.getThemes().clear();
+            this.getDefinitions().clear();
+            this.getThemesIndex().clear();
+            this.fill();
+        }
     }
 
     public ArrayList<Integer> listThemes(int index){
@@ -163,13 +178,13 @@ public class Dictionary {
     /**
      * @return the name of the file for themes.
      */
-    private String getFileThemes() {
+    public String getFileThemes() {
         return this.fileThemes;
     }
     /**
      * @return the name of the file for words.
      */
-    private String getFileWords() {
+    public String getFileWords() {
         return this.fileWords;
     }
 
@@ -182,11 +197,4 @@ public class Dictionary {
         return this.size;
     }
 
-
-    public static void main(String[] args){
-        Dictionary dico = new Dictionary("dictionary.txt","themes.txt");
-        dico.fill();
-        System.out.println(dico.getWords());
-        System.out.println(dico.contains(new Word("FF","Capital city","Capital of France",10)));
-    }
 }

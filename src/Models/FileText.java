@@ -89,6 +89,27 @@ public class FileText {
         }
         this.height += 1;
     }
+    public void decreaseSize(int index){
+        if (index >= 0 && index <=this.height-1){
+            Object tmp[][] = this.getBody();
+            this.body = new Object[this.getHeight()-1][this.getWidth()];
+            for (int i = 0; i<index ; i++){
+                this.body[i][0] = i;
+                for (int j = 1; j<this.width ; j++){
+                    this.body[i][j] = tmp[i][j];
+                }
+            }
+            this.height -= 1;
+            for (int i = index; i<this.height ; i++){
+                this.body[i][0] = i;
+                for (int j = 1; j<this.width ; j++){
+                    this.body[i][j] = tmp[i+1][j];
+                }
+            }
+            this.save();
+
+        }
+    }
 
     public int getHeight(){ return this.height; }
     public int getWidth(){ return this.width; }
