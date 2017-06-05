@@ -1,0 +1,5 @@
+Index	Word	Theme	Definition
+2	CHERRY	2	Fruit in the shape of ball
+3	BRUSSELS	1	Capital of Belgium
+4	APPLE	2	Green fruit in the shape of ball
+4	PARIS	1	Capital of France

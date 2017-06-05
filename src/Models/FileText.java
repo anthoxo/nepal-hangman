@@ -54,7 +54,12 @@ public class FileText {
             bw.newLine();
             for (int i = 0 ; i<this.height ; i++){
                 for (int j = 0 ; j<this.width ; j++){
-                    bw.write((String)this.body[i][j]);
+                    if (this.body[i][j] instanceof Integer){
+                        bw.write(Integer.toString((Integer)this.body[i][j]));
+                    }
+                    else{
+                        bw.write((String)this.body[i][j]);
+                    }
                     if (j != this.width-1){
                         bw.write("\t");
                     }
@@ -94,12 +99,4 @@ public class FileText {
     public void setFileName(String fileName){
         this.fileName = fileName;
     }
-
-
-    public static void main(String[] args){
-        FileText test = new FileText("test.txt");
-        test.getBody()[1][1] = "maman";
-        test.save();
-    }
-
 }

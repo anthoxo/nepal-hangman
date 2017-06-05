@@ -54,7 +54,7 @@ public class Dictionary {
             Object corps[][] = fileThemes.getBody();
             int height = fileThemes.getHeight();
             for (int i = 0 ; i<height ; i++){
-                Integer index = ((int)corps[i][0]);
+                Integer index = Integer.parseInt((String)corps[i][0]);
                 this.themes.put(index, (String)corps[i][1]);
             }
 
@@ -66,9 +66,9 @@ public class Dictionary {
             corps = file.getBody();
             height = file.getHeight();
             for (int i = 0 ; i<height ; i++){
-                Integer index = ((int)corps[i][0]);
+                Integer index = Integer.parseInt((String)corps[i][0]);
                 this.words.put(index, (String)corps[i][1]);
-                this.themesIndex.put(index, (Integer)corps[i][2]);
+                this.themesIndex.put(index, Integer.parseInt((String)corps[i][2]));
                 this.definitions.put(index, (String)corps[i][3]);
                 this.size += 1;
             }
@@ -174,4 +174,13 @@ public class Dictionary {
     public int getSize(){
         return this.size;
     }
+
+    /**
+    public static void main(String[] args){
+        Dictionary dico = new Dictionary("dictionary.txt","themes.txt");
+        dico.fill();
+        System.out.println(dico.getWords());
+        dico.put("PARIS","Capital city","Capital of France");
+        System.out.println(dico.getWords());
+    }*/
 }

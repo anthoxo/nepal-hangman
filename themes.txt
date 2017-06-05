@@ -1,0 +1,3 @@
+Index	Theme
+1	Capital city
+2	Food
