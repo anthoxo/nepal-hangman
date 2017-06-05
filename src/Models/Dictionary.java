@@ -137,6 +137,13 @@ public class Dictionary {
         return result;
     }
 
+    public boolean contains(Word word){
+        boolean result = true;
+        result = result && this.getWords().contains(word.getWord());
+        result = result && this.getThemes().contains(word.getTheme());
+        return result;
+    }
+
     public Hashtable<Integer, String> getWords() {
         return this.words;
     }
@@ -175,12 +182,11 @@ public class Dictionary {
         return this.size;
     }
 
-    /**
+
     public static void main(String[] args){
         Dictionary dico = new Dictionary("dictionary.txt","themes.txt");
         dico.fill();
         System.out.println(dico.getWords());
-        dico.put("PARIS","Capital city","Capital of France");
-        System.out.println(dico.getWords());
-    }*/
+        System.out.println(dico.contains(new Word("FF","Capital city","Capital of France",10)));
+    }
 }
