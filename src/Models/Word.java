@@ -10,7 +10,12 @@ public class Word {
     protected String definition;
     protected Integer nbStrokes;
 
-
+    public Word(){
+        this.word = "";
+        this.theme = "";
+        this.definition = "";
+        this.nbStrokes = 0;
+    }
     public Word(String word, String theme, String definition,int n){
         this.word = word;
         this.theme = theme;

@@ -1,9 +1,8 @@
 package Controllers;
 import Models.Dictionary;
-import Views.*;
 import Models.Word;
+import Views.ViewBasic;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +32,7 @@ public class Controller {
     public Controller(Dictionary d, int nbStrokes){
         ArrayList<Character> list = new ArrayList<Character>();
 
+        this.mainW = new Word();
         this.mainW.launch(d, nbStrokes);
         this.letters = this.mainW.getWord().toCharArray();
 
@@ -46,6 +46,7 @@ public class Controller {
     public Controller(Dictionary d, int indexTheme, int nbStrokes){
         ArrayList<Character> list = new ArrayList<Character>();
 
+        this.mainW = new Word();
         this.mainW.launch(d, indexTheme, nbStrokes);
         this.letters = this.mainW.getWord().toCharArray();
 
