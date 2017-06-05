@@ -50,6 +50,7 @@ public class Dictionary {
             /**
              * To fill the themes list
              */
+            this.size = 0;
             FileText fileThemes = new FileText(this.getFileThemes());
             Object corps[][] = fileThemes.getBody();
             int height = fileThemes.getHeight();
@@ -85,9 +86,9 @@ public class Dictionary {
             fileTheme.increaseSize();
             Object corpsThemes[][] = fileTheme.getBody();
             int indexTheme = fileTheme.getHeight() - 1;
-            corpsThemes[indexTheme][0] = indexTheme + 1;
+            corpsThemes[indexTheme][0] = indexTheme;
             corpsThemes[indexTheme][1] = theme;
-            this.themes.put(indexTheme+1, theme);
+            this.themes.put(indexTheme, theme);
             fileTheme.save();
         }
 
@@ -105,13 +106,13 @@ public class Dictionary {
         file.increaseSize();
         Object corps[][] = file.getBody();
         int index = file.getHeight() - 1;
-        corps[index][0] = index+1;
+        corps[index][0] = index;
         corps[index][1] = word;
         corps[index][2] = keys;
         corps[index][3] = definition;
-        this.words.put(index+1, word);
-        this.themesIndex.put(index+1, keys);
-        this.definitions.put(index+1, definition);
+        this.words.put(index, word);
+        this.themesIndex.put(index, keys);
+        this.definitions.put(index, definition);
         this.size += 1;
         file.save();
     }
