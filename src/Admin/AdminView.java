@@ -20,6 +20,7 @@ public class AdminView extends JFrame {
     JMenuItem menuQuit = new JMenuItem("Quit");
     JMenuItem menuAddWord = new JMenuItem("Add word");
     JMenuItem menuDeleteWord = new JMenuItem("Delete word");
+    JMenuItem menuAddTheme = new JMenuItem("Add theme");
     JMenuItem menuDeleteTheme = new JMenuItem("Delete theme");
 
 
@@ -37,6 +38,7 @@ public class AdminView extends JFrame {
         this.menuFile.add(menuQuit);
         this.menuWord.add(menuAddWord);
         this.menuWord.add(menuDeleteWord);
+        this.menuTheme.add(menuAddTheme);
         this.menuTheme.add(menuDeleteTheme);
 
         this.menuBar.add(menuFile);
@@ -69,6 +71,24 @@ public class AdminView extends JFrame {
                     }
                 }
         );
+        this.menuAddTheme.addActionListener(
+                new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        AdminView.this.changePane(new AdminAddTheme(AdminView.this));
+                    }
+                }
+        );
+        this.menuDeleteTheme.addActionListener(
+                new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        AdminView.this.changePane(new AdminDeleteTheme(AdminView.this));
+                    }
+                }
+        );
+
+
 
 
 
