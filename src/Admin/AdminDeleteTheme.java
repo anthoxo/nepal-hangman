@@ -1,7 +1,6 @@
 package Admin;
 
 import Models.Dictionary;
-import Models.Word;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +11,6 @@ import java.util.Enumeration;
 public class AdminDeleteTheme extends JPanel{
 
     private AdminView frame;
-    private Word word;
     private int keys;
 
     private JPanel panelUp = new JPanel();
