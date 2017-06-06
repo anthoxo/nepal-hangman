@@ -155,9 +155,14 @@ public class Controller {
      * Actions to do when a letter is chosen.
      */
     public void actionLetter(char c){
-        this.lettersPlayed.add(Character.toUpperCase(c));
         String result;
-        if (this.checkLetter(c)){
+        if (this.getLettersPlayed().contains(c)){
+            result = "Letter "+c+" has already been played !\n";
+            result+="LettersPlayed : ";
+            result+=this.lettersPlayed.toString();
+        }
+        else if (this.checkLetter(c)){
+            this.lettersPlayed.add(Character.toUpperCase(c));
             if (this.checkVictory()){
                 result = "Congratulations, you win !";
                 this.view.printVictory(true);
@@ -170,6 +175,7 @@ public class Controller {
             }
         }
         else{
+            this.lettersPlayed.add(Character.toUpperCase(c));
             mainW.decreaseNbStrokes();
             if (!this.checkCount()){
                 result = "You lose...";
