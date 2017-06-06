@@ -23,3 +23,4 @@ Index	Word	Theme	Definition
 21	DACCA	0	Capital of Bangladesh
 22	ISLAMABAD	0	Capital of Pakistan
 23	KABUL	0	Capital of Afghanistan
+24	BUENOS AIRES	0	Capital of Argentina
