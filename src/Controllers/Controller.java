@@ -164,7 +164,7 @@ public class Controller {
                 //sortir ? clear ?
             }
             else{
-                result = "Letter "+c+" Yes !";
+                result = "Letter "+c+" Yes !\n";
                 result+="LettersPlayed : ";
                 result+=this.lettersPlayed.toString();
             }
@@ -178,8 +178,8 @@ public class Controller {
                 //add a button to play with the same options
             }
             else{
-                result = "Letter "+c+" not in the word.";
-                result += " Number of strokes : "+this.mainW.getNbStrokes()+"\n";
+                result = "Letter "+c+" not in the word.\n";
+                result += "Number of strokes : "+this.mainW.getNbStrokes()+"\n";
                 result += "LettersPlayed : ";
                 result += this.lettersPlayed.toString();
             }

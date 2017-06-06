@@ -1,4 +1,5 @@
 package Views;
+
 import Controllers.Controller;
 import Models.Dictionary;
 
@@ -10,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Iterator;
 
 public class ViewBasic extends JFrame implements ActionListener{
     Keyboard keyboard = new Keyboard();
@@ -21,9 +23,9 @@ public class ViewBasic extends JFrame implements ActionListener{
     JPanel panelHangman = new JPanel();
     JPanel panelUp = new JPanel();
 
-    JLabel labelLetters = new JLabel();
-    JLabel labelUp = new JLabel();
-    JLabel labelHangman = new JLabel();
+    JTextArea labelLetters = new JTextArea();
+    JTextArea labelUp = new JTextArea();
+    JTextArea labelHangman = new JTextArea();
     JLabel lblThemeLabel = new JLabel();
 
     JToolBar toolBar = new JToolBar();
@@ -51,9 +53,10 @@ public class ViewBasic extends JFrame implements ActionListener{
         this.setTitle("Hangman game");
         this.setSize(500,500);
         this.setLocationRelativeTo(null);
+        this.setLayout(new BoxLayout(this.getContentPane(),BoxLayout.PAGE_AXIS));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.getContentPane().add(toolBar, BorderLayout.NORTH);
+        this.add(toolBar);
         toolBar.add(btnMenu);
         toolBar.add(separator);
         toolBar.add(lblThemeLabel);
@@ -65,20 +68,31 @@ public class ViewBasic extends JFrame implements ActionListener{
         }
 
         corps.setLayout(new BorderLayout());
-        panelUp.setBackground(Color.blue);
 
-        this.add(corps, BorderLayout.CENTER);
-        this.add(keyboard, BorderLayout.SOUTH);
+        this.add(corps);
+        this.add(keyboard);
 
+        panelUp.setOpaque(false);
         panelLetters.setOpaque(false);
         panelHangman.setOpaque(false);
+
+        labelUp.setEditable(false);
+        labelUp.setOpaque(false);
+        labelLetters.setEditable(false);
+        labelLetters.setOpaque(true);
+        labelHangman.setEditable(false);
+        labelHangman.setOpaque(false);
+
+
+        corps.add(panelUp,BorderLayout.NORTH);
         corps.add(panelLetters, BorderLayout.EAST);
         corps.add(panelHangman,BorderLayout.WEST);
-        corps.add(panelUp,BorderLayout.NORTH);
 
-        panelLetters.add(labelLetters,BorderLayout.CENTER);
-        panelUp.add(labelUp,BorderLayout.CENTER);
+        panelLetters.add(labelLetters);
+        panelUp.add(labelUp);
         panelHangman.add(labelHangman,BorderLayout.CENTER);
+
+        this.labelLetters.setAlignmentY(JTextArea.RIGHT_ALIGNMENT);
 
         /**
          * size of each component
@@ -160,7 +174,15 @@ public class ViewBasic extends JFrame implements ActionListener{
     }
 
     public void refresh(String state){
-        this.labelLetters.setText(this.controller.getLettersFound().toString());
+        String result = "";
+        Iterator it = this.controller.getLettersFound().iterator();
+        while (it.hasNext()){
+            result += (Character)it.next();
+            if (it.hasNext()){
+                result += " ";
+            }
+        }
+        this.labelLetters.setText(result);
         this.labelUp.setText(state);
     }
 
