@@ -162,6 +162,7 @@ public class Controller {
             this.printLettersFound();
             if (this.checkVictory()){
                 result = "Congratulations, you win !";
+                this.view.printVictory(true);
                 System.out.println("You win !");
                 //sortir ? clear ?
             }
@@ -178,6 +179,7 @@ public class Controller {
             this.printLettersFound();
             if (!this.checkCount()){
                 result = "You lose...";
+                this.view.printVictory(false);
                 System.out.println("You lose...");
                 //add a button to play with the same options
             }
