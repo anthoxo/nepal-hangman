@@ -1,14 +1,18 @@
 package Admin;
 
+import Models.Dictionary;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 
 public class AdminAddWord extends JPanel {
 
     private AdminView frame;
+    private int key;
 
     private JPanel panelUp = new JPanel();
     private JPanel panelWord = new JPanel();
@@ -18,7 +22,7 @@ public class AdminAddWord extends JPanel {
     private JPanel panelDown = new JPanel();
 
     private JTextField fieldWord = new JTextField();
-    private JTextField fieldTheme = new JTextField();
+    private JComboBox listThemes = new JComboBox();
     private JTextField fieldDefinition = new JTextField();
 
     private JLabel labelUp = new JLabel("Add a word in the dictionary");
@@ -32,9 +36,10 @@ public class AdminAddWord extends JPanel {
     public AdminAddWord(AdminView frame){
 
         this.frame = frame;
+        Dictionary dico = frame.getDico();
 
         fieldWord.setPreferredSize(new Dimension(150, 30));
-        fieldTheme.setPreferredSize(new Dimension(150, 30));
+        listThemes.setPreferredSize(new Dimension(150, 30));
         fieldDefinition.setPreferredSize(new Dimension(200, 30));
 
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
@@ -50,18 +55,52 @@ public class AdminAddWord extends JPanel {
         panelWord.add(labelWord);
         panelWord.add(fieldWord);
         panelTheme.add(labelTheme);
-        panelTheme.add(fieldTheme);
+        panelTheme.add(listThemes);
         panelDefinition.add(labelDefinition);
         panelDefinition.add(fieldDefinition);
         panelButton.add(buttonOk);
         panelDown.add(labelDown);
 
+        Enumeration tab = dico.getThemes().elements();
+        while (tab.hasMoreElements()){
+            listThemes.addItem(tab.nextElement().toString());
+        }
+        this.key = -1;
+        tab = dico.getThemes().keys();
+        while (tab.hasMoreElements() && key==-1){
+            int tmp = (int) tab.nextElement();
+            if (listThemes.getSelectedItem().equals(dico.getThemes().get(tmp))){
+                key = tmp;
+            }
+        }
+
+
+        listThemes.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                key=-1;
+                Dictionary dico = frame.getDico();
+                Enumeration tab = dico.getThemes().keys();
+                while (tab.hasMoreElements() && key==-1){
+                    int tmp = (int) tab.nextElement();
+                    if (listThemes.getSelectedItem().equals(dico.getThemes().get(tmp))){
+                        key = tmp;
+                    }
+                }
+            }
+        });
+
         buttonOk.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        frame.getDico().put(fieldWord.getText(),fieldTheme.getText(),fieldDefinition.getText());
-                        labelDown.setText(fieldWord.getText()+" is added in the dictionary !");
+                        boolean result = frame.getDico().put(fieldWord.getText(),(String)listThemes.getSelectedItem(),fieldDefinition.getText());
+                        if (result){
+                            labelDown.setText(fieldWord.getText()+" is added in the dictionary !");
+                        }
+                        else{
+                            labelDown.setText("There is a problem for adding "+fieldWord.getText()+" in the dictionary...");
+                        }
                     }
                 }
         );
