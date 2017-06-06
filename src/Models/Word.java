@@ -126,5 +126,5 @@ public class Word {
     public void launch(Dictionary d, int indexTheme, int nbStrokes){
         this.random(d, indexTheme, nbStrokes);
     }
-    
+
 }
