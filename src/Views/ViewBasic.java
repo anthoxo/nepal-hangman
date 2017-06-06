@@ -191,11 +191,18 @@ public class ViewBasic extends JFrame implements ActionListener{
     }
 
     public void printVictory(boolean victory){
+        JOptionPane optPane = new JOptionPane();
         if (victory){
-            this.labelHangman.setText("You win !");
+            String message = "You find ";
+            message += this.controller.getMainW().getWord()+" !\n";
+            message += "Description : "+this.controller.getMainW().getDefinition();
+            optPane.showMessageDialog(null,message,"Congratulation !",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-            this.labelHangman.setText("You lose..");
+            String message = "You don't find ";
+            message += this.controller.getMainW().getWord()+" ...\n";
+            message += "Description : "+this.controller.getMainW().getDefinition();
+            optPane.showMessageDialog(null,message,"You lose...",JOptionPane.ERROR_MESSAGE);
         }
     }
     public static void main(String[] args){
