@@ -44,6 +44,7 @@ public class AdminAddTheme extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
+                        boolean result = frame.getDico().put(fieldTheme.getText());
                         labelDown.setText("Hey ! Wait a minute.. The functionality is not done yet");
                     }
                 }
