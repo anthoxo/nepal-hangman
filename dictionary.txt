@@ -45,3 +45,5 @@ Index	Word	Theme	Definition
 43	UNITED STATES	2	Continent : America
 44	MEXICO	2	Continent : America
 45	ARGENTINA	2	Continent : America
+46	RICE	1	Cereal
+47	WATER	1	Liquid
