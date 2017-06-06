@@ -80,41 +80,36 @@ public class Dictionary {
      * and his definition.
      */
 
-    public void put(String word, String theme, String definition){
+    public boolean put(String word, String theme, String definition){
         if (this.themes.containsValue(theme) == false){
-            FileText fileTheme = new FileText(this.getFileThemes());
-            fileTheme.increaseSize();
-            Object corpsThemes[][] = fileTheme.getBody();
-            int indexTheme = fileTheme.getHeight() - 1;
-            corpsThemes[indexTheme][0] = indexTheme;
-            corpsThemes[indexTheme][1] = theme;
-            this.themes.put(indexTheme, theme);
-            fileTheme.save();
+            return false;
         }
+        else{
+            Enumeration<Integer> themeKeys = this.themes.keys();
+            int keys = -1;
+            while (themeKeys.hasMoreElements() && keys == -1){
+                Integer tmp = themeKeys.nextElement();
 
-        Enumeration<Integer> themeKeys = this.themes.keys();
-        int keys = -1;
-        while (themeKeys.hasMoreElements() && keys == -1){
-            Integer tmp = themeKeys.nextElement();
-
-            if (this.themes.get(tmp).equals(theme)){
-                keys = tmp;
+                if (this.themes.get(tmp).equals(theme)){
+                    keys = tmp;
+                }
             }
-        }
 
-        FileText file = new FileText(this.getFileWords());
-        file.increaseSize();
-        Object corps[][] = file.getBody();
-        int index = file.getHeight() - 1;
-        corps[index][0] = index;
-        corps[index][1] = word;
-        corps[index][2] = keys;
-        corps[index][3] = definition;
-        this.words.put(index, word);
-        this.themesIndex.put(index, keys);
-        this.definitions.put(index, definition);
-        this.size += 1;
-        file.save();
+            FileText file = new FileText(this.getFileWords());
+            file.increaseSize();
+            Object corps[][] = file.getBody();
+            int index = file.getHeight() - 1;
+            corps[index][0] = index;
+            corps[index][1] = word;
+            corps[index][2] = keys;
+            corps[index][3] = definition;
+            this.words.put(index, word);
+            this.themesIndex.put(index, keys);
+            this.definitions.put(index, definition);
+            this.size += 1;
+            file.save();
+            return true;
+        }
     }
 
     public boolean delete(Word word){
@@ -228,13 +223,5 @@ public class Dictionary {
 
     public int getSize(){
         return this.size;
-    }
-    public static void main(String[] args){
-        Dictionary dico = new Dictionary("dictionary.txt","themes.txt");
-        dico.fill();
-        System.out.println(dico.getThemes());
-        System.out.println(dico.delete("Food"));
-        System.out.println(dico.getThemes());
-
     }
 }
