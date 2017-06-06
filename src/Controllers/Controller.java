@@ -158,39 +158,32 @@ public class Controller {
         this.lettersPlayed.add(Character.toUpperCase(c));
         String result;
         if (this.checkLetter(c)){
-            System.out.print("LettersFound: ");
-            this.printLettersFound();
             if (this.checkVictory()){
                 result = "Congratulations, you win !";
                 this.view.printVictory(true);
-                System.out.println("You win !");
                 //sortir ? clear ?
             }
             else{
                 result = "Letter "+c+" Yes !";
-                System.out.println("LettersPlayed: ");
-                this.printLettersPlayed();
+                result+="LettersPlayed : ";
+                result+=this.lettersPlayed.toString();
             }
         }
         else{
-            result = "Letter "+c+" No ...";
+            result = "Letter "+c+" No ...\n";
             mainW.decreaseNbStrokes();
-            System.out.print("LettersFound: ");
-            this.printLettersFound();
             if (!this.checkCount()){
                 result = "You lose...";
                 this.view.printVictory(false);
-                System.out.println("You lose...");
                 //add a button to play with the same options
             }
             else{
                 result = "Letter "+c+" not in the word.";
-                result += " Number of strokes : "+this.mainW.getNbStrokes();
-                System.out.print("LettersPlayed: ");
-                this.printLettersPlayed();
+                result += " Number of strokes : "+this.mainW.getNbStrokes()+"\n";
+                result += "LettersPlayed : ";
+                result += this.lettersPlayed.toString();
             }
         }
-        System.out.print("\n");
         this.view.refresh(result);
     }
 
@@ -198,7 +191,9 @@ public class Controller {
      * Actions to do when a letter is played.
      */
     public void run(char c){
-        this.actionLetter(c);
+        if (!this.checkVictory() && this.getMainW().getNbStrokes() > 0){
+            this.actionLetter(c);
+        }
     }
 
     /**
