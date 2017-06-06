@@ -30,18 +30,6 @@ public class AdminDeleteTheme extends JPanel{
 
         this.frame = frame;
         Dictionary dico = frame.getDico();
-        Enumeration tab = dico.getThemes().elements();
-        while (tab.hasMoreElements()){
-            listTheme.addItem(tab.nextElement().toString());
-        }
-        this.key = -1;
-        tab = dico.getThemes().keys();
-        while (tab.hasMoreElements() && key==-1){
-            int tmp = (int) tab.nextElement();
-            if (listTheme.getSelectedItem().equals(dico.getThemes().get(tmp))){
-                key = tmp;
-            }
-        }
 
         listTheme.setPreferredSize(new Dimension(150, 30));
 
@@ -58,6 +46,19 @@ public class AdminDeleteTheme extends JPanel{
         panelButton.add(buttonOk);
         panelDown.add(labelDown);
 
+
+        Enumeration tab = dico.getThemes().elements();
+        while (tab.hasMoreElements()){
+            listTheme.addItem(tab.nextElement().toString());
+        }
+        this.key = -1;
+        tab = dico.getThemes().keys();
+        while (tab.hasMoreElements() && key==-1){
+            int tmp = (int) tab.nextElement();
+            if (listTheme.getSelectedItem().equals(dico.getThemes().get(tmp))){
+                key = tmp;
+            }
+        }
 
         listTheme.addActionListener(new ActionListener() {
             @Override
@@ -78,7 +79,13 @@ public class AdminDeleteTheme extends JPanel{
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        labelDown.setText("This function is not done yet, but you have chosen : "+frame.getDico().getThemes().get(key));
+                        boolean result = frame.getDico().delete(frame.getDico().getThemes().get(key));
+                        if (result){
+                            labelDown.setText(frame.getDico().getThemes().get(key)+" has been removed !");
+                        }
+                        else{
+                            labelDown.setText("There is a problem with removing "+frame.getDico().getThemes().get(key)+"...");
+                        }
                     }
                 }
         );

@@ -92,8 +92,13 @@ public class AdminDeleteWord extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        frame.getDico().delete(word);
-                        labelDown.setText(word.getWord()+" has been removing from the dictionary.");
+                        boolean result = frame.getDico().delete(word);
+                        if (result){
+                            labelDown.setText(word.getWord()+" has been removing from the dictionary.");
+                        }
+                        else{
+                            labelDown.setText("There is a problem with removing "word.getWord()+"...");
+                        }
                     }
                 }
         );
