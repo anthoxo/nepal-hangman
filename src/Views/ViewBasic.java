@@ -53,7 +53,7 @@ public class ViewBasic extends JFrame implements ActionListener{
         this.setTitle("Hangman game");
         this.setSize(500,500);
         this.setLocationRelativeTo(null);
-        this.setLayout(new BoxLayout(this.getContentPane(),BoxLayout.PAGE_AXIS));
+        this.setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.add(toolBar);
@@ -79,9 +79,12 @@ public class ViewBasic extends JFrame implements ActionListener{
         labelUp.setEditable(false);
         labelUp.setOpaque(false);
         labelLetters.setEditable(false);
-        labelLetters.setOpaque(true);
+        labelLetters.setOpaque(false);
         labelHangman.setEditable(false);
         labelHangman.setOpaque(false);
+        labelUp.setFont(new Font("Lato",1,15));
+        labelLetters.setFont(new Font("Lato",1,15));
+        labelHangman.setFont(new Font("Lato",1,15));
 
 
         corps.add(panelUp,BorderLayout.NORTH);
@@ -97,7 +100,8 @@ public class ViewBasic extends JFrame implements ActionListener{
         /**
          * size of each component
          */
-        panelUp.setPreferredSize(new Dimension( 500, 50 ));
+        corps.setPreferredSize(new Dimension(500,350));
+        panelUp.setPreferredSize(new Dimension( 500, 150 ));
         panelLetters.setPreferredSize(new Dimension(200,500));
         panelHangman.setPreferredSize(new Dimension(300,500));
 

@@ -170,12 +170,10 @@ public class Controller {
             }
         }
         else{
-            result = "Letter "+c+" No ...\n";
             mainW.decreaseNbStrokes();
             if (!this.checkCount()){
                 result = "You lose...";
                 this.view.printVictory(false);
-                //add a button to play with the same options
             }
             else{
                 result = "Letter "+c+" not in the word.\n";
