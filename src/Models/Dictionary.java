@@ -92,7 +92,7 @@ public class Dictionary {
      * @return true if the word is added, else false
      */
     public boolean put(String word, String theme, String definition){
-        if (this.themes.containsValue(theme) == false){
+        if (this.themes.containsValue(theme) == false || this.getWords().containsValue(word) == true){
             return false;
         }
         else{
@@ -119,6 +119,28 @@ public class Dictionary {
             this.definitions.put(index, definition);
             this.size += 1;
             file.save();
+            return true;
+        }
+    }
+
+    /**
+     * Method for adding a theme in data base.
+     * @param theme
+     * @return true if the theme has been added, else false
+     */
+    public boolean put(String theme){
+        if (this.themes.containsValue(theme) == true){
+            return false;
+        }
+        else{
+            FileText fileThemes = new FileText(this.getFileThemes());
+            fileThemes.increaseSize();
+            Object corps[][] = fileThemes.getBody();
+            int index = fileThemes.getHeight() - 1;
+            corps[index][0] = index;
+            corps[index][1] = theme;
+            this.themes.put(index, theme);
+            fileThemes.save();
             return true;
         }
     }
