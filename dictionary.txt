@@ -8,3 +8,18 @@ Index	Word	Theme	Definition
 6	BEIJING	0	Capital of China
 7	TOKYO	0	Capital of Japan
 8	NEW DELHI	0	Capital of India
+9	ROMA	0	Capital of Italia
+10	MADRID	0	Capital of Spain
+11	DUBLIN	0	Capital of Ireland
+12	CAIRO	0	Capital of Egypt
+13	WASHINGTON DC	0	Capital of United States of America
+14	MEXICO CITY	0	Capital of Mexico
+15	MOSCOW	0	Capital of Russia
+16	OTTAWA	0	Capital of Canada
+17	RABAT	0	Capital of Morocco
+18	COLOMBO	0	Capital of Sri Lanka
+19	HANOI	0	Capital of Vietnam
+20	BANGKOK	0	Capital of Thailand
+21	DACCA	0	Capital of Bangladesh
+22	ISLAMABAD	0	Capital of Pakistan
+23	KABUL	0	Capital of Afghanistan
