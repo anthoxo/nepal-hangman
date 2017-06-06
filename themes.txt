@@ -1,6 +1,3 @@
 Index	Theme
 0	Capital city
 1	Food
-2	Sport
-3	Video games
-4	Series

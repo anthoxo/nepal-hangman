@@ -79,12 +79,13 @@ public class AdminDeleteTheme extends JPanel{
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        boolean result = frame.getDico().delete(frame.getDico().getThemes().get(key));
+                        String theme = frame.getDico().getThemes().get(key);
+                        boolean result = frame.getDico().delete(theme);
                         if (result){
-                            labelDown.setText(frame.getDico().getThemes().get(key)+" has been removed !");
+                            labelDown.setText(theme+" has been removed !");
                         }
                         else{
-                            labelDown.setText("There is a problem with removing "+frame.getDico().getThemes().get(key)+"...");
+                            labelDown.setText("There is a problem with removing "+theme+"...");
                         }
                     }
                 }
