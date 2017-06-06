@@ -24,3 +24,24 @@ Index	Word	Theme	Definition
 22	ISLAMABAD	0	Capital of Pakistan
 23	KABUL	0	Capital of Afghanistan
 24	BUENOS AIRES	0	Capital of Argentina
+25	FRANCE	2	Continent : Europe
+26	ITALIA	2	Continent : Europe
+27	SPAIN	2	Continent : Europe
+28	GREAT BRITAIN	2	Continent : Europe
+29	BELGIUM	2	Continent : Europe
+30	GERMANY	2	Continent : Europe
+31	BERLIN	2	Capital of Germany
+32	IRELAND	2	Continent : Europe
+33	RUSSIA	2	Continent : Asia
+34	NEPAL	2	Continent : Asia
+35	JAPAN	2	Continent : Asia
+36	CHINA	2	Continent : Asia
+37	MONGOLIA	2	Continent : Asia
+38	INDIA	2	Continent : Asia
+39	PAKISTAN	2	Continent : Asia
+40	THAILAND	2	Continent : Asia
+41	BANGLADESH	2	Continent : Asia
+42	VIETNAM	2	Continent : Asia
+43	UNITED STATES	2	Continent : America
+44	MEXICO	2	Continent : America
+45	ARGENTINA	2	Continent : America
