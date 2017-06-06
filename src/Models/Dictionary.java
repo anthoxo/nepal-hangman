@@ -117,7 +117,7 @@ public class Dictionary {
         file.save();
     }
 
-    public void delete(Word word){
+    public boolean delete(Word word){
         if (this.contains(word)){
             FileText file = new FileText(this.getFileWords());
 
@@ -137,9 +137,41 @@ public class Dictionary {
             this.getDefinitions().clear();
             this.getThemesIndex().clear();
             this.fill();
+            return true;
+        }
+        else{
+            return false;
         }
     }
-
+    public boolean delete(String theme){
+        if (this.getThemes().containsValue(theme)){
+            int key = -1;
+            Enumeration themes = this.getThemes().keys();
+            while (themes.hasMoreElements() && key == -1){
+                int tmp = (int) themes.nextElement();
+                if (this.getThemes().get(tmp).equals(theme)){
+                    key = tmp;
+                }
+            }
+            boolean result = this.getThemesIndex().containsValue(key);
+            if (result){
+                return false;
+            }
+            else{
+                FileText fileTheme = new FileText(this.getFileThemes());
+                fileTheme.decreaseSize(key);
+                this.getWords().clear();
+                this.getThemes().clear();
+                this.getDefinitions().clear();
+                this.getThemesIndex().clear();
+                this.fill();
+                return true;
+            }
+        }
+        else{
+            return false;
+        }
+    }
     public ArrayList<Integer> listThemes(int index){
         Dictionary tmp = this;
         ArrayList<Integer> result = new ArrayList();
@@ -197,5 +229,12 @@ public class Dictionary {
     public int getSize(){
         return this.size;
     }
+    public static void main(String[] args){
+        Dictionary dico = new Dictionary("dictionary.txt","themes.txt");
+        dico.fill();
+        System.out.println(dico.getThemes());
+        System.out.println(dico.delete("Food"));
+        System.out.println(dico.getThemes());
 
+    }
 }
