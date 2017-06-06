@@ -1,4 +1,5 @@
 package Models;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -15,13 +16,14 @@ public class Dictionary {
     protected Hashtable<Integer,Integer> themesIndex;
     protected Hashtable<Integer,String> definitions;
     protected Hashtable<Integer,String> themes;
-    /**
-     * fileName and sheetName are for Excel class
-     */
+
     protected String fileWords;
     protected String fileThemes;
     protected Integer size;
 
+    /**
+     * Default constructor (useless)
+     */
     public Dictionary(){
         this.words = new Hashtable();
         this.themesIndex = new Hashtable();
@@ -31,6 +33,12 @@ public class Dictionary {
         this.fileThemes = "";
         this.size = 0;
     }
+
+    /**
+     * Main constructor
+     * @param fileWords name of dictionary file
+     * @param fileThemes name of themes file
+     */
     public Dictionary(String fileWords, String fileThemes){
         this.words = new Hashtable();
         this.themesIndex = new Hashtable();
@@ -42,8 +50,8 @@ public class Dictionary {
     }
 
     /**
-     * This method takes all of an Excel file and puts in the created object.
-     * If the file doesn't exit, then the constructor of the Excel object makes an exception.
+     * This method takes all of an text file and puts in the created object.
+     *
      */
     public void fill(){
         if (!this.getFileThemes().equals("") && !this.getFileWords().equals("")){
@@ -75,11 +83,14 @@ public class Dictionary {
             }
         }
     }
-    /**
-     * This method adds in the Excel file and in the structure an element with his word, his theme
-     * and his definition.
-     */
 
+    /**
+     * Method for putting up a word in the object and in the text file.
+     * @param word
+     * @param theme
+     * @param definition
+     * @return true if the word is added, else false
+     */
     public boolean put(String word, String theme, String definition){
         if (this.themes.containsValue(theme) == false){
             return false;
@@ -112,6 +123,11 @@ public class Dictionary {
         }
     }
 
+    /**
+     * Delete a word from the object and the text file.
+     * @param word the word for deleting
+     * @return true if the word has been deleted, else false
+     */
     public boolean delete(Word word){
         if (this.contains(word)){
             FileText file = new FileText(this.getFileWords());
@@ -138,6 +154,12 @@ public class Dictionary {
             return false;
         }
     }
+
+    /**
+     * Method for deleting a theme from the data base.
+     * @param theme the theme for deleting
+     * @return true if the theme has been deleted, else false
+     */
     public boolean delete(String theme){
         if (this.getThemes().containsValue(theme)){
             int key = -1;
@@ -167,6 +189,12 @@ public class Dictionary {
             return false;
         }
     }
+
+    /**
+     * Create an array of int that the theme is corresponding with a number
+     * @param index index of a theme
+     * @return an Array(int) of the index that the theme is corresponding with index
+     */
     public ArrayList<Integer> listThemes(int index){
         Dictionary tmp = this;
         ArrayList<Integer> result = new ArrayList();
@@ -180,6 +208,11 @@ public class Dictionary {
         return result;
     }
 
+    /**
+     * Method contains.
+     * @param word
+     * @return true if word is in the object, else false
+     */
     public boolean contains(Word word){
         boolean result = true;
         result = result && this.getWords().contains(word.getWord());
@@ -220,7 +253,6 @@ public class Dictionary {
     /**
      * @return the size of the dictionary.
      */
-
     public int getSize(){
         return this.size;
     }
