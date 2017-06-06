@@ -16,7 +16,7 @@ public class ViewBasic extends JFrame implements ActionListener{
     Keyboard keyboard = new Keyboard();
 
     Controller controller;
-//    Dictionary d = new Dictionary(); //à modifier par le constructeur valué + menu ok
+    Menu menu;
 
     JPanel corps = new JPanel();
     JPanel panelLetters = new JPanel();
@@ -34,11 +34,16 @@ public class ViewBasic extends JFrame implements ActionListener{
     JButton btnQuit = new JButton(new BtnQuitAction());
 
     public ViewBasic(){
+        Dictionary d = new Dictionary("dictionary.txt","themes.txt");
+        d.fill();
+
         //test, delete when it's ok
-        this.controller = new Controller(new Word("Pasta", "Food", "Pasta for me",10));
+        //int nbStrokes = menu.getNbStrokesAllowed();
+        int nbStrokes = 10;
+
 //        Décommenter une fois Menu implémentée
-//        if (Menu.theme == null)
-//            this.controller = new Controller(d,nbStrokes);
+//        if (menu.theme == -1)
+        this.controller = new Controller(d,nbStrokes);
 //        else
 //            this.controller = new Controller(d,menu.theme,nbStrokes);
         this.controller.addView(this);
@@ -102,7 +107,7 @@ public class ViewBasic extends JFrame implements ActionListener{
                     (null, "Return to the menu ?","Menu", JOptionPane.YES_NO_OPTION);
             if (res == 0)
                 System.out.println("Menu"); //delete after
-                //retour au menu
+            //retour au menu
         }
     }
 
@@ -149,7 +154,7 @@ public class ViewBasic extends JFrame implements ActionListener{
                 g.drawImage(img2, 15, this.getHeight()/2-125, this);
 
             }
-             catch (IOException e) {
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
