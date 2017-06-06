@@ -11,7 +11,7 @@ import java.util.Enumeration;
 public class AdminDeleteTheme extends JPanel{
 
     private AdminView frame;
-    private int keys;
+    private int key;
 
     private JPanel panelUp = new JPanel();
     private JPanel panelTheme = new JPanel();
@@ -34,12 +34,12 @@ public class AdminDeleteTheme extends JPanel{
         while (tab.hasMoreElements()){
             listTheme.addItem(tab.nextElement().toString());
         }
-        this.keys = -1;
+        this.key = -1;
         tab = dico.getThemes().keys();
-        while (tab.hasMoreElements() && keys==-1){
+        while (tab.hasMoreElements() && key==-1){
             int tmp = (int) tab.nextElement();
             if (listTheme.getSelectedItem().equals(dico.getThemes().get(tmp))){
-                keys = tmp;
+                key = tmp;
             }
         }
 
@@ -62,13 +62,13 @@ public class AdminDeleteTheme extends JPanel{
         listTheme.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                keys=-1;
+                key=-1;
                 Dictionary dico = frame.getDico();
                 Enumeration tab = dico.getThemes().keys();
-                while (tab.hasMoreElements() && keys==-1){
+                while (tab.hasMoreElements() && key==-1){
                     int tmp = (int) tab.nextElement();
                     if (listTheme.getSelectedItem().equals(dico.getThemes().get(tmp))){
-                        keys = tmp;
+                        key = tmp;
                     }
                 }
             }
@@ -78,7 +78,7 @@ public class AdminDeleteTheme extends JPanel{
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        labelDown.setText("This function is not done yet, but you have chosen : "+frame.getDico().getThemes().get(keys));
+                        labelDown.setText("This function is not done yet, but you have chosen : "+frame.getDico().getThemes().get(key));
                     }
                 }
         );
