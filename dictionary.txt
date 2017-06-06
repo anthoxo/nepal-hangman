@@ -1,5 +1,4 @@
 Index	Word	Theme	Definition
 0	PARIS	0	Capital of France
-1	CHERRY	1	Fruit in the shape of ball
-2	APPLE	1	Green fruit in the shape of ball
-3	LONDON	0	Capital of Great-Britain
+1	APPLE	1	Green fruit in the shape of ball
+2	LONDON	0	Capital of Great-Britain
