@@ -97,7 +97,7 @@ public class AdminDeleteWord extends JPanel {
                             labelDown.setText(word.getWord()+" has been removing from the dictionary.");
                         }
                         else{
-                            labelDown.setText("There is a problem with removing "word.getWord()+"...");
+                            labelDown.setText("There is a problem with removing "+word.getWord()+"...");
                         }
                     }
                 }

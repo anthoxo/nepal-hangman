@@ -45,7 +45,12 @@ public class AdminAddTheme extends JPanel {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
                         boolean result = frame.getDico().put(fieldTheme.getText());
-                        labelDown.setText("Hey ! Wait a minute.. The functionality is not done yet");
+                        if (result){
+                            labelDown.setText(fieldTheme.getText()+" is added in the dictionary !");
+                        }
+                        else{
+                            labelDown.setText("There is a problem for adding "+fieldTheme.getText()+" in the dictionary...");
+                        }
                     }
                 }
         );
