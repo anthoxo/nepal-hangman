@@ -1,3 +1,10 @@
 Index	Word	Theme	Definition
 0	PARIS	0	Capital of France
 1	APPLE	1	Green fruit in the shape of ball
+2	LONDON	0	Capital of Great-Britain
+3	BRUSSELS	0	Capital of Belgium
+4	KATMANDU	0	Capital of Nepal
+5	ULAN BATOR	0	Capital of Mongolia
+6	BEIJING	0	Capital of China
+7	TOKYO	0	Capital of Japan
+8	NEW DELHI	0	Capital of India
