@@ -15,20 +15,6 @@ public class Controller {
     protected ArrayList<Character> lettersPlayed;  //all letters played
     protected ViewBasic view;
 
-    //Delete Controller(Word w) when dictionary and menu ok
-    public Controller(Word w){
-        ArrayList<Character> list = new ArrayList<Character>();
-
-        for (int i=0 ; i<w.getSizeWord() ; i++)
-            list.add('_');
-
-        this.mainW = w;
-        this.letters = w.getWord().toCharArray();
-        this.lettersFound = list;
-        this.lettersPlayed = new ArrayList<Character>();
-        this.view = null;
-    }
-
     public Controller(Dictionary d, int nbStrokes){
         ArrayList<Character> list = new ArrayList<Character>();
 
@@ -155,40 +141,39 @@ public class Controller {
      * Actions to do when a letter is chosen.
      */
     public void actionLetter(char c){
-        this.lettersPlayed.add(Character.toUpperCase(c));
         String result;
-        if (this.checkLetter(c)){
-            System.out.print("LettersFound: ");
-            this.printLettersFound();
+        if (this.getLettersPlayed().contains(c)){
+            result = "Letter "+c+" has already been played !\n";
+            result+="LettersPlayed : ";
+            result+=this.lettersPlayed.toString();
+        }
+        else if (this.checkLetter(c)){
+            this.lettersPlayed.add(Character.toUpperCase(c));
             if (this.checkVictory()){
                 result = "Congratulations, you win !";
-                System.out.println("You win !");
+                this.view.printVictory(true);
                 //sortir ? clear ?
             }
             else{
-                result = "Letter "+c+" Yes !";
-                System.out.println("LettersPlayed: ");
-                this.printLettersPlayed();
+                result = "Letter "+c+" Yes !\n";
+                result+="LettersPlayed : ";
+                result+=this.lettersPlayed.toString();
             }
         }
         else{
-            result = "Letter "+c+" No ...";
+            this.lettersPlayed.add(Character.toUpperCase(c));
             mainW.decreaseNbStrokes();
-            System.out.print("LettersFound: ");
-            this.printLettersFound();
             if (!this.checkCount()){
                 result = "You lose...";
-                System.out.println("You lose...");
-                //add a button to play with the same options
+                this.view.printVictory(false);
             }
             else{
-                result = "Letter "+c+" not in the word.";
-                result += " Number of strokes : "+this.mainW.getNbStrokes();
-                System.out.print("LettersPlayed: ");
-                this.printLettersPlayed();
+                result = "Letter "+c+" not in the word.\n";
+                result += "Number of strokes : "+this.mainW.getNbStrokes()+"\n";
+                result += "LettersPlayed : ";
+                result += this.lettersPlayed.toString();
             }
         }
-        System.out.print("\n");
         this.view.refresh(result);
     }
 
@@ -196,7 +181,9 @@ public class Controller {
      * Actions to do when a letter is played.
      */
     public void run(char c){
-        this.actionLetter(c);
+        if (!this.checkVictory() && this.getMainW().getNbStrokes() > 0){
+            this.actionLetter(c);
+        }
     }
 
     /**

@@ -1,8 +1,10 @@
 package Views;
+
 import Controllers.Controller;
 import Models.Dictionary;
-import Models.Word;
+import Controllers.Menu;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,21 +12,25 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.util.Iterator;
 
 public class ViewBasic extends JFrame implements ActionListener{
+    Controller controller;
+    int nbInitStrokes = 0;
+
     Keyboard keyboard = new Keyboard();
 
-    Controller controller;
-
-    JPanel corps = new JPanel();
+    PanelImage corps = new PanelImage("src/Icons/background.jpg");
     JPanel panelLetters = new JPanel();
+    JPanel panelUpLetters = new JPanel(); //to center panelDownLetters
+    JPanel panelDownLetters = new JPanel();
+    JPanel panelHangman = new JPanel();
     JPanel panelUp = new JPanel();
 
-    JLabel labelLetters = new JLabel();
-    JLabel labelUp = new JLabel();
+    JTextArea labelLetters = new JTextArea();
+    JTextArea labelUp = new JTextArea();
     JLabel lblThemeLabel = new JLabel();
-    PanelImage pan = new PanelImage();
+    JLabel labelHangman = new JLabel();
 
     JToolBar toolBar = new JToolBar();
     JSeparator separator = new JSeparator();
@@ -32,19 +38,16 @@ public class ViewBasic extends JFrame implements ActionListener{
     JButton btnMenu = new JButton(new BtnMenuAction());
     JButton btnQuit = new JButton(new BtnQuitAction());
 
-    public ViewBasic(){
+    public ViewBasic(Menu menu){
         Dictionary d = new Dictionary("dictionary.txt","themes.txt");
         d.fill();
 
-        //test, delete when it's ok
-        //int nbStrokes = Menu.getNbStrokesAllowed();
-        int nbStrokes = 10;
+        this.nbInitStrokes = menu.getNbStrokes();
+        if (menu.getTheme() == "Mix")
+            this.controller = new Controller(d,this.nbInitStrokes);
+        else
+            this.controller = new Controller(d,d.getIndexTheme(menu.getTheme()),this.nbInitStrokes);
 
-//        Décommenter une fois Menu implémentée
-//        if (Menu.theme == null)
-            this.controller = new Controller(d,nbStrokes);
-//        else
-//            this.controller = new Controller(d,menu.theme,nbStrokes);
         this.controller.addView(this);
 
         lblThemeLabel.setText(this.controller.getMainW().getTheme());
@@ -52,9 +55,10 @@ public class ViewBasic extends JFrame implements ActionListener{
         this.setTitle("Hangman game");
         this.setSize(500,500);
         this.setLocationRelativeTo(null);
+        this.setLayout(new BoxLayout(this.getContentPane(),BoxLayout.Y_AXIS));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.getContentPane().add(toolBar, BorderLayout.NORTH);
+        this.add(toolBar);
         toolBar.add(btnMenu);
         toolBar.add(separator);
         toolBar.add(lblThemeLabel);
@@ -66,20 +70,45 @@ public class ViewBasic extends JFrame implements ActionListener{
         }
 
         corps.setLayout(new BorderLayout());
-        corps.add(pan, BorderLayout.CENTER);
-        panelUp.setBackground(Color.blue);
-        this.add(corps, BorderLayout.CENTER);
-        this.add(keyboard, BorderLayout.SOUTH);
 
-        corps.add(panelLetters, BorderLayout.EAST);
+        this.add(corps);
+        this.add(keyboard);
+
+        panelUp.setOpaque(false);
+        panelLetters.setOpaque(false);
+        panelHangman.setOpaque(false);
+        panelUpLetters.setOpaque(false);
+        panelDownLetters.setOpaque(false);
+
+        labelUp.setEditable(false);
+        labelUp.setOpaque(false);
+        labelLetters.setEditable(false);
+        labelLetters.setOpaque(false);
+        labelUp.setFont(new Font("Lato",1,15));
+        labelLetters.setFont(new Font("Lato",1,15));
+
         corps.add(panelUp,BorderLayout.NORTH);
+        corps.add(panelLetters, BorderLayout.EAST);
+        corps.add(panelHangman,BorderLayout.WEST);
 
-        panelLetters.add(labelLetters,BorderLayout.CENTER);
-        panelUp.add(labelUp,BorderLayout.CENTER);
+        panelLetters.add(panelUpLetters);
+        panelLetters.add(panelDownLetters);
+        panelDownLetters.add(labelLetters);
+        panelUp.add(labelUp);
+        panelHangman.add(labelHangman);
 
-        //size
-        panelUp.setPreferredSize(new Dimension( 500, 50 ));
+        labelHangman.setIcon(new ImageIcon("src/Icons/hangman/0.png"));
 
+        this.labelLetters.setAlignmentY(JTextArea.RIGHT_ALIGNMENT);
+
+        /**
+         * size of each component
+         */
+        corps.setPreferredSize(new Dimension(500,350));
+        panelUp.setPreferredSize(new Dimension( 500, 75 ));
+        panelLetters.setPreferredSize(new Dimension(200,500));
+        panelUpLetters.setPreferredSize(new Dimension(200,75));
+        panelHangman.setPreferredSize(new Dimension(300,500));
 
         this.refresh("Good luck !");
     }
@@ -106,7 +135,7 @@ public class ViewBasic extends JFrame implements ActionListener{
                     (null, "Return to the menu ?","Menu", JOptionPane.YES_NO_OPTION);
             if (res == 0)
                 System.out.println("Menu"); //delete after
-                //retour au menu
+            //retour au menu
         }
     }
 
@@ -135,37 +164,60 @@ public class ViewBasic extends JFrame implements ActionListener{
      * Graphic part
      */
     public class PanelImage extends JPanel {
-        private String path;
 
-        public PanelImage(){
+        String path;
+
+        public PanelImage(String path){
             super();
+            this.path = path;
         }
 
         public void paintComponent(Graphics g) {
             try {
-                FileInputStream input = new FileInputStream(new File("src/Icons/background.jpg"));
-                FileInputStream input2 = new FileInputStream(new File("src/Icons/hangman.jpg"));
-
+                FileInputStream input = new FileInputStream(new File(this.path));
                 Image img = ImageIO.read(input);
-                Image img2 = ImageIO.read(input2);
-
                 g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-                g.drawImage(img2, 15, this.getHeight()/2-125, this);
-
             }
-             catch (IOException e) {
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
     public void refresh(String state){
-        this.labelLetters.setText(this.controller.getLettersFound().toString());
+        String result = "";
+        int img = this.nbInitStrokes - this.controller.getMainW().getNbStrokes();
+        String path = "src/Icons/hangman/"+String.valueOf(img)+".png";
+        Iterator it = this.controller.getLettersFound().iterator();
+        while (it.hasNext()){
+            result += (Character)it.next();
+            if (it.hasNext()){
+                result += " ";
+            }
+        }
+        this.labelLetters.setText(result);
         this.labelUp.setText(state);
+        this.labelHangman.setIcon(new ImageIcon(path));
     }
 
-    public static void main(String[] args){
-        JFrame t = new ViewBasic();
+    public void printVictory(boolean victory){
+        JOptionPane optPane = new JOptionPane();
+        if (victory){
+            String message = "You find ";
+            message += this.controller.getMainW().getWord()+" !\n";
+            message += "Description : "+this.controller.getMainW().getDefinition();
+            optPane.showMessageDialog(null,message,"Congratulation !",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            String message = "You don't find ";
+            message += this.controller.getMainW().getWord()+" ...\n";
+            message += "Description : "+this.controller.getMainW().getDefinition();
+            optPane.showMessageDialog(null,message,"You lose...",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+     public void launch(Menu menu){
+        JFrame t = new ViewBasic(menu);
         t.setVisible(true);
     }
 }

@@ -69,17 +69,8 @@ public class Word {
      * @return the word chosen by random.
      */
     public void random(Dictionary d, int nbStrokes){
-        int index = 0;
         int size = d.getSize();
-        int n = (int)(Math.random() * (size));
-
-        Enumeration<Integer> keys = d.getThemesIndex().keys();
-        if (n == 0){
-            index = keys.nextElement();
-        }
-        for (int i = 0 ; i<n ; i++){
-            index = keys.nextElement();
-        }
+        int index = (int)(Math.random() * (size));
 
         this.word = d.getWords().get(index);
         this.theme = d.getThemes().get(d.getThemesIndex().get(index));
