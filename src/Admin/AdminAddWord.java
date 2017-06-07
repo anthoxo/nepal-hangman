@@ -94,12 +94,13 @@ public class AdminAddWord extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        boolean result = frame.getDico().put(fieldWord.getText(),(String)listThemes.getSelectedItem(),fieldDefinition.getText());
+                        String word = fieldWord.getText().toUpperCase();
+                        boolean result = frame.getDico().put(word,(String)listThemes.getSelectedItem(),fieldDefinition.getText());
                         if (result){
-                            labelDown.setText(fieldWord.getText()+" is added in the dictionary !");
+                            labelDown.setText(word+" is added in the dictionary !");
                         }
                         else{
-                            labelDown.setText("There is a problem for adding "+fieldWord.getText()+" in the dictionary...");
+                            labelDown.setText("There is a problem for adding "+word+" in the dictionary...");
                         }
                     }
                 }
