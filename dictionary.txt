@@ -47,3 +47,13 @@ Index	Word	Theme	Definition
 45	ARGENTINA	2	Continent : America
 46	RICE	1	Cereal
 47	WATER	1	Liquid
+48	BLACK	4	कालो
+49	WHITE	4	सेतो
+50	BLUE	4	नीलो
+51	GREEN	4	हरियो
+52	YELLOW	4	पहेंलो
+53	PURPLE	4	बैजनी
+54	RED	4	रातो
+55	ORANGE	4	सुन्तला
+56	BROWN	4	खैरो
+57	PINK	4	गुलाबी
