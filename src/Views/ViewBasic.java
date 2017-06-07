@@ -14,19 +14,23 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public class ViewBasic extends JFrame implements ActionListener{
+    Controller controller;
+    int nbInitStrokes = 0;
+
     Keyboard keyboard = new Keyboard();
 
-    Controller controller;
 
-    PanelImage corps = new PanelImage();
+    PanelImage corps = new PanelImage("src/Icons/background.jpg");
     JPanel panelLetters = new JPanel();
+    JPanel panelUpLetters = new JPanel(); //to center panelDownLetters
+    JPanel panelDownLetters = new JPanel();
     JPanel panelHangman = new JPanel();
     JPanel panelUp = new JPanel();
 
     JTextArea labelLetters = new JTextArea();
     JTextArea labelUp = new JTextArea();
-    JTextArea labelHangman = new JTextArea();
     JLabel lblThemeLabel = new JLabel();
+    JLabel labelHangman = new JLabel();
 
     JToolBar toolBar = new JToolBar();
     JSeparator separator = new JSeparator();
@@ -39,7 +43,8 @@ public class ViewBasic extends JFrame implements ActionListener{
         d.fill();
 
         //int nbStrokes = Menu.getNbStrokesAllowed();
-        int nbStrokes = 10;
+        int nbStrokes = 8;
+        this.nbInitStrokes = nbStrokes;
 
 //        Décommenter une fois Menu implémentée
 //        if (Menu.theme == null)
@@ -75,25 +80,27 @@ public class ViewBasic extends JFrame implements ActionListener{
         panelUp.setOpaque(false);
         panelLetters.setOpaque(false);
         panelHangman.setOpaque(false);
+        panelUpLetters.setOpaque(false);
+        panelDownLetters.setOpaque(false);
 
         labelUp.setEditable(false);
         labelUp.setOpaque(false);
         labelLetters.setEditable(false);
         labelLetters.setOpaque(false);
-        labelHangman.setEditable(false);
-        labelHangman.setOpaque(false);
         labelUp.setFont(new Font("Lato",1,15));
         labelLetters.setFont(new Font("Lato",1,15));
-        labelHangman.setFont(new Font("Lato",1,15));
-
 
         corps.add(panelUp,BorderLayout.NORTH);
         corps.add(panelLetters, BorderLayout.EAST);
         corps.add(panelHangman,BorderLayout.WEST);
 
-        panelLetters.add(labelLetters);
+        panelLetters.add(panelUpLetters);
+        panelLetters.add(panelDownLetters);
+        panelDownLetters.add(labelLetters);
         panelUp.add(labelUp);
-        panelHangman.add(labelHangman,BorderLayout.CENTER);
+        panelHangman.add(labelHangman);
+
+        labelHangman.setIcon(new ImageIcon("src/Icons/hangman/0.png"));
 
         this.labelLetters.setAlignmentY(JTextArea.RIGHT_ALIGNMENT);
 
@@ -101,8 +108,9 @@ public class ViewBasic extends JFrame implements ActionListener{
          * size of each component
          */
         corps.setPreferredSize(new Dimension(500,350));
-        panelUp.setPreferredSize(new Dimension( 500, 150 ));
+        panelUp.setPreferredSize(new Dimension( 500, 75 ));
         panelLetters.setPreferredSize(new Dimension(200,500));
+        panelUpLetters.setPreferredSize(new Dimension(200,75));
         panelHangman.setPreferredSize(new Dimension(300,500));
 
         this.refresh("Good luck !");
@@ -161,13 +169,14 @@ public class ViewBasic extends JFrame implements ActionListener{
     public class PanelImage extends JPanel {
         private String path;
 
-        public PanelImage(){
+        public PanelImage(String path){
             super();
+            this.path = path;
         }
 
         public void paintComponent(Graphics g) {
             try {
-                FileInputStream input = new FileInputStream(new File("src/Icons/background.jpg"));
+                FileInputStream input = new FileInputStream(new File(this.path));
                 Image img = ImageIO.read(input);
                 g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
             }
@@ -179,6 +188,8 @@ public class ViewBasic extends JFrame implements ActionListener{
 
     public void refresh(String state){
         String result = "";
+        int img = this.nbInitStrokes - this.controller.getMainW().getNbStrokes();
+        String path = "src/Icons/hangman/"+String.valueOf(img)+".png";
         Iterator it = this.controller.getLettersFound().iterator();
         while (it.hasNext()){
             result += (Character)it.next();
@@ -188,6 +199,7 @@ public class ViewBasic extends JFrame implements ActionListener{
         }
         this.labelLetters.setText(result);
         this.labelUp.setText(state);
+        this.labelHangman.setIcon(new ImageIcon(path));
     }
 
     public void printVictory(boolean victory){
