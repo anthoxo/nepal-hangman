@@ -190,6 +190,9 @@ public class ViewBasic extends JFrame implements ActionListener{
     public void refresh(String state){
         String result = "";
         int img = this.nbInitStrokes - this.controller.getMainW().getNbStrokes();
+        if (this.nbInitStrokes == 4){
+            img *= 2;
+        }
         String path = "src/Icons/hangman/"+String.valueOf(img)+".png";
         Iterator it = this.controller.getLettersFound().iterator();
         while (it.hasNext()){
