@@ -1,6 +1,7 @@
 package Views;
 
 import Controllers.Menu;
+import Models.Dictionary;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,38 +18,85 @@ import java.io.IOException;
  */
 public class ViewMenu extends JFrame {
     Menu menu;
+    Dictionary d = new Dictionary("dictionary.txt","themes.txt");
 
     JPanel corps = new JPanel();
-    JPanel panelBtn = new JPanel();
+    JPanel panTheme = new JPanel();
+    JPanel panNbStrokes = new JPanel();
+    JPanel panMode = new JPanel();
+    JPanel panSubmit = new JPanel();
+    JPanel list = new JPanel();
 
-    panelGraphics pan = new panelGraphics();
-    OurCombo combo = new OurCombo();
+    JLabel lblTheme = new JLabel("Theme");
+    JLabel lblNbStrokes = new JLabel("Number of Strokes");
+    JLabel lblMode = new JLabel("Mode");
+
+    JComboBox<String> theme = new JComboBox<String>();
+    JComboBox<String> mode = new JComboBox<String>();
+
+    JRadioButton nbStrokes1 = new JRadioButton("6");
+    JRadioButton nbStrokes2 = new JRadioButton("9");
 
     JButton btnSubmit = new JButton(new BtnSubmitAction());
+
+    panelGraphics pan = new panelGraphics();
 
     public ViewMenu(){
         this.menu = new Menu();
         this.menu.addView(this);
+        d.fill();
 
         this.setTitle("Hangman game");
         this.setSize(500,500);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//        corps.setLayout(new BorderLayout());
-//        corps.add(pan, BorderLayout.CENTER);
-//        corps.add(btnSubmit,BorderLayout.CENTER);
-//        this.add(corps,BorderLayout.CENTER);
+        //list contains all options list and the Submit button
+        list.setLayout(new BoxLayout(list,BoxLayout.PAGE_AXIS));
+        list.setOpaque(false);
 
-        corps.setLayout(new BorderLayout());
-        //Add the background
-        corps.add(pan);
-        //Add buttons
-        btnSubmit.setSize(50,50);
-        panelBtn.setLayout(new BorderLayout());
-        panelBtn.add(btnSubmit, BorderLayout.CENTER);
-        corps.add(panelBtn, BorderLayout.SOUTH);
-        this.setContentPane(corps);
+        panTheme.setOpaque(false);
+        panNbStrokes.setOpaque(false);
+        panMode.setOpaque(false);
+        panSubmit.setOpaque(false);
+
+        //Size of option list
+//        theme.setPreferredSize(new Dimension(100, 20));
+//        nbStrokes.setPreferredSize(new Dimension(100, 20));
+//        mode.setPreferredSize(new Dimension(100, 20));
+
+        //Option list for Theme
+        theme.addItem("Mix");
+        for (int i=0 ; i<d.getThemes().size() ; i++){
+            theme.addItem(d.getThemes().get(d.getThemesIndex().get(i)));
+        }
+        panTheme.add(lblTheme);
+        panTheme.add(theme);
+
+        //Option list for nbStrokesAllowed
+        nbStrokes1.setOpaque(false);
+        nbStrokes2.setOpaque(false);
+        panNbStrokes.add(lblNbStrokes);
+        panNbStrokes.add(nbStrokes1);
+        panNbStrokes.add(nbStrokes2);
+
+        //Option list for Mode
+        mode.addItem("Normal");
+        mode.addItem("Advanced");
+        panMode.add(lblMode);
+        panMode.add(mode);
+
+        //Button Submit
+        panSubmit.add(btnSubmit);
+
+        list.add(panTheme);
+        list.add(panNbStrokes);
+        list.add(panMode);
+        list.add(panSubmit);
+        pan.add(list,BorderLayout.CENTER);
+
+        this.setContentPane(pan);
+
     }
 
     public class BtnSubmitAction extends AbstractAction {
@@ -89,16 +137,6 @@ public class ViewMenu extends JFrame {
             catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    public class OurCombo {
-        public OurCombo(){
-            JComboBox<String> theme = new JComboBox<String>();
-            JComboBox<Integer> nbStrokes = new JComboBox<Integer>();
-            JComboBox<String> mode = new JComboBox<String>();
-
-            
         }
     }
 
