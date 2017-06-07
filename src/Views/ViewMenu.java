@@ -22,6 +22,7 @@ public class ViewMenu extends JFrame {
     JPanel panelBtn = new JPanel();
 
     panelGraphics pan = new panelGraphics();
+    OurCombo combo = new OurCombo();
 
     JButton btnSubmit = new JButton(new BtnSubmitAction());
 
@@ -88,6 +89,16 @@ public class ViewMenu extends JFrame {
             catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public class OurCombo {
+        public OurCombo(){
+            JComboBox<String> theme = new JComboBox<String>();
+            JComboBox<Integer> nbStrokes = new JComboBox<Integer>();
+            JComboBox<String> mode = new JComboBox<String>();
+
+            
         }
     }
 
