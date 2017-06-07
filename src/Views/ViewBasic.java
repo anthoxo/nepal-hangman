@@ -36,14 +36,11 @@ public class ViewBasic extends JFrame implements ActionListener{
         Dictionary d = new Dictionary("dictionary.txt","themes.txt");
         d.fill();
 
-        //test, delete when it's ok
         int nbStrokes = menu.getNbStrokes();
-//        int nbStrokes = 10;
-
         if (menu.getTheme() == "Mix")
             this.controller = new Controller(d,nbStrokes);
-//        else
-//            this.controller = new Controller(d,menu.theme,nbStrokes);
+        else
+            this.controller = new Controller(d,d.getIndexTheme(menu.getTheme()),nbStrokes);
         this.controller.addView(this);
 
         lblThemeLabel.setText(this.controller.getMainW().getTheme());
@@ -134,7 +131,6 @@ public class ViewBasic extends JFrame implements ActionListener{
      * Graphic part
      */
     public class PanelImage extends JPanel {
-        private String path;
 
         public PanelImage(){
             super();

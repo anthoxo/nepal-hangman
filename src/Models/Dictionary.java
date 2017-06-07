@@ -197,4 +197,15 @@ public class Dictionary {
         return this.size;
     }
 
+    /**
+     * @return the index in the fileTheme of the String theme.
+     */
+    public int getIndexTheme(String theme){
+        for (int i=0 ; i<this.themes.size() ; i++){
+            if (this.getThemes().get(i).compareTo(theme) == 0)
+                return i;
+        }
+        return -1;
+    }
+
 }
