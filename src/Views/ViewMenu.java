@@ -114,6 +114,11 @@ public class ViewMenu extends JFrame {
 
     }
 
+    public void launch(){
+        JFrame v = new ViewMenu();
+        v.setVisible(true);
+    }
+
     public class BtnSubmitAction extends AbstractAction {
         public BtnSubmitAction(){
             putValue(SMALL_ICON, new ImageIcon(ViewBasic.class.getResource("/Icons/submit16.png")));
@@ -151,7 +156,9 @@ public class ViewMenu extends JFrame {
             catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
+
     }
 
     public class ItemStateTheme implements ItemListener{

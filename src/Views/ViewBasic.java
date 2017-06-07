@@ -122,6 +122,7 @@ public class ViewBasic extends JFrame implements ActionListener{
      * Action to do when the player clicks on the button "Menu".
      */
     public class BtnMenuAction extends AbstractAction {
+
         public BtnMenuAction(){
             putValue(SMALL_ICON, new ImageIcon(ViewBasic.class.getResource("/Icons/home16.png")));
             putValue(LARGE_ICON_KEY, new ImageIcon(ViewBasic.class.getResource("/Icons/home32.png")));
@@ -133,9 +134,11 @@ public class ViewBasic extends JFrame implements ActionListener{
         public void actionPerformed(ActionEvent e) {
             int res = JOptionPane.showConfirmDialog
                     (null, "Return to the menu ?","Menu", JOptionPane.YES_NO_OPTION);
-            if (res == 0)
-                System.out.println("Menu"); //delete after
-            //retour au menu
+            if (res == 0){
+                dispose();
+                ViewMenu menuV = new ViewMenu();
+                menuV.launch();
+            }
         }
     }
 
