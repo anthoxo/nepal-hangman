@@ -57,3 +57,52 @@ Index	Word	Theme	Definition
 55	ORANGE	4	सुन्तला
 56	BROWN	4	खैरो
 57	PINK	4	गुलाबी
+58	ASK	3	सोध्नु
+59	BE	3	हुन
+60	BECOME	3	बन्न
+61	BEGIN	3	सुरु
+62	CALL	3	कल
+63	CAN	3	गर्न सक्छन्
+64	COME	3	आउनुहोस्
+65	COULD	3	सकेजति
+66	DO	3	के
+67	FEEL	3	महसुस
+68	FIND	3	फेला
+69	GET	3	प्राप्त
+70	GIVE	3	दिनु
+71	GO	3	जाने
+72	HAVE	3	छ
+73	HEAR	3	सुन्छ
+74	HELP	3	मदत
+75	KEEP	3	राख्न
+76	KNOW	3	चिन्छु
+77	LEAVE	3	छोड
+78	LET	3	गरौं
+79	LIKE	3	मन पराउनु
+80	LIVE	3	बाँच्न
+81	LOOK	3	हेर्न
+82	MAKE	3	बनाउन
+83	MAY	3	सक्छ
+84	MEAN	3	चाहनु
+85	MIGHT	3	हुनसकला
+86	MOVE	3	चल्नु
+87	NEED	3	आवश्यकता हुनु
+88	PLAY	3	खेल्नु
+89	PUT	3	राख्नु
+90	RUN	3	रन
+91	SAY	3	भन्न
+92	SEE	3	हेर्न
+93	SEEM	3	जस्तो
+94	SHOULD	3	गर्नुपर्छ
+95	SHOW	3	देखाउनु
+96	START	3	शुरु गर्नु
+97	TAKE	3	लिन
+98	TELL	3	बताउन
+99	THINK	3	लाग्छ
+100	TRY	3	प्रयास
+101	TURN	3	पालो
+102	USE	3	प्रयोग
+103	WANT	3	चाहनुहुन्छ
+104	WILL	3	हुनेछ
+105	WORK	3	काम
+106	WOULD	3	हुनेछ
