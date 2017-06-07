@@ -1,7 +1,7 @@
 package Views;
 import Controllers.Controller;
 import Models.Dictionary;
-import Models.Word;
+import Controllers.Menu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,6 @@ public class ViewBasic extends JFrame implements ActionListener{
     Keyboard keyboard = new Keyboard();
 
     Controller controller;
-    Menu menu;
 
     JPanel corps = new JPanel();
     JPanel panelLetters = new JPanel();
@@ -33,17 +32,16 @@ public class ViewBasic extends JFrame implements ActionListener{
     JButton btnMenu = new JButton(new BtnMenuAction());
     JButton btnQuit = new JButton(new BtnQuitAction());
 
-    public ViewBasic(){
+    public ViewBasic(Menu menu){
         Dictionary d = new Dictionary("dictionary.txt","themes.txt");
         d.fill();
 
         //test, delete when it's ok
-        //int nbStrokes = menu.getNbStrokesAllowed();
-        int nbStrokes = 10;
+        int nbStrokes = menu.getNbStrokes();
+//        int nbStrokes = 10;
 
-//        Décommenter une fois Menu implémentée
-//        if (menu.theme == -1)
-        this.controller = new Controller(d,nbStrokes);
+        if (menu.getTheme() == "Mix")
+            this.controller = new Controller(d,nbStrokes);
 //        else
 //            this.controller = new Controller(d,menu.theme,nbStrokes);
         this.controller.addView(this);
@@ -165,8 +163,15 @@ public class ViewBasic extends JFrame implements ActionListener{
         this.labelUp.setText(state);
     }
 
+    public void launch(Menu menu){
+        JFrame t = new ViewBasic(menu);
+        t.setVisible(true);
+    }
+
+    //A supprimer quand ce sera au point
     public static void main(String[] args){
-        JFrame t = new ViewBasic();
+        Menu menu = new Menu();
+        JFrame t = new ViewBasic(menu);
         t.setVisible(true);
     }
 }

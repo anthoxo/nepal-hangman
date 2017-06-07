@@ -24,7 +24,7 @@ public class ViewMenu extends JFrame {
     Dictionary d = new Dictionary("dictionary.txt","themes.txt");
 
     PanelGraphics pan = new PanelGraphics();
-//    JPanel panWelcome = new JPanel();
+    JPanel panWelcome = new JPanel();
     JPanel panTheme = new JPanel();
     JPanel panNbStrokes = new JPanel();
     JPanel panMode = new JPanel();
@@ -34,10 +34,9 @@ public class ViewMenu extends JFrame {
     JLabel lblWelcome = new JLabel("Welcome to the Hangman Game!");
     JLabel lblTheme = new JLabel("Theme");
     JLabel lblNbStrokes = new JLabel("Number of Strokes       ");
-    JLabel lblMode = new JLabel("Display letters Played ?   ");
+    JLabel lblMode = new JLabel("Display letters played ?   ");
 
     JComboBox<String> theme = new JComboBox<String>();
-
     ButtonGroup groupS = new ButtonGroup();
     ButtonGroup groupM = new ButtonGroup();
     JRadioButton nbStrokes1 = new JRadioButton("4");
@@ -53,7 +52,7 @@ public class ViewMenu extends JFrame {
         d.fill();
 
         this.setTitle("Hangman game");
-        this.setSize(500,500);
+        this.setSize(400,300);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -61,13 +60,13 @@ public class ViewMenu extends JFrame {
         list.setLayout(new BoxLayout(list,BoxLayout.PAGE_AXIS));
         list.setOpaque(false);
 
-//        panWelcome.setOpaque(false);
+        panWelcome.setOpaque(false);
         panTheme.setOpaque(false);
         panNbStrokes.setOpaque(false);
         panMode.setOpaque(false);
         panSubmit.setOpaque(false);
 
-//        panWelcome.add(lblWelcome);
+        panWelcome.add(lblWelcome);
         //Size of option list
 //        theme.setPreferredSize(new Dimension(100, 20));
 
@@ -105,7 +104,7 @@ public class ViewMenu extends JFrame {
         //Button Submit
         panSubmit.add(btnSubmit);
 
-//        list.add(panWelcome);
+        list.add(panWelcome);
         list.add(panTheme);
         list.add(panNbStrokes);
         list.add(panMode);
@@ -126,7 +125,9 @@ public class ViewMenu extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e){
-
+            dispose();
+            ViewBasic v = new ViewBasic(menu);
+            v.launch(menu);
         }
     }
 
@@ -163,8 +164,15 @@ public class ViewMenu extends JFrame {
 
     public class StateListenerStrokes implements ActionListener {
         public void actionPerformed(ActionEvent e){
-            System.out.println("NbStrokes : "+((JRadioButton)e.getSource()).getText());
-//            menu.setStrokes((int)((JRadioButton)e.getSource()).getText());
+            JRadioButton tmp = (JRadioButton)e.getSource();
+            if (tmp.getText() == "4"){
+                System.out.println("NbStrokes : "+tmp.getText());
+                menu.setStrokes(4);
+            }
+            else if (tmp.getText() == "8"){
+                System.out.println("NbStrokes : "+tmp.getText());
+                menu.setStrokes(8);
+            }
         }
     }
 
