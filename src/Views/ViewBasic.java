@@ -2,6 +2,7 @@ package Views;
 
 import Controllers.Controller;
 import Models.Dictionary;
+import Controllers.Menu;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,7 +19,6 @@ public class ViewBasic extends JFrame implements ActionListener{
     int nbInitStrokes = 0;
 
     Keyboard keyboard = new Keyboard();
-
 
     PanelImage corps = new PanelImage("src/Icons/background.jpg");
     JPanel panelLetters = new JPanel();
@@ -38,19 +38,16 @@ public class ViewBasic extends JFrame implements ActionListener{
     JButton btnMenu = new JButton(new BtnMenuAction());
     JButton btnQuit = new JButton(new BtnQuitAction());
 
-    public ViewBasic(){
+    public ViewBasic(Menu menu){
         Dictionary d = new Dictionary("dictionary.txt","themes.txt");
         d.fill();
 
-        //int nbStrokes = Menu.getNbStrokesAllowed();
-        int nbStrokes = 8;
-        this.nbInitStrokes = nbStrokes;
+        this.nbInitStrokes = menu.getNbStrokes();
+        if (menu.getTheme() == "Mix")
+            this.controller = new Controller(d,this.nbInitStrokes);
+        else
+            this.controller = new Controller(d,d.getIndexTheme(menu.getTheme()),this.nbInitStrokes);
 
-//        Décommenter une fois Menu implémentée
-//        if (Menu.theme == null)
-            this.controller = new Controller(d,nbStrokes);
-//        else
-//            this.controller = new Controller(d,menu.theme,nbStrokes);
         this.controller.addView(this);
 
         lblThemeLabel.setText(this.controller.getMainW().getTheme());
@@ -138,7 +135,7 @@ public class ViewBasic extends JFrame implements ActionListener{
                     (null, "Return to the menu ?","Menu", JOptionPane.YES_NO_OPTION);
             if (res == 0)
                 System.out.println("Menu"); //delete after
-                //retour au menu
+            //retour au menu
         }
     }
 
@@ -167,7 +164,8 @@ public class ViewBasic extends JFrame implements ActionListener{
      * Graphic part
      */
     public class PanelImage extends JPanel {
-        private String path;
+
+        String path;
 
         public PanelImage(String path){
             super();
@@ -180,7 +178,7 @@ public class ViewBasic extends JFrame implements ActionListener{
                 Image img = ImageIO.read(input);
                 g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
             }
-             catch (IOException e) {
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -217,8 +215,9 @@ public class ViewBasic extends JFrame implements ActionListener{
             optPane.showMessageDialog(null,message,"You lose...",JOptionPane.ERROR_MESSAGE);
         }
     }
-    public static void main(String[] args){
-        JFrame t = new ViewBasic();
+
+     public void launch(Menu menu){
+        JFrame t = new ViewBasic(menu);
         t.setVisible(true);
     }
 }

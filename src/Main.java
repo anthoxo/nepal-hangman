@@ -1,8 +1,11 @@
-/**
- * Created by anthoxo on 01/06/17.
- */
+import Views.ViewMenu;
+
+import javax.swing.*;
+
+
 public class Main {
     public static void main(String[] args){
-        System.out.print("Bonjour");
+        JFrame view = new ViewMenu();
+        view.setVisible(true);
     }
 }
