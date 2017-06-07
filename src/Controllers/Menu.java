@@ -6,39 +6,51 @@ import Views.ViewMenu;
  * Created by helene on 06/06/17.
  */
 public class Menu {
-    protected int theme;  //-1 if it is the mix version
-    protected int nbStrokesAllowed;
-    protected int mode; //0 if it is the normal mode, 1 the advanced one
+    protected String theme;
+    protected int strokes;
+    protected String mode; //Yes if we can display letters used, No if we can't
     protected ViewMenu view;
 
     public Menu(){
-        this.theme = -1;
-        this.nbStrokesAllowed = 0;
-        this.mode = 0;
+        this.theme = "Mix";
+        this.strokes = 0;
+        this.mode = "Yes";
     }
 
-    public Menu(int theme, int nbStrokesAllowed, int mode){
+    public Menu(String theme, int strokes, String mode){
         this.theme = theme;
-        this.nbStrokesAllowed = nbStrokesAllowed;
+        this.strokes = strokes;
         this.mode = mode;
     }
 
     public Menu(Menu m){
         this.theme = m.theme;
-        this.nbStrokesAllowed = m.nbStrokesAllowed;
+        this.strokes = m.strokes;
         this.mode = m.mode;
     }
 
-    public int getMode() {
+    public String getMode() {
         return mode;
     }
 
-    public int getNbStrokesAllowed() {
-        return nbStrokesAllowed;
+    public int getNbStrokes() {
+        return strokes;
     }
 
-    public int getTheme() {
+    public String getTheme() {
         return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public void setStrokes(int Strokes){
+        this.strokes = Strokes;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 
     public void addView(ViewMenu view){

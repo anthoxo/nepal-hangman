@@ -20,7 +20,7 @@ import java.io.IOException;
  * Created by helene on 06/06/17.
  */
 public class ViewMenu extends JFrame {
-    Menu menu;
+    Menu menu = new Menu();
     Dictionary d = new Dictionary("dictionary.txt","themes.txt");
 
     PanelGraphics pan = new PanelGraphics();
@@ -34,23 +34,21 @@ public class ViewMenu extends JFrame {
     JLabel lblWelcome = new JLabel("Welcome to the Hangman Game!");
     JLabel lblTheme = new JLabel("Theme");
     JLabel lblNbStrokes = new JLabel("Number of Strokes       ");
-    JLabel lblMode = new JLabel("Mode     ");
+    JLabel lblMode = new JLabel("Display letters Played ?   ");
 
     JComboBox<String> theme = new JComboBox<String>();
-    JComboBox<String> mode = new JComboBox<String>();
 
     ButtonGroup groupS = new ButtonGroup();
     ButtonGroup groupM = new ButtonGroup();
-    JRadioButton nbStrokes1 = new JRadioButton("6");
-    JRadioButton nbStrokes2 = new JRadioButton("9");
-    JRadioButton normal = new JRadioButton("Normal");
-    JRadioButton advanced = new JRadioButton("Advanced");
-    //explain the difference between normal and advanced
+    JRadioButton nbStrokes1 = new JRadioButton("4");
+    JRadioButton nbStrokes2 = new JRadioButton("8",null,true);
+    JRadioButton modeY = new JRadioButton("Yes",null,true);
+    JRadioButton modeN = new JRadioButton("No");
 
     JButton btnSubmit = new JButton(new BtnSubmitAction());
     
     public ViewMenu(){
-        this.menu = new Menu();
+        this.menu = new Menu("Mix",8,"modeY");
         this.menu.addView(this);
         d.fill();
 
@@ -72,8 +70,6 @@ public class ViewMenu extends JFrame {
 //        panWelcome.add(lblWelcome);
         //Size of option list
 //        theme.setPreferredSize(new Dimension(100, 20));
-//        nbStrokes.setPreferredSize(new Dimension(100, 20));
-//        mode.setPreferredSize(new Dimension(100, 20));
 
         //Option list for Theme
         theme.addItem("Mix");
@@ -96,15 +92,15 @@ public class ViewMenu extends JFrame {
         panNbStrokes.add(nbStrokes2);
 
         //Option list for Mode
-        normal.setOpaque(false);
-        advanced.setOpaque(false);
-        groupM.add(normal);
-        groupM.add(advanced);
-        normal.addActionListener(new StateListenerMode());
-        advanced.addActionListener(new StateListenerMode());
+        modeY.setOpaque(false);
+        modeN.setOpaque(false);
+        groupM.add(modeY);
+        groupM.add(modeN);
+        modeY.addActionListener(new StateListenerMode());
+        modeN.addActionListener(new StateListenerMode());
         panMode.add(lblMode);
-        panMode.add(normal);
-        panMode.add(advanced);
+        panMode.add(modeY);
+        panMode.add(modeN);
 
         //Button Submit
         panSubmit.add(btnSubmit);
@@ -161,21 +157,21 @@ public class ViewMenu extends JFrame {
     public class ItemStateTheme implements ItemListener{
         public void itemStateChanged(ItemEvent e){
             System.out.println("Theme changed in "+e.getItem());
-            //put the theme choice in the menu
+            menu.setTheme((String)e.getItem());
         }
     }
 
     public class StateListenerStrokes implements ActionListener {
         public void actionPerformed(ActionEvent e){
             System.out.println("NbStrokes : "+((JRadioButton)e.getSource()).getText());
-            //put the nbStrokes choice in the menu
+//            menu.setStrokes((int)((JRadioButton)e.getSource()).getText());
         }
     }
 
     public class StateListenerMode implements ActionListener {
         public void actionPerformed(ActionEvent e){
             System.out.println("Mode : "+((JRadioButton)e.getSource()).getText());
-            //put the mode choice in the menu
+            menu.setMode(((JRadioButton)e.getSource()).getText());
         }
     }
 
