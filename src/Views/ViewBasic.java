@@ -14,8 +14,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
-import static javax.swing.JOptionPane.QUESTION_MESSAGE;
-
 public class ViewBasic extends JFrame implements ActionListener{
     Controller controller;
     int nbInitStrokes = 0;

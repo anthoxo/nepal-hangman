@@ -27,6 +27,7 @@ public class ViewMenu extends JFrame {
     JPanel panTheme = new JPanel();
     JPanel panNbStrokes = new JPanel();
     JPanel panMode = new JPanel();
+    JPanel panWord = new JPanel();
     JPanel panSubmit = new JPanel();
     JPanel list = new JPanel();
 
@@ -34,24 +35,31 @@ public class ViewMenu extends JFrame {
     JLabel lblTheme = new JLabel("Theme");
     JLabel lblNbStrokes = new JLabel("Number of Strokes       ");
     JLabel lblMode = new JLabel("Display letters played ?   ");
+    JLabel lblWord = new JLabel("Number of words to guess ?   ");
 
     JComboBox<String> theme = new JComboBox<String>();
     ButtonGroup groupS = new ButtonGroup();
     ButtonGroup groupM = new ButtonGroup();
+    ButtonGroup groupW = new ButtonGroup();
     JRadioButton nbStrokes1 = new JRadioButton("4");
     JRadioButton nbStrokes2 = new JRadioButton("8",null,true);
     JRadioButton modeY = new JRadioButton("Yes",null,true);
     JRadioButton modeN = new JRadioButton("No");
+    JRadioButton nbWord1 = new JRadioButton("1",null,true);
+    JRadioButton nbWord5 = new JRadioButton("5");
+    JRadioButton nbWord10 = new JRadioButton("10");
+    JRadioButton nbWord15 = new JRadioButton("15");
+    JRadioButton nbWord20 = new JRadioButton("20");
 
     JButton btnSubmit = new JButton(new BtnSubmitAction());
     
     public ViewMenu(){
-        this.menu = new Menu("Mix",8,"Yes");
+        this.menu = new Menu("Mix",8,"Yes",1);
         this.menu.addView(this);
         d.fill();
 
         this.setTitle("Hangman game");
-        this.setSize(400,300);
+        this.setSize(500,400);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -63,6 +71,7 @@ public class ViewMenu extends JFrame {
         panTheme.setOpaque(false);
         panNbStrokes.setOpaque(false);
         panMode.setOpaque(false);
+        panWord.setOpaque(false);
         panSubmit.setOpaque(false);
 
         panWelcome.add(lblWelcome);
@@ -78,7 +87,7 @@ public class ViewMenu extends JFrame {
         panTheme.add(lblTheme);
         panTheme.add(theme);
 
-        //Option list for nbStrokesAllowed
+        //Options for nbStrokesAllowed
         nbStrokes1.setOpaque(false);
         nbStrokes2.setOpaque(false);
         groupS.add(nbStrokes1);
@@ -89,7 +98,7 @@ public class ViewMenu extends JFrame {
         panNbStrokes.add(nbStrokes1);
         panNbStrokes.add(nbStrokes2);
 
-        //Option list for Mode
+        //Options for Mode
         modeY.setOpaque(false);
         modeN.setOpaque(false);
         groupM.add(modeY);
@@ -100,6 +109,29 @@ public class ViewMenu extends JFrame {
         panMode.add(modeY);
         panMode.add(modeN);
 
+        //Options for number of words
+        nbWord1.setOpaque(false);
+        nbWord5.setOpaque(false);
+        nbWord10.setOpaque(false);
+        nbWord15.setOpaque(false);
+        nbWord20.setOpaque(false);
+        groupW.add(nbWord1);
+        groupW.add(nbWord5);
+        groupW.add(nbWord10);
+        groupW.add(nbWord15);
+        groupW.add(nbWord20);
+        nbWord1.addActionListener(new StateListenerWord());
+        nbWord5.addActionListener(new StateListenerWord());
+        nbWord10.addActionListener(new StateListenerWord());
+        nbWord15.addActionListener(new StateListenerWord());
+        nbWord20.addActionListener(new StateListenerWord());
+        panWord.add(lblWord);
+        panWord.add(nbWord1);
+        panWord.add(nbWord5);
+        panWord.add(nbWord10);
+        panWord.add(nbWord15);
+        panWord.add(nbWord20);
+
         //Button Submit
         panSubmit.add(btnSubmit);
 
@@ -107,6 +139,7 @@ public class ViewMenu extends JFrame {
         list.add(panTheme);
         list.add(panNbStrokes);
         list.add(panMode);
+        list.add(panWord);
         list.add(panSubmit);
         pan.add(list);
 
@@ -184,8 +217,23 @@ public class ViewMenu extends JFrame {
 
     public class StateListenerMode implements ActionListener {
         public void actionPerformed(ActionEvent e){
-            System.out.println("Mode : "+((JRadioButton)e.getSource()).getText());
             menu.setMode(((JRadioButton)e.getSource()).getText());
+        }
+    }
+
+    public class StateListenerWord implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            JRadioButton tmp = (JRadioButton)e.getSource();
+            if (tmp.getText() == "1")
+                menu.setNbWords(1);
+            else if (tmp.getText() == "5")
+                menu.setNbWords(5);
+            else if (tmp.getText() == "10")
+                menu.setNbWords(10);
+            else if (tmp.getText() == "15")
+                menu.setNbWords(15);
+            else if (tmp.getText() == "20")
+                menu.setNbWords(20);
         }
     }
 }
