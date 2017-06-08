@@ -220,36 +220,25 @@ public class ViewBasic extends JFrame implements ActionListener{
             message += "Description : "+this.controller.getMainW().getDefinition();
             res=optPane.showOptionDialog(null, message,"Congratulation !",JOptionPane.YES_NO_OPTION,
                     JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
-            dispose();
-            //"New Game" option
-            if (res==0){
-                ViewBasic v = new ViewBasic(menu);
-                v.launch(menu);
-            }
-            //"Menu" option
-            else if (res==1){
-                ViewMenu v = new ViewMenu();
-                v.launch();
-            }
-
         }
         else{
             String message = "You don't find ";
             message += this.controller.getMainW().getWord()+" ...\n";
             message += "Description : "+this.controller.getMainW().getDefinition();
-            res=optPane.showOptionDialog(null, message,"Congratulation !",JOptionPane.YES_NO_OPTION,
+            res=optPane.showOptionDialog(null, message,"You lose ...",JOptionPane.YES_NO_OPTION,
                     JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
-            dispose();
-            //"New Game" option
-            if (res==0){
-                ViewBasic v = new ViewBasic(menu);
-                v.launch(menu);
-            }
-            //"Menu" option
-            else if (res==1){
-                ViewMenu v = new ViewMenu();
-                v.launch();
-            }        }
+        }
+        dispose();
+        //"New Game" option
+        if (res==0){
+            ViewBasic v = new ViewBasic(menu);
+            v.launch(menu);
+        }
+        //"Menu" option
+        else if (res==1){
+            ViewMenu v = new ViewMenu();
+            v.launch();
+        }
     }
 
      public void launch(Menu menu){
