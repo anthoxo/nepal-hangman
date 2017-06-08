@@ -68,4 +68,8 @@ public class Menu {
     public void addView(ViewMenu view){
         this.view = view;
     }
+
+    public void decreaseWord(){
+        this.nbWords --;
+    }
 }

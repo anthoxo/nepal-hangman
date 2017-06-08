@@ -153,6 +153,7 @@ public class Controller {
             this.lettersPlayed.add(Character.toUpperCase(c));
             //Verify the victory
             if (this.checkVictory()){
+                menu.decreaseWord();
                 result = "Congratulations, you win !";
                 this.view.printVictory(true);
                 //sortir ? clear ?

@@ -18,6 +18,7 @@ public class ViewBasic extends JFrame implements ActionListener{
     Controller controller;
     int nbInitStrokes = 0;
     Menu menu;
+    int nbStrokesAllowed; //to start a new game with the same number of Strokes chosen in the menu
 
     Keyboard keyboard = new Keyboard();
 
@@ -43,6 +44,7 @@ public class ViewBasic extends JFrame implements ActionListener{
         Dictionary d = new Dictionary("dictionary.txt","themes.txt");
         d.fill();
         this.menu = new Menu(menu);
+        nbStrokesAllowed = menu.getNbStrokes();
 
         this.nbInitStrokes = menu.getNbStrokes();
         if (menu.getTheme() == "Mix")
@@ -216,24 +218,34 @@ public class ViewBasic extends JFrame implements ActionListener{
     public void printVictory(boolean victory){
         JOptionPane optPane = new JOptionPane();
         Object[] options = { "New game", "Menu","Quit" };
-        int res;
+        int res = -1;
+
         if (victory){
             String message = "You find ";
             message += this.controller.getMainW().getWord()+" !\n";
             message += "Description : "+this.controller.getMainW().getDefinition();
-            res=optPane.showOptionDialog(null, message,"Congratulation !",JOptionPane.YES_NO_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+            if (menu.getNbWords()==0)
+                res=optPane.showOptionDialog(null, message,"Congratulation !",JOptionPane.YES_NO_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+            else
+                optPane.showMessageDialog(null,message,"Congratulation !",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             String message = "You don't find ";
             message += this.controller.getMainW().getWord()+" ...\n";
             message += "Description : "+this.controller.getMainW().getDefinition();
-            res=optPane.showOptionDialog(null, message,"You lose ...",JOptionPane.YES_NO_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+            if (menu.getNbWords()==0)
+                res=optPane.showOptionDialog(null, message,"You lose ...",JOptionPane.YES_NO_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+            else
+                optPane.showMessageDialog(null,message,"You lose...",JOptionPane.ERROR_MESSAGE);
         }
+
         dispose();
-        //"New Game" option
-        if (res==0){
+        //There are still words or "New Game" option
+        if (res==-1 || res==0){
+            if (res==0)
+                menu.setNbWords(nbStrokesAllowed);
             ViewBasic v = new ViewBasic(menu);
             v.launch(menu);
         }
@@ -242,6 +254,7 @@ public class ViewBasic extends JFrame implements ActionListener{
             ViewMenu v = new ViewMenu();
             v.launch();
         }
+
     }
 
      public void launch(Menu menu){
