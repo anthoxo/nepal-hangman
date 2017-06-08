@@ -136,8 +136,11 @@ public class ViewBasic extends JFrame implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int res = JOptionPane.showConfirmDialog
-                    (null, "Return to the menu ?","Menu", JOptionPane.YES_NO_OPTION);
+            Object[] options = { "Yes", "No" };
+
+            int res = JOptionPane.showOptionDialog(null, "Return to the menu ?","Menu",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    new ImageIcon(ViewBasic.class.getResource("/Icons/question32.png")), options, options[0]);
             if (res == 0){
                 dispose();
                 ViewMenu menuV = new ViewMenu();
@@ -159,9 +162,11 @@ public class ViewBasic extends JFrame implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int res = JOptionPane.showConfirmDialog(
-                    null, "Do you really want to quit the game ?",
-                    "Quit the game", JOptionPane.YES_NO_OPTION);
+            Object[] options = { "Yes", "No" };
+
+            int res = JOptionPane.showOptionDialog(null, "Do you really want to quit the game ?",
+                    "Quit",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    new ImageIcon(ViewBasic.class.getResource("/Icons/question32.png")),options,options[0]);
             if (res == 0)
                 dispose();
         }
