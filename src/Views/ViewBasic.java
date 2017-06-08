@@ -17,6 +17,7 @@ import java.util.Iterator;
 public class ViewBasic extends JFrame implements ActionListener{
     Controller controller;
     int nbInitStrokes = 0;
+    Menu menu;
 
     Keyboard keyboard = new Keyboard();
 
@@ -41,6 +42,7 @@ public class ViewBasic extends JFrame implements ActionListener{
     public ViewBasic(Menu menu){
         Dictionary d = new Dictionary("dictionary.txt","themes.txt");
         d.fill();
+        this.menu = new Menu(menu);
 
         this.nbInitStrokes = menu.getNbStrokes();
         if (menu.getTheme() == "Mix")
@@ -115,7 +117,7 @@ public class ViewBasic extends JFrame implements ActionListener{
 
     public void actionPerformed(ActionEvent arg0){
         JButton button = (JButton) arg0.getSource();
-        this.controller.run(button.getText().charAt(0));
+        this.controller.run(button.getText().charAt(0),menu);
     }
 
     /**

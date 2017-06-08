@@ -46,7 +46,7 @@ public class ViewMenu extends JFrame {
     JButton btnSubmit = new JButton(new BtnSubmitAction());
     
     public ViewMenu(){
-        this.menu = new Menu("Mix",8,"modeY");
+        this.menu = new Menu("Mix",8,"Yes");
         this.menu.addView(this);
         d.fill();
 
@@ -148,7 +148,7 @@ public class ViewMenu extends JFrame {
                 g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
                 
                 //Welcoming text
-//                Font font = new Font("Courier",Font.BOLD,13);
+//                Font font = new Font("Lato",Font.BOLD,13);
 //                g.setFont(font);
 //                g.setColor(Color.black);
 //                g.drawString("Welcome to the Hangman game made for Lubra's school !",this.getWidth()/2-200,50);
