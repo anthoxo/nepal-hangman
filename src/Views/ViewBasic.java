@@ -14,6 +14,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
+import static javax.swing.JOptionPane.QUESTION_MESSAGE;
+
 public class ViewBasic extends JFrame implements ActionListener{
     Controller controller;
     int nbInitStrokes = 0;
@@ -210,11 +212,26 @@ public class ViewBasic extends JFrame implements ActionListener{
 
     public void printVictory(boolean victory){
         JOptionPane optPane = new JOptionPane();
+        Object[] options = { "New game", "Menu","Quit" };
+        int res;
         if (victory){
             String message = "You find ";
             message += this.controller.getMainW().getWord()+" !\n";
             message += "Description : "+this.controller.getMainW().getDefinition();
-            optPane.showMessageDialog(null,message,"Congratulation !",JOptionPane.INFORMATION_MESSAGE);
+            res=optPane.showOptionDialog(null, message,"Congratulation !",JOptionPane.YES_NO_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+            dispose();
+            //"New Game" option
+            if (res==0){
+                ViewBasic v = new ViewBasic(menu);
+                v.launch(menu);
+            }
+            //"Menu" option
+            else if (res==1){
+                ViewMenu v = new ViewMenu();
+                v.launch();
+            }
+
         }
         else{
             String message = "You don't find ";
