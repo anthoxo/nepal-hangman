@@ -45,16 +45,14 @@ public class ViewMenu extends JFrame {
     JRadioButton nbStrokes2 = new JRadioButton("8",null,true);
     JRadioButton modeY = new JRadioButton("Yes",null,true);
     JRadioButton modeN = new JRadioButton("No");
-    JRadioButton nbWord1 = new JRadioButton("1",null,true);
-    JRadioButton nbWord5 = new JRadioButton("5");
     JRadioButton nbWord10 = new JRadioButton("10");
-    JRadioButton nbWord15 = new JRadioButton("15");
     JRadioButton nbWord20 = new JRadioButton("20");
+    JRadioButton nbWordSurvival = new JRadioButton("Survival",null,true);
 
     JButton btnSubmit = new JButton(new BtnSubmitAction());
     
     public ViewMenu(){
-        this.menu = new Menu("Mix",8,"Yes",1);
+        this.menu = new Menu("Mix",8,"Yes",-1);
         this.menu.addView(this);
         d.fill();
 
@@ -110,27 +108,19 @@ public class ViewMenu extends JFrame {
         panMode.add(modeN);
 
         //Options for number of words
-        nbWord1.setOpaque(false);
-        nbWord5.setOpaque(false);
         nbWord10.setOpaque(false);
-        nbWord15.setOpaque(false);
         nbWord20.setOpaque(false);
-        groupW.add(nbWord1);
-        groupW.add(nbWord5);
+        nbWordSurvival.setOpaque(false);
         groupW.add(nbWord10);
-        groupW.add(nbWord15);
         groupW.add(nbWord20);
-        nbWord1.addActionListener(new StateListenerWord());
-        nbWord5.addActionListener(new StateListenerWord());
+        groupW.add(nbWordSurvival);
         nbWord10.addActionListener(new StateListenerWord());
-        nbWord15.addActionListener(new StateListenerWord());
         nbWord20.addActionListener(new StateListenerWord());
+        nbWordSurvival.addActionListener(new StateListenerWord());
         panWord.add(lblWord);
-        panWord.add(nbWord1);
-        panWord.add(nbWord5);
         panWord.add(nbWord10);
-        panWord.add(nbWord15);
         panWord.add(nbWord20);
+        panWord.add(nbWordSurvival);
 
         //Button Submit
         panSubmit.add(btnSubmit);
@@ -224,16 +214,12 @@ public class ViewMenu extends JFrame {
     public class StateListenerWord implements ActionListener {
         public void actionPerformed(ActionEvent e){
             JRadioButton tmp = (JRadioButton)e.getSource();
-            if (tmp.getText() == "1")
-                menu.setNbWords(1);
-            else if (tmp.getText() == "5")
-                menu.setNbWords(5);
-            else if (tmp.getText() == "10")
+            if (tmp.getText() == "10")
                 menu.setNbWords(10);
-            else if (tmp.getText() == "15")
-                menu.setNbWords(15);
             else if (tmp.getText() == "20")
                 menu.setNbWords(20);
+            else if (tmp.getText() == "Survival")
+                menu.setNbWords(-1);
         }
     }
 }

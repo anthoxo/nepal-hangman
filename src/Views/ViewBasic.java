@@ -234,7 +234,7 @@ public class ViewBasic extends JFrame implements ActionListener{
             String message = "You don't find ";
             message += this.controller.getMainW().getWord()+" ...\n";
             message += "Description : "+this.controller.getMainW().getDefinition();
-            if (menu.getNbWords()==0)
+            if (menu.getNbWords()<1) //include the case of number of Words fixed and the Survival mode
                 res=optPane.showOptionDialog(null, message,"You lose ...",JOptionPane.YES_NO_OPTION,
                         JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
             else

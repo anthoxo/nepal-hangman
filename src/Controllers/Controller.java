@@ -153,10 +153,12 @@ public class Controller {
             this.lettersPlayed.add(Character.toUpperCase(c));
             //Verify the victory
             if (this.checkVictory()){
-                menu.decreaseWord();
+                System.out.println("Mode :"+menu.getNbWords());
+                if (menu.getNbWords() != -1)
+                    menu.decreaseWord();
+                System.out.println("Mode :"+menu.getNbWords());
                 result = "Congratulations, you win !";
                 this.view.printVictory(true);
-                //sortir ? clear ?
             }
             else{
                 result = "Letter "+c+" Yes !\n";
@@ -170,8 +172,10 @@ public class Controller {
         else{
             this.lettersPlayed.add(Character.toUpperCase(c));
             mainW.decreaseNbStrokes();
-            //Verify if the player lose the game
+            //When the player lose the game
             if (!this.checkCount()){
+                if (menu.getNbWords() != -1)
+                    menu.decreaseWord();
                 result = "You lose...";
                 this.view.printVictory(false);
             }

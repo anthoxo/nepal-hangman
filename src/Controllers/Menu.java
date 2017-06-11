@@ -9,7 +9,7 @@ public class Menu {
     protected String theme;
     protected int strokes;
     protected String mode; //Yes if we can display letters used, No if we can't
-    protected int nbWords;
+    protected int nbWords; //-1 in mode survival
     protected ViewMenu view;
 
     public Menu(){
