@@ -11,26 +11,30 @@ public class Menu {
     protected boolean mode; //Yes if we can display letters used, No if we can't
     protected int nbWords; //-1 in mode survival
     protected int victory; //number of victories
-    protected int failure; //number of failure, allows to display th score
+    protected int failure; //number of failure, allows to display the score
+    int nbWordsChosen; //to start a new game, will be fixed
     protected ViewMenu view;
 
     public Menu(){
         this.theme = "Mix";
-        this.strokes = 0;
+        this.strokes = 8;
         this.mode = true;
-        this.nbWords = 0;
+        this.nbWords = -1;
         this.victory = 0;
         this.failure = 0;
+        this.nbWordsChosen = -1;
     }
 
     public Menu(String theme, int strokes, boolean mode,
-                int nbWords, int nbVictory, int nbFailure){
+                int nbWords, int nbVictory, int nbFailure,
+                int nbWordsChosen){
         this.theme = theme;
         this.strokes = strokes;
         this.mode = mode;
         this.nbWords = nbWords;
         this.victory = nbVictory;
         this.failure = nbFailure;
+        this.nbWordsChosen = nbWordsChosen;
     }
 
     public Menu(Menu m){
@@ -40,6 +44,7 @@ public class Menu {
         this.nbWords = m.nbWords;
         this.victory = m.victory;
         this.failure = m.failure;
+        this.nbWordsChosen = m.nbWordsChosen;
         this.view = m.view;
     }
 
@@ -67,6 +72,10 @@ public class Menu {
         return failure;
     }
 
+    public int getNbWordsChosen() {
+        return nbWordsChosen;
+    }
+
     public void setTheme(String theme) {
         this.theme = theme;
     }
@@ -89,6 +98,10 @@ public class Menu {
 
     public void setFailure(int failure) {
         this.failure = failure;
+    }
+
+    public void setNbWordsChosen(int nbWordsChosen) {
+        this.nbWordsChosen = nbWordsChosen;
     }
 
     public void addView(ViewMenu view){

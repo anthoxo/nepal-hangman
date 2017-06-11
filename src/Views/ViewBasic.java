@@ -18,8 +18,6 @@ public class ViewBasic extends JFrame implements ActionListener{
     Controller controller;
     int nbInitStrokes = 0;
     Menu menu;
-    int nbStrokesAllowed; //to start a new game with the same number of Strokes chosen in the menu
-    int nbWordsChosen; //to start a new game
 
     Keyboard keyboard = new Keyboard();
 
@@ -45,8 +43,6 @@ public class ViewBasic extends JFrame implements ActionListener{
         Dictionary d = new Dictionary("dictionary.txt","themes.txt");
         d.fill();
         this.menu = new Menu(menu);
-        nbStrokesAllowed = menu.getNbStrokes();
-        nbWordsChosen = menu.getNbWords();
 
         this.nbInitStrokes = menu.getNbStrokes();
         if (menu.getTheme() == "Mix")
@@ -262,13 +258,12 @@ public class ViewBasic extends JFrame implements ActionListener{
         //There are still words or "New Game" option
         if (res==-1 || res==0){
             if (res==0){
-                menu.setStrokes(nbStrokesAllowed);
-                menu.setNbWords(nbWordsChosen);
+                menu.setNbWords(menu.getNbWordsChosen());
                 menu.setFailure(0);
                 menu.setVictory(0);
             }
-            System.out.println("nbStrokesAllowed : " + menu.getNbStrokes());
-            System.out.println("nbWords : " + menu.getNbWords());
+            System.out.println("NbWords : "+menu.getNbWords());
+            System.out.println("NbStrokes : "+menu.getNbStrokes());
             ViewBasic v = new ViewBasic(menu);
             v.launch(menu);
         }

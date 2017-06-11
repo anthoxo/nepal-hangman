@@ -52,7 +52,7 @@ public class ViewMenu extends JFrame {
     JButton btnSubmit = new JButton(new BtnSubmitAction());
     
     public ViewMenu(){
-        this.menu = new Menu("Mix",8,true,-1,0,0);
+        this.menu = new Menu();
         this.menu.addView(this);
         d.fill();
 
@@ -193,14 +193,10 @@ public class ViewMenu extends JFrame {
     public class StateListenerStrokes implements ActionListener {
         public void actionPerformed(ActionEvent e){
             JRadioButton tmp = (JRadioButton)e.getSource();
-            if (tmp.getText() == "4"){
+            if (tmp.getText() == "4")
                 menu.setStrokes(4);
-//                menu.setNbStrokesAllowed(4);
-            }
-            else if (tmp.getText() == "8"){
+            else if (tmp.getText() == "8")
                 menu.setStrokes(8);
-//                menu.setNbStrokesAllowed(8);
-            }
         }
     }
 
@@ -218,12 +214,18 @@ public class ViewMenu extends JFrame {
     public class StateListenerWord implements ActionListener {
         public void actionPerformed(ActionEvent e){
             JRadioButton tmp = (JRadioButton)e.getSource();
-            if (tmp.getText() == "10")
+            if (tmp.getText() == "10"){
                 menu.setNbWords(10);
-            else if (tmp.getText() == "20")
+                menu.setNbWordsChosen(10);
+            }
+            else if (tmp.getText() == "20"){
                 menu.setNbWords(20);
-            else if (tmp.getText() == "Survival")
+                menu.setNbWordsChosen(20);
+            }
+            else if (tmp.getText() == "Survival"){
                 menu.setNbWords(-1);
+                menu.setNbWordsChosen(-1);
+            }
         }
     }
 }
