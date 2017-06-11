@@ -79,7 +79,11 @@ public class ViewMenu extends JFrame {
         //Option list for Theme
         theme.addItem("Mix");
         for (int i=0 ; i<d.getThemes().size() ; i++){
-            theme.addItem(d.getThemes().get(d.getThemesIndex().get(i)));
+            String th = d.getThemes().get(i);
+            if (d.getThemesIndex().containsValue(i))
+            {
+                theme.addItem(th);
+            }
         }
         theme.addItemListener(new ItemStateTheme());
         panTheme.add(lblTheme);
