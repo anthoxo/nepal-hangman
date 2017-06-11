@@ -36,8 +36,14 @@ public class Controller {
         this.mainW.launch(d, indexTheme, nbStrokes);
         this.letters = this.mainW.getWord().toCharArray();
 
-        for (int i=0 ; i<this.mainW.getSizeWord() ; i++)
-            list.add('_');
+        for (int i=0 ; i<this.mainW.getSizeWord() ; i++){
+            if (this.letters[i] == ' '){
+                list.add(' ');
+            }
+            else{
+                list.add('_');
+            }
+        }
         this.lettersFound = list;
         this.lettersPlayed = new ArrayList<Character>();
         this.view = null;
@@ -146,6 +152,7 @@ public class Controller {
         //In mode "Display letters played", the game tells the player he can't play a letter already played
         if (menu.getMode() && this.getLettersPlayed().contains(c)){
             result = "Letter "+c+" has already been played !\n";
+            result += "Number of strokes : "+this.mainW.getNbStrokes()+"\n";
             result+="LettersPlayed : ";
             result+=this.lettersPlayed.toString();
         }
@@ -162,6 +169,7 @@ public class Controller {
             }
             else{
                 result = "Letter "+c+" Yes !\n";
+                result += "Number of strokes : "+this.mainW.getNbStrokes()+"\n";
                 if (menu.getMode()){
                     result+="LettersPlayed : ";
                     result+=this.lettersPlayed.toString();
