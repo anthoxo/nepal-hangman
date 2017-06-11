@@ -52,7 +52,7 @@ public class ViewMenu extends JFrame {
     JButton btnSubmit = new JButton(new BtnSubmitAction());
     
     public ViewMenu(){
-        this.menu = new Menu("Mix",8,"Yes",-1);
+        this.menu = new Menu("Mix",8,true,-1,0,0);
         this.menu.addView(this);
         d.fill();
 
@@ -186,7 +186,6 @@ public class ViewMenu extends JFrame {
 
     public class ItemStateTheme implements ItemListener{
         public void itemStateChanged(ItemEvent e){
-            System.out.println("Theme changed in "+e.getItem());
             menu.setTheme((String)e.getItem());
         }
     }
@@ -194,20 +193,21 @@ public class ViewMenu extends JFrame {
     public class StateListenerStrokes implements ActionListener {
         public void actionPerformed(ActionEvent e){
             JRadioButton tmp = (JRadioButton)e.getSource();
-            if (tmp.getText() == "4"){
-                System.out.println("NbStrokes : "+tmp.getText());
+            if (tmp.getText() == "4")
                 menu.setStrokes(4);
-            }
-            else if (tmp.getText() == "8"){
-                System.out.println("NbStrokes : "+tmp.getText());
+            else if (tmp.getText() == "8")
                 menu.setStrokes(8);
-            }
         }
     }
 
     public class StateListenerMode implements ActionListener {
         public void actionPerformed(ActionEvent e){
-            menu.setMode(((JRadioButton)e.getSource()).getText());
+
+            JRadioButton tmp = (JRadioButton)e.getSource();
+            if (tmp.getText() == "Yes")
+                menu.setMode(true);
+            else if (tmp.getText() == "No")
+                menu.setMode(false);
         }
     }
 

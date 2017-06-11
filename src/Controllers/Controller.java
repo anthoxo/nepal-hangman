@@ -143,7 +143,7 @@ public class Controller {
     public void actionLetter(char c, Menu menu){
         String result;
         //In mode "Display letters played", the game tells the player he can't play a letter already played
-        if (menu.getMode().compareTo("Yes")==0 && this.getLettersPlayed().contains(c)){
+        if (menu.getMode() && this.getLettersPlayed().contains(c)){
             result = "Letter "+c+" has already been played !\n";
             result+="LettersPlayed : ";
             result+=this.lettersPlayed.toString();
@@ -153,16 +153,15 @@ public class Controller {
             this.lettersPlayed.add(Character.toUpperCase(c));
             //Verify the victory
             if (this.checkVictory()){
-                System.out.println("Mode :"+menu.getNbWords());
+                menu.increaseVictory();
                 if (menu.getNbWords() != -1)
                     menu.decreaseWord();
-                System.out.println("Mode :"+menu.getNbWords());
                 result = "Congratulations, you win !";
                 this.view.printVictory(true);
             }
             else{
                 result = "Letter "+c+" Yes !\n";
-                if (menu.getMode().compareTo("ModeY")==0){
+                if (menu.getMode()){
                     result+="LettersPlayed : ";
                     result+=this.lettersPlayed.toString();
                 }
@@ -174,6 +173,7 @@ public class Controller {
             mainW.decreaseNbStrokes();
             //When the player lose the game
             if (!this.checkCount()){
+                menu.increaseFailure();
                 if (menu.getNbWords() != -1)
                     menu.decreaseWord();
                 result = "You lose...";
@@ -182,8 +182,7 @@ public class Controller {
             else{
                 result = "Letter "+c+" not in the word.\n";
                 result += "Number of strokes : "+this.mainW.getNbStrokes()+"\n";
-                System.out.println(menu.getMode());
-                if (menu.getMode().compareTo("Yes")==0){
+                if (menu.getMode()){
                     result+="LettersPlayed : ";
                     result+=this.lettersPlayed.toString();
                 }

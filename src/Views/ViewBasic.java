@@ -224,19 +224,34 @@ public class ViewBasic extends JFrame implements ActionListener{
             String message = "You find ";
             message += this.controller.getMainW().getWord()+" !\n";
             message += "Description : "+this.controller.getMainW().getDefinition();
-            if (menu.getNbWords()==0)
-                res=optPane.showOptionDialog(null, message,"Congratulation !",JOptionPane.YES_NO_OPTION,
+            if (menu.getNbWords()==0){
+                String score;
+                int total;
+                total = menu.getVictory() + menu.getFailure();
+                score = "\nYour score : " + menu.getVictory() + "/" + total;
+                res=optPane.showOptionDialog(null, message + score,"Congratulation !",JOptionPane.YES_NO_OPTION,
                         JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+            }
             else
                 optPane.showMessageDialog(null,message,"Congratulation !",JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             String message = "You don't find ";
             message += this.controller.getMainW().getWord()+" ...\n";
-            message += "Description : "+this.controller.getMainW().getDefinition();
-            if (menu.getNbWords()<1) //include the case of number of Words fixed and the Survival mode
-                res=optPane.showOptionDialog(null, message,"You lose ...",JOptionPane.YES_NO_OPTION,
+            message += "Description : "+this.controller.getMainW().getDefinition()+"\n";
+            if (menu.getNbWords()<1) { //include the case of number of Words fixed and the Survival mode
+                String score;
+                if (menu.getNbWords()==0){
+                    int total;
+                    total = menu.getVictory() + menu.getFailure();
+                    score = "\nYour score : " + menu.getVictory() + "/" + total;
+                }
+                else
+                    score = "\nYour score : " + menu.getVictory();
+
+                res=optPane.showOptionDialog(null, message + score,"You lose ...",JOptionPane.YES_NO_OPTION,
                         JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+            }
             else
                 optPane.showMessageDialog(null,message,"You lose...",JOptionPane.ERROR_MESSAGE);
         }
@@ -246,6 +261,7 @@ public class ViewBasic extends JFrame implements ActionListener{
         if (res==-1 || res==0){
             if (res==0)
                 menu.setNbWords(nbStrokesAllowed);
+//            System.out.println("nbStrokesAllowed" + menu.getNbWords());
             ViewBasic v = new ViewBasic(menu);
             v.launch(menu);
         }

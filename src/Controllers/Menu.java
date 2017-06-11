@@ -8,22 +8,29 @@ import Views.ViewMenu;
 public class Menu {
     protected String theme;
     protected int strokes;
-    protected String mode; //Yes if we can display letters used, No if we can't
+    protected boolean mode; //Yes if we can display letters used, No if we can't
     protected int nbWords; //-1 in mode survival
+    protected int victory; //number of victories
+    protected int failure; //number of failure, allows to display th score
     protected ViewMenu view;
 
     public Menu(){
         this.theme = "Mix";
         this.strokes = 0;
-        this.mode = "Yes";
+        this.mode = true;
         this.nbWords = 0;
+        this.victory = 0;
+        this.failure = 0;
     }
 
-    public Menu(String theme, int strokes, String mode, int nbWords){
+    public Menu(String theme, int strokes, boolean mode,
+                int nbWords, int nbVictory, int nbFailure){
         this.theme = theme;
         this.strokes = strokes;
         this.mode = mode;
         this.nbWords = nbWords;
+        this.victory = nbVictory;
+        this.failure = nbFailure;
     }
 
     public Menu(Menu m){
@@ -31,9 +38,12 @@ public class Menu {
         this.strokes = m.strokes;
         this.mode = m.mode;
         this.nbWords = m.nbWords;
+        this.victory = m.victory;
+        this.failure = m.failure;
+        this.view = m.view;
     }
 
-    public String getMode() {
+    public boolean getMode() {
         return mode;
     }
 
@@ -49,6 +59,14 @@ public class Menu {
         return nbWords;
     }
 
+    public int getVictory(){
+        return victory;
+    }
+
+    public int getFailure() {
+        return failure;
+    }
+
     public void setTheme(String theme) {
         this.theme = theme;
     }
@@ -57,7 +75,7 @@ public class Menu {
         this.strokes = Strokes;
     }
 
-    public void setMode(String mode) {
+    public void setMode(boolean mode) {
         this.mode = mode;
     }
 
@@ -71,5 +89,13 @@ public class Menu {
 
     public void decreaseWord(){
         this.nbWords --;
+    }
+
+    public void increaseVictory(){
+        this.victory ++;
+    }
+
+    public void increaseFailure(){
+        this.failure ++;
     }
 }
