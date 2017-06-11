@@ -62,9 +62,9 @@ Index	Word	Theme	Definition
 60	BECOME	3	बन्न
 61	BEGIN	3	सुरु
 62	CALL	3	कल
-63	CAN	3	गर्न सक्छन्
+63	CAN	5	गर्न सक्छन्
 64	COME	3	आउनुहोस्
-65	COULD	3	सकेजति
+65	COULD	5	सकेजति
 66	DO	3	के
 67	FEEL	3	महसुस
 68	FIND	3	फेला
@@ -82,9 +82,9 @@ Index	Word	Theme	Definition
 80	LIVE	3	बाँच्न
 81	LOOK	3	हेर्न
 82	MAKE	3	बनाउन
-83	MAY	3	सक्छ
+83	MAY	5	सक्छ
 84	MEAN	3	चाहनु
-85	MIGHT	3	हुनसकला
+85	MIGHT	5	हुनसकला
 86	MOVE	3	चल्नु
 87	NEED	3	आवश्यकता हुनु
 88	PLAY	3	खेल्नु
@@ -93,7 +93,7 @@ Index	Word	Theme	Definition
 91	SAY	3	भन्न
 92	SEE	3	हेर्न
 93	SEEM	3	जस्तो
-94	SHOULD	3	गर्नुपर्छ
+94	SHOULD	5	गर्नुपर्छ
 95	SHOW	3	देखाउनु
 96	START	3	शुरु गर्नु
 97	TAKE	3	लिन
@@ -103,6 +103,7 @@ Index	Word	Theme	Definition
 101	TURN	3	पालो
 102	USE	3	प्रयोग
 103	WANT	3	चाहनुहुन्छ
-104	WILL	3	हुनेछ
+104	WILL	5	हुनेछ
 105	WORK	3	काम
-106	WOULD	3	हुनेछ
+106	WOULD	5	हुनेछ
+107	MUST	5	पर्छ
