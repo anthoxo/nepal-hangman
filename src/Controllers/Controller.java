@@ -142,6 +142,7 @@ public class Controller {
      */
     public void actionLetter(char c, Menu menu){
         String result;
+        int victory = 0;
         //In mode "Display letters played", the game tells the player he can't play a letter already played
         if (menu.getMode().compareTo("Yes")==0 && this.getLettersPlayed().contains(c)){
             result = "Letter "+c+" has already been played !\n";
@@ -158,7 +159,7 @@ public class Controller {
                     menu.decreaseWord();
                 System.out.println("Mode :"+menu.getNbWords());
                 result = "Congratulations, you win !";
-                this.view.printVictory(true);
+                victory = 1;
             }
             else{
                 result = "Letter "+c+" Yes !\n";
@@ -177,7 +178,7 @@ public class Controller {
                 if (menu.getNbWords() != -1)
                     menu.decreaseWord();
                 result = "You lose...";
-                this.view.printVictory(false);
+                victory = -1;
             }
             else{
                 result = "Letter "+c+" not in the word.\n";
@@ -190,6 +191,12 @@ public class Controller {
             }
         }
         this.view.refresh(result);
+        if (victory > 0){
+            this.view.printVictory(true);
+        }
+        if (victory < 0){
+            this.view.printVictory(false);
+        }
     }
 
     /**
