@@ -193,10 +193,14 @@ public class ViewMenu extends JFrame {
     public class StateListenerStrokes implements ActionListener {
         public void actionPerformed(ActionEvent e){
             JRadioButton tmp = (JRadioButton)e.getSource();
-            if (tmp.getText() == "4")
+            if (tmp.getText() == "4"){
                 menu.setStrokes(4);
-            else if (tmp.getText() == "8")
+//                menu.setNbStrokesAllowed(4);
+            }
+            else if (tmp.getText() == "8"){
                 menu.setStrokes(8);
+//                menu.setNbStrokesAllowed(8);
+            }
         }
     }
 

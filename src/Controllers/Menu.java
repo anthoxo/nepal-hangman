@@ -83,6 +83,14 @@ public class Menu {
         this.nbWords = nbWords;
     }
 
+    public void setVictory(int victory) {
+        this.victory = victory;
+    }
+
+    public void setFailure(int failure) {
+        this.failure = failure;
+    }
+
     public void addView(ViewMenu view){
         this.view = view;
     }
