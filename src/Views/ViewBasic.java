@@ -262,8 +262,6 @@ public class ViewBasic extends JFrame implements ActionListener{
                 menu.setFailure(0);
                 menu.setVictory(0);
             }
-            System.out.println("NbWords : "+menu.getNbWords());
-            System.out.println("NbStrokes : "+menu.getNbStrokes());
             ViewBasic v = new ViewBasic(menu);
             v.launch(menu);
         }
